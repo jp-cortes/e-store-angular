@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,5 +11,12 @@ import { CommonModule } from '@angular/common';
 export class ProductComponent {
   @Input({ required: true }) img: string = '';
   @Input({ required: true }) price: number = 0;
-  @Input({ required: true }) description: string = '';
+  @Input({ required: true }) title: string = '';
+
+  @Output() addToCart = new EventEmitter();
+
+  addToCartHandler() {
+    console.log('Click from child');
+    this.addToCart.emit(' This is a msg from child ProductComponent ' + this.title);
+  }
 }

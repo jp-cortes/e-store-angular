@@ -1,8 +1,8 @@
 <div class="grid grid-cols-3">
-  <app-product [img]="'https://picsum.photos/640/640?r=10'" [description]="'Product 1'" [price]="100"/>
-  <app-product [img]="'https://picsum.photos/640/640?r=11'" [description]="'Product 2'" [price]="100"/>
-  <app-product [img]="'https://picsum.photos/640/640?r=12'" [description]="'Product 3'" [price]="100"/>
-  <app-product [img]="'https://picsum.photos/640/640?r=13'" [description]="'Product 4'" [price]="100"/>
-  <app-product [img]="'https://picsum.photos/640/640?r=14'" [description]="'Product 5'" [price]="100"/>
-  <app-product [img]="'https://picsum.photos/640/640?r=15'" [description]="'Product 6 '" [price]="100"/>
+  <app-product [img]="'https://picsum.photos/640/640?r=10'" [title]="'Product 1'" [price]="100" (addToCart)="fromChild($event)"/>
+  <app-product [img]="'https://picsum.photos/640/640?r=11'" [title]="'Product 2'" [price]="100" (addToCart)="fromChild($event)"/>
+  <app-product [img]="'https://picsum.photos/640/640?r=12'" [title]="'Product 3'" [price]="100" (addToCart)="fromChild($event)"/>
+  <app-product [img]="'https://picsum.photos/640/640?r=13'" [title]="'Product 4'" [price]="100" (addToCart)="fromChild($event)"/>
+  <app-product [img]="'https://picsum.photos/640/640?r=14'" [title]="'Product 5'" [price]="100" (addToCart)="fromChild($event)"/>
+  <app-product [img]="'https://picsum.photos/640/640?r=15'" [title]="'Product 6'" [price]="100" (addToCart)="fromChild($event)"/>
 </div>

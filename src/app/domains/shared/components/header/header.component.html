@@ -39,7 +39,11 @@
       </ul>
     </div>
     <div class="flex items-center">
-      <button class="px-4" (click)="toogleCart()">
+      <button class="p-2 border rounded relative" (click)="toogleCart()">
+        <div *ngIf="cart.length"
+         class="absolute -top-1 left-1 rounded-full h-5 w-5 bg-black text-white text-xs">
+          {{ cart.length }}
+        </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -81,5 +85,19 @@
         />
       </svg>
     </button>
+  </div>
+  <div class="pt-4 flex flex-col">
+    <div
+    class=" flex justify-between items-center space-y-2"
+     *ngFor="let product of cart">
+      <div class="flex items-center space-x-2">
+        <figure class="mt-1">
+          <img class="h-7 w-7"
+          [src]="product.img" [alt]="product.title"></figure>
+        <h3>{{ product.title}}</h3>
+      </div>
+      <p>{{ product.price}}</p>
+    </div>
+    <p>Total: {{ total()}}</p>
   </div>
 </div>

@@ -8,7 +8,7 @@ export class CartService {
   cart = signal<Product[]>([]);
   total = computed(() => {
     const cart = this.cart();
-    return cart.reduce((total, product) => total + product.price, 0);
+    return cart.reduce((total, product) => total + Number(product.price), 0);
   })
 
   constructor() {}

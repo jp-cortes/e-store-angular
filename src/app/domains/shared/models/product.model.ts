@@ -1,10 +1,3 @@
-//  export interface Product {
-//   id: string
-//   title: string
-//   img: string
-//   price: number
-//   createdAt: string
-// }
 export interface Product {
   id: number
   name: string

@@ -23,6 +23,10 @@
       "dom",
       "esnext.asynciterable"
     ],
+    "paths": {
+      "@shared/*":["./src/app/domains/shared/*"],
+      "@products/*":["./src/app/domains/products/*"],
+    },
     "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {

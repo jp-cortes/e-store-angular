@@ -12,7 +12,11 @@ export class ProductService {
   constructor() { }
 
   getProducts() {
-    return this.http.get<Product[]>('https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1/products')
+    return this.http.get<Product[]>(`https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1/products`)
+  }
+
+  getOne(id: string) {
+    return this.http.get<Product>(`https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1/products/${id}`)
   }
 
 }

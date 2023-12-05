@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Product } from '@shared/models/product.model';
 import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
 import { ReversePipe } from '@shared/pipes/reverse.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, ReversePipe, TimeAgoPipe],
+  imports: [CommonModule, ReversePipe, TimeAgoPipe, RouterLink],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })

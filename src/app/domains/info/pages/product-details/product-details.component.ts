@@ -14,6 +14,7 @@ import { CartService } from '@shared/services/cart.service';
 export class ProductDetailsComponent {
 
   product = signal<Product | null>(null);
+  cover = signal('');
   @Input() id?: string;
 
   private cartService = inject(CartService);
@@ -25,10 +26,24 @@ export class ProductDetailsComponent {
       .subscribe({
         next: (product) => {
           this.product.set(product);
+          if(product.image.length > 0) {
+            this.cover.set(product.image)
+            // this.cover.set(product.images[0])
+          }
         }
       })
     }
   }
 
+  changeImg(newImage: string) {
+    this.cover.set(newImage)
+  }
+
+  addToCart() {
+    const product = this.product();
+    if(product) {
+      this.cartService.addToCart(product);
+    }
+  }
 
 }

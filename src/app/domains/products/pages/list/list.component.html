@@ -1,8 +1,9 @@
 <div class="flex space-x-4 mt-5">
   <div class="w-56">
     <ul>
+      <li><a routerLink="/">ALL</a></li>
       <li *ngFor="let category of categories()">
-        <a href="">{{ category.name }}</a>
+        <a routerLink="/" [queryParams]="{ categoryId: category.id }">{{ category.name | uppercase}}</a>
       </li>
     </ul>
   </div>

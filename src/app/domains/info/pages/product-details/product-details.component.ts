@@ -11,7 +11,7 @@ import { CartService } from '@shared/services/cart.service';
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
-export class ProductDetailsComponent {
+export default class ProductDetailsComponent {
 
   product = signal<Product | null>(null);
   cover = signal('');

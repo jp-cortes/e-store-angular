@@ -6,16 +6,16 @@ import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
 import { CategoryService } from '@shared/services/category.service';
 import { Category } from '@shared/models/category.model.';
-import { RouterLinkWithHref } from '@angular/router';
+import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, ProductComponent, RouterLinkWithHref],
+  imports: [CommonModule, ProductComponent, RouterLinkWithHref, RouterLinkActive],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent {
+export default class ListComponent {
   products = signal<Product[]>([]);// initial array of products
   categories = signal<Category[]>([]);// initial array of categories
   cartService = inject(CartService);// shopping cart

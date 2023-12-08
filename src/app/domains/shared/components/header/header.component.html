@@ -102,8 +102,8 @@
           [src]="product.image" [alt]="product.name"></figure>
         <h3>{{ product.name }}</h3>
       </div>
-      <p>{{ product.price }}</p>
+      <p>{{ product.price | currency: 'EUR' }}</p>
     </div>
-    <p>Total: {{ total()}}</p>
+    <p>Total: {{ total() | currency: 'EUR' }}</p>
   </div>
 </div>

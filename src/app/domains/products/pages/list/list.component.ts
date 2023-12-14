@@ -7,12 +7,12 @@ import { ProductService } from '@shared/services/product.service';
 import { CategoryService } from '@shared/services/category.service';
 import { Category } from '@shared/models/category.model.';
 import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
-import { SideMenuMobileComponent } from '@shared/components/side-menu-mobile/side-menu-mobile.component';
+
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, ProductComponent, RouterLinkWithHref, RouterLinkActive, SideMenuMobileComponent],
+  imports: [CommonModule, ProductComponent, RouterLinkWithHref, RouterLinkActive],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })

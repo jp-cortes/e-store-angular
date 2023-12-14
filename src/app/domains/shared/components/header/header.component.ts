@@ -2,11 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { RouterLinkWithHref, RouterLinkActive } from '@angular/router';
+import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule,RouterLinkWithHref, RouterLinkActive],
+  imports: [CommonModule,RouterLinkWithHref, RouterLinkActive, MenuMobileComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -16,7 +17,7 @@ private cartService = inject(CartService);
 cart = this.cartService.cart;
 total = this.cartService.total;
 
-toogleCart() {
+toggleCart() {
   this.hideCart.update(prevState => !prevState);
 }
 

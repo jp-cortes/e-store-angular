@@ -3,6 +3,7 @@
     class="w-full flex flex-wrap items-center justify-between mx-auto py-4"
   >
     <div class="flex items-center space-x-8">
+      <app-menu-mobile />
       <a routerLink="/" class="hidden md:flex lg:flex items-center ">
         <img
           src=""
@@ -45,7 +46,7 @@
       </ul>
     </div>
     <div class="flex items-center">
-      <button class="p-2 border rounded relative" (click)="toogleCart()">
+      <button class="p-2 border rounded relative" (click)="toggleCart()">
         <div *ngIf="cart().length"
          class="absolute -top-1 left-1 rounded-full h-5 w-5 bg-black text-white text-xs">
           {{ cart().length }}
@@ -75,7 +76,7 @@
 >
   <div class="flex justify-between items-center">
     <p class="text-xl">My Cart</p>
-    <button (click)="toogleCart()">
+    <button (click)="toggleCart()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

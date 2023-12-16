@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { NotFoundComponent } from '@info/pages/not-found/not-found.component';
+import { PasswordRecoveryComponent } from '@info/pages/password-recovery/password-recovery.component';
+import { ResetPasswordComponent } from '@info/pages/reset-password/reset-password.component';
 import { SignInComponent } from '@info/pages/sign-in/sign-in.component';
 import { SignUpComponent } from '@info/pages/sign-up/sign-up.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
@@ -31,6 +33,14 @@ export const routes: Routes = [
   {
     path: 'sign-up',
     component: SignUpComponent,
+  },
+  {
+    path: 'password-recovery',
+    component: PasswordRecoveryComponent,
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
   {
     path: '**',

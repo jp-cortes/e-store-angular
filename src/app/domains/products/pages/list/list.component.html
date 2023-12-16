@@ -1,4 +1,4 @@
-<div class="flex relative lg:space-x-4 mt-5">
+<div class="flex lg:space-x-4 mt-5">
   <div class="w-72 hidden lg:block">
     <ul class="">
       <li>
@@ -9,7 +9,7 @@
         >ALL
         </a>
       </li>
-      <li class="mt-4" *ngFor="let category of categories()">
+      <li class="mt-4 bg-gray-900 text-white py-2" *ngFor="let category of categories()">
         <a
           routerLink="/"
           [queryParams]="{ categoryId: category.id }"

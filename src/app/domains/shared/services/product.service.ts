@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Product } from '../models/product.model';
 import { Observable } from 'rxjs';
-import { Category } from '@shared/models/category.model.';
+import { Category } from '@shared/models/category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,16 @@ export class ProductService {
 
   constructor() { }
 
-  getProducts() {
+  getProducts(limit?: number, offset?: number) {
+    let params = new HttpParams();
+    if(limit !== undefined && offset !== undefined) {
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
 
-    return this.http.get<Product[]>(`${this.url}/products`)
+    return this.http.get<Product[]>(`${this.url}/products`, { params })
   }
+
   getProductsByCategory(categoryId?: number): Observable<any> {
 
     if(categoryId) {

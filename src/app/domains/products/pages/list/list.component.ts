@@ -5,7 +5,7 @@ import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
 import { CategoryService } from '@shared/services/category.service';
-import { Category } from '@shared/models/category.model.';
+import { Category } from '@shared/models/category.model';
 import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 
 
@@ -23,6 +23,9 @@ export default class ListComponent {
   productService = inject(ProductService);// array of products from the server
   categoryService = inject(CategoryService);// array of categories from the server
   @Input() categoryId?: number;
+  limit = 9;
+  offset = 0;
+
 
   ngOnInit() {
     this.getCategories();

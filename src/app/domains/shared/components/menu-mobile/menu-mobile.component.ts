@@ -1,7 +1,7 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
-import { Category } from '@shared/models/category.model.';
+import { Category } from '@shared/models/category.model';
 import { CategoryService } from '@shared/services/category.service';
 
 @Component({

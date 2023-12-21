@@ -5,7 +5,8 @@ import { User, UserSignIn } from '@shared/models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class SignInService {
+export class UserService {
+
   private http = inject(HttpClient);
   private url = `https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1`;
 

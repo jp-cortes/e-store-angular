@@ -1,0 +1,12 @@
+{
+  "/api/*": {
+    "example-line": "example on how to resolve a CORS problem only for development environment",
+    "target": "https://domain.example.com",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": "/"
+    }
+  }
+}

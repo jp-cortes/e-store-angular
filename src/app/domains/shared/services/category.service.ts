@@ -6,7 +6,7 @@ import { Category } from '@shared/models/category.model';
   providedIn: 'root'
 })
 export class CategoryService {
-
+  private apiUrl = 'https://express-rest-api-dev-hacj.2.us-1.fl0.io'
   private http = inject(HttpClient);
 
   constructor() { }
@@ -14,10 +14,10 @@ export class CategoryService {
 
 
   getCategories() {
-    return this.http.get<Category[]>(`https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1/categories`)
+    return this.http.get<Category[]>(`${this.apiUrl}/api/v1/categories`)
   }
 
   getCategory(id: string) {
-    return this.http.get<Category>(`https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1/categories/${id}`)
+    return this.http.get<Category>(`${this.apiUrl}/api/v1/categories/${id}`)
   }
 }

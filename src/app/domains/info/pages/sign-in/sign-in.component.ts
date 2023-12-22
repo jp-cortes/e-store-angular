@@ -20,13 +20,9 @@ export class SignInComponent {
   userSignIn() {
     this.userService
       .signIn({ email: this.email, password: this.password })
-      .subscribe({
-        next: (data) => {
-          console.log(data, 'user login');
-        },
-        error: (error) => {
-          console.log(error, 'error at userService signIn()');
-        },
-      });
+      // .subscribe({
+      //   next: (res) => console.log(res),
+
+      // });
   }
 }

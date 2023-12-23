@@ -18,7 +18,7 @@ export class AuthTokenService {
 
     this.cookieService.deleteAll('/');
 
-    this.cookieService.set('token', token, { expires: in1Hour, sameSite: 'Lax'});
+    this.cookieService.set('token', token, { expires: 1/48, sameSite: 'Lax'});
   }
 
   getToken() {

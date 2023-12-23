@@ -19,10 +19,6 @@ export class SignInComponent {
 
   userSignIn() {
     this.userService
-      .signIn({ email: this.email, password: this.password })
-      // .subscribe({
-      //   next: (res) => console.log(res),
-
-      // });
+    .signIn({ email: this.email, password: this.password })
   }
 }

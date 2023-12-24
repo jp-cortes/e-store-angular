@@ -22,18 +22,19 @@ export class UserService {
       .post<User>(`${this.url}/auth/login`, dto)
       .pipe(tap((res) => this.tokenService.saveToken(res.token)))
       .subscribe({
-        next: () => this.router.navigate(['/my-account']),
+        next: () => {this.router.navigate(['/my-account'])},
         error: (error) => console.log(error, 'error at userService signIn()'),
       });
   }
 
   getMyAccount() {
-    const token = this.tokenService.getToken();
-console.log(this.token)
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Bearer ${this.token}`)
-    return this.http.get<UserAccount>(`${this.url}/users/account`,
-     { headers })
+//     const token = this.tokenService.getToken();
+// console.log(this.token)
+//     let headers = new HttpHeaders();
+//     headers = headers.set('Authorization', `Bearer ${this.token}`)
+    return this.http.get<UserAccount>(`${this.url}/users/account`
+    //  { headers }
+     )
   }
 
   redirect(route: string) {

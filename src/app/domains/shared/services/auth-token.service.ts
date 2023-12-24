@@ -13,16 +13,21 @@ export class AuthTokenService {
   constructor(private cookieService: CookieService) { }
 
   saveToken(token: string) {
-    const in1Hour: Date = new Date();
-    in1Hour.setHours( in1Hour.getHours() + 1 );
+    const in30Min = 1/48
 
     this.cookieService.deleteAll('/');
 
-    this.cookieService.set('token', token, { expires: 1/48, sameSite: 'Lax'});
+    this.cookieService.set('token', token, { expires: in30Min, sameSite: 'Lax'});
   }
 
   getToken() {
-    return this.cookieService.get('token');
+    let token: string = ''
+    token = this.cookieService.get('token');
+    if(token) {
+      return token
+    }
+    return token;
+    // return this.cookieService.get('token');
   }
 
   deleteToken() {

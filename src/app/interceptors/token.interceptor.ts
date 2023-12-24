@@ -1,14 +1,15 @@
-import { HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { AuthTokenService } from '@shared/services/auth-token.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private auth: AuthTokenService) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler) {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
    request = this.addHeaders(request)
     // send cloned request with header to the next handler.
     return next.handle(request);
@@ -28,9 +29,8 @@ export class AuthInterceptor implements HttpInterceptor {
   });
   return authReq
 
-    } else {
-      return request;
     }
+    return request;
 
   }
 

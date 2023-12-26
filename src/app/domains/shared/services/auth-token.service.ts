@@ -1,3 +1,4 @@
+import { HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { CookieService } from 'ngx-cookie-service';
@@ -20,15 +21,34 @@ export class AuthTokenService {
     this.cookieService.set('token', token, { expires: in30Min, sameSite: 'Lax'});
   }
 
-  getToken() {
-    let token: string = ''
-    token = this.cookieService.get('token');
-    if(token) {
-      return token
+  getToken(): string {
+    let token!: string;
+    try {
+      token = this.cookieService.get('token') || '';
+    } catch (error) {
+      console.error('Error retrieving token:', error);
     }
     return token;
-    // return this.cookieService.get('token');
   }
+
+  addHeaders(request: HttpRequest<any>) {
+    // Get the auth token from the service.
+
+    const authToken = this.getToken();
+
+      if (authToken) {
+        // Clone the request and replace the original headers with
+    // cloned headers, updated with the authorization.
+    const authReq = request.clone({
+      headers: request.headers.set('Authorization', authToken)
+
+    });
+    return authReq
+
+      }
+      return request;
+
+    }
 
   deleteToken() {
     this.cookieService.delete('token', '/')

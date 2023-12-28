@@ -1,6 +1,13 @@
 import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthTokenService } from '@shared/services/auth-token.service';
+import { HttpContextToken, HttpContext } from '@angular/common/http';
+
+const ADD_TOKEN = new HttpContextToken<boolean>(() => true);
+
+export const addToken = () => {
+  return new HttpContext().set(ADD_TOKEN, false);
+}
 
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
   req = addHeaders(req);
@@ -8,10 +15,10 @@ export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
 };
 
 const addHeaders = (request: HttpRequest<any>) => {
-  // Get the auth token from the service.
-
+  // inject auth token service.
   const authToken = inject(AuthTokenService);
 
+  // Get the auth token from the service.
   const token = authToken.getToken();
 
     if (token) {

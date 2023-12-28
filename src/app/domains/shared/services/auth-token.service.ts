@@ -40,7 +40,7 @@ export class AuthTokenService {
         // Clone the request and replace the original headers with
     // cloned headers, updated with the authorization.
     const authReq = request.clone({
-      headers: request.headers.set('Authorization', authToken)
+      headers: request.headers.set('Authorization', `Bearer ${authToken}`)
 
     });
     return authReq

@@ -28,13 +28,7 @@ export class UserService {
   }
 
   getMyAccount() {
-//     const token = this.tokenService.getToken();
-// console.log(this.token)
-//     let headers = new HttpHeaders();
-//     headers = headers.set('Authorization', `Bearer ${this.token}`)
-    return this.http.get<UserAccount>(`${this.url}/users/account`
-    //  { headers }
-     )
+    return this.http.get<UserAccount>(`${this.url}/users/account`)
   }
 
   redirect(route: string) {

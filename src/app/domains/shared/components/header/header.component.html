@@ -42,18 +42,8 @@
             >Services</a
           >
         </li>
-        <li>
+        <li *ngIf="user(); else elseBlock">
           <a
-            routerLink="/sign-in"
-            routerLinkActive="underline"
-            [routerLinkActiveOptions]="{exact: true}"
-            class="block hover:underline"
-            >Sign in</a
-          >
-        </li>
-        <li>
-
-            <a
             routerLink="/my-account"
             routerLinkActive="underline"
             [routerLinkActiveOptions]="{exact: true}"
@@ -64,8 +54,18 @@
             </svg>
             </a>
 
-
         </li>
+        <ng-template #elseBlock>
+        <li >
+          <a
+            routerLink="/sign-in"
+            routerLinkActive="underline"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="block hover:underline"
+            >Sign in</a>
+
+          </li>
+        </ng-template>
       </ul>
     </div>
     <div class="flex items-center">

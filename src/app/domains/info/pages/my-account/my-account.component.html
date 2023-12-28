@@ -1,45 +1,87 @@
-<div class="relative grid grid-col-1 place-content-center mt-7 ">
-  <h1 class="text-2xl font-semibold text-center">Account</h1>
+<div class="grid">
+  <h1 class="text-2xl font-semibold text-center">My Account</h1>
 
-  <div class=" my-8 mx-auto">
-    <h2 class="font-normal capitalize">Hi, {{user()?.customer?.name}} </h2>
-    <div class=" gap-4">
+  <div class="flex mt-7 ">
+    <div class="w-full my-8 flex-start">
+      <button (click)="signOut()">Sign out</button>
+      <h2 class="font-normal capitalize">Hi, {{user()?.customer?.name}} </h2>
+      <div class=" gap-4">
 
-        <figure *ngIf="user()?.customer?.avatar !== null"
-           class="my-5">
-          <Img
-            class="rounded-full"
-            [src]="user()?.customer?.avatar"
-            alt="avatar"
-            width="80px"
-            height="80px"
-          />
-        </figure>
-        <div class="my-5">
-          <div class="h-20 w-20 rounded-full bg-purple-600 text-white text-3xl grid place-items-center font-semibold">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-            </svg>
+          <figure *ngIf="user()?.customer?.avatar !== null"
+             class="my-5">
+            <Img
+              class="rounded-full"
+              [src]="user()?.customer?.avatar"
+              alt="avatar"
+              width="80px"
+              height="80px"
+            />
+          </figure>
+          <div class="my-5">
+            <div class="h-20 w-20 rounded-full bg-purple-600 text-white text-3xl grid place-items-center font-semibold">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>
 
+            </div>
           </div>
-        </div>
 
-      <div class="">
-        <p class="my-5 font-light text-gray-700 capitalize">
-          <b>Name: </b>
-          {{user()?.customer?.name}}
-        </p>
-        <p class="my-5 font-light text-gray-700 capitalize">
-          <b>Lastname: </b>
-          {{user()?.customer?.lastName}}
-        </p>
-        <p class="my-5 font-light text-gray-700 capitalize">
-          <b>Phone number: </b>
-          {{user()?.customer?.phone}}
-        </p>
+        <div class="">
+          <p class="my-5 font-light text-gray-700 capitalize">
+            <b>Name: </b>
+            {{user()?.customer?.name}}
+          </p>
+          <p class="my-5 font-light text-gray-700 capitalize">
+            <b>Lastname: </b>
+            {{user()?.customer?.lastName}}
+          </p>
+          <p class="my-5 font-light text-gray-700 capitalize">
+            <b>Phone number: </b>
+            {{user()?.customer?.phone}}
+          </p>
+        </div>
+      </div>
+      <button class=" rounded-md font-semibold text-lg bg-red-200 hover:bg-red-300 text-white px-4 py-2">
+        Edit my profile
+      </button>
+    </div>
+
+    <div class="w-full flex-end my-8">
+      <h2>My orders</h2>
+      <div>
+        <div
+            class="border-2 rounded-lg mt-2 w-60 px-2 mx-auto max-h-max"
+                >
+                  <p class="font-medium">
+                    Paid:
+                    <span class="capitalize font-normal">order.paid</span>
+                  </p>
+                  <p class="font-medium">
+                    Current status:
+                    <span class="capitalize font-normal">
+                      order.status
+                    </span>
+                  </p>
+                  <a href="/my-orders/order/order.id" >
+                    <span class="capitalize font-medium text-lightGreen mx-3 hover:text-red-400 hover:underline">
+                      Details
+                    </span>
+                  </a>
+
+                  <a href="/my-orders/invoice/order.id">
+                    <span class="hidden md:block lg:block capitalize font-medium text-lightGreen mx-3 hover:text-blue-400 hover:underline">
+                      Invoice
+                    </span>
+                  </a>
+                  <p class="font-medium">
+                    Date:
+                    <span class="capitalize font-normal">
+                      order
+                    </span>
+                  </p>
+        </div>
       </div>
     </div>
+
   </div>
-  <button className="mx-auto rounded-md font-semibold text-lg bg-buttonGreen hover:bg-hoverGreen text-white px-4 py-2">
-    Edit my profile
-  </button>
+</div>

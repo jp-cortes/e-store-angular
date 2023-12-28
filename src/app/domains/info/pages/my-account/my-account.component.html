@@ -1,11 +1,11 @@
-<div class="grid">
+<div class="grid w-auto">
   <h1 class="text-2xl font-semibold text-center">My Account</h1>
 
-  <div class="flex mt-7 ">
-    <div class="w-full my-8 flex-start">
-      <button (click)="signOut()">Sign out</button>
+  <div class="grid md:flex lg:flex mt-7 ">
+    <div class="w-full my-8 grid justify-center">
+
       <h2 class="font-normal capitalize">Hi, {{user()?.customer?.name}} </h2>
-      <div class=" gap-4">
+      <div class="gap-4">
 
           <figure *ngIf="user()?.customer?.avatar !== null"
              class="my-5">
@@ -41,25 +41,29 @@
           </p>
         </div>
       </div>
-      <button class=" rounded-md font-semibold text-lg bg-red-200 hover:bg-red-300 text-white px-4 py-2">
-        Edit my profile
-      </button>
+      <div class="w-full flex flex-col mt-5">
+        <button class=" rounded-md font-semibold text-lg bg-gray-800 hover:bg-gray-600 text-white px-4 py-2">
+          Edit my profile
+        </button>
+        <button class="mt-5 rounded-md font-semibold text-lg bg-red-200 hover:bg-red-300 text-white px-4 py-2"
+        (click)="signOut()">Sign out</button>
+      </div>
     </div>
 
-    <div class="w-full flex-end my-8">
-      <h2>My orders</h2>
-      <div>
-        <div
+    <div class="w-full my-8">
+      <h2 class="mb-5 font-semibold text-2xl">My orders</h2>
+      <div class="flex flex-wrap overflow-y-scroll">
+        <div *ngFor="let order of orders()"
             class="border-2 rounded-lg mt-2 w-60 px-2 mx-auto max-h-max"
                 >
                   <p class="font-medium">
                     Paid:
-                    <span class="capitalize font-normal">order.paid</span>
+                    <span class="capitalize font-normal">{{order.paid}}</span>
                   </p>
                   <p class="font-medium">
                     Current status:
                     <span class="capitalize font-normal">
-                      order.status
+                      {{order.status}}
                     </span>
                   </p>
                   <a href="/my-orders/order/order.id" >
@@ -70,13 +74,13 @@
 
                   <a href="/my-orders/invoice/order.id">
                     <span class="hidden md:block lg:block capitalize font-medium text-lightGreen mx-3 hover:text-blue-400 hover:underline">
-                      Invoice
+                      Invoice #: {{order.id}}
                     </span>
                   </a>
                   <p class="font-medium">
                     Date:
                     <span class="capitalize font-normal">
-                      order
+                      {{order.createdAt?.slice(0,10)}}
                     </span>
                   </p>
         </div>

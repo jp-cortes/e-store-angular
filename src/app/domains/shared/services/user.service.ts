@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User, UserAccount, UserSignIn } from '@shared/models/user.model';
 import { AuthTokenService } from './auth-token.service';
 import { tap } from 'rxjs/operators';
+import { OrderResume } from '@shared/models/order.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,10 @@ export class UserService {
 
   getMyAccount() {
     return this.http.get<UserAccount>(`${this.url}/users/account`)
+  }
+
+  getMyOrders() {
+    return this.http.get<OrderResume[]>(`${this.url}/profile/my-orders`)
   }
 
   redirect(route: string) {

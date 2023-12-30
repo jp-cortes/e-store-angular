@@ -48,7 +48,7 @@ export class MyAccountComponent {
     .subscribe({
       next: (data) => {
         this.orders.set(data)
-        console.log(data)
+        // console.log(data)
       },
       error: (error) => console.log(error, 'error at userService getMyAccount()'),
     });

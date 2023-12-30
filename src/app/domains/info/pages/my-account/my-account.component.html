@@ -7,7 +7,7 @@
       <h2 class="font-normal capitalize">Hi, {{user()?.customer?.name}} </h2>
       <div class="gap-4">
 
-          <figure *ngIf="user()?.customer?.avatar !== null"
+          <figure *ngIf="user()?.customer?.avatar !== null; else elseBlock"
              class="my-5">
             <Img
               class="rounded-full"
@@ -17,14 +17,16 @@
               height="80px"
             />
           </figure>
-          <div class="my-5">
-            <div class="h-20 w-20 rounded-full bg-purple-600 text-white text-3xl grid place-items-center font-semibold">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-              </svg>
+          <ng-template #elseBlock>
+            <div class="my-5">
+              <div class="h-20 w-20 rounded-full bg-purple-600 text-white text-3xl grid place-items-center font-semibold">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
 
+              </div>
             </div>
-          </div>
+          </ng-template>
 
         <div class="">
           <p class="my-5 font-light text-gray-700 capitalize">
@@ -66,16 +68,15 @@
                       {{order.status}}
                     </span>
                   </p>
-                  <a routerLink="/my-orders"
-                      [queryParams]="{ orderId: order.id }" >
-                    <span class="capitalize font-medium text-lightGreen mx-3 hover:text-red-400 hover:underline">
+                  <!-- <a [routerLink]="['/purchase', order.id]" >
+                    <span class="capitalize font-medium  mx-3 hover:text-red-400 hover:underline">
                       Details
                     </span>
-                  </a>
+                  </a> -->
 
                   <a routerLink="/my-orders"
                       [queryParams]="{ invoiceId: order.id }">
-                    <span class="hidden md:block lg:block capitalize font-medium text-lightGreen mx-3 hover:text-blue-400 hover:underline">
+                    <span class="hidden md:block lg:block capitalize font-medium  mx-3 hover:text-blue-400 hover:underline">
                       Invoice #: {{order.id}}
                     </span>
                   </a>

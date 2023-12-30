@@ -41,7 +41,7 @@ export class UserService {
 
     if(invoiceId) {
 
-     return this.http.get<OrderDetail>(`${this.url}/api/v1/orders/${invoiceId}`,
+     return this.http.get<OrderDetail>(`${this.url}/orders/${invoiceId}`,
      {
       headers:{
         'Accept': 'application/json',

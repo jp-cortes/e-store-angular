@@ -1,4 +1,4 @@
-import { UserAccount } from "./user.model";
+import { Customer, UserAccount } from "./user.model";
 
 export interface OrderProduct  {
   id: number;
@@ -27,7 +27,7 @@ export interface OrderDetail  {
   paid: boolean;
   createdAt: string;
   customerId: number;
-  customer: UserAccount;
+  customer: Customer;
   items: ProductOrder[];
 }
 

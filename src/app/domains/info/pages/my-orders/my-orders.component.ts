@@ -1,7 +1,8 @@
 import { Component, Input, SimpleChanges, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '@shared/services/user.service';
-import { OrderDetail } from '@shared/models/order.model';
+import { OrderDetail, ProductOrder } from '@shared/models/order.model';
+import { AuthTokenService } from '@shared/services/auth-token.service';
 
 @Component({
   selector: 'app-my-orders',
@@ -11,8 +12,11 @@ import { OrderDetail } from '@shared/models/order.model';
   styleUrl: './my-orders.component.css'
 })
 export class MyOrdersComponent {
-  userService = inject(UserService);
-  order = signal<OrderDetail | null>(null)
+  authTokenService = inject(AuthTokenService);
+  userService = inject(UserService); // userService for invoice
+  invoice = signal<OrderDetail | null>(null) // invoice
+  subTotal = signal<number | null>(null) // invoice
+  totalOfInvoice = signal<number | null>(null) // invoice
   @Input() invoiceId?: number;
 
 
@@ -22,8 +26,14 @@ export class MyOrdersComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    const token = this.authTokenService.getToken();
+
     const invoiceId = changes['invoiceId']
-    this.getInvoice();
+    if(invoiceId && token) {
+      this.getInvoice();
+    } else {
+      this.userService.redirect('/sign-in')
+    }
   }
 
   getInvoice() {
@@ -31,8 +41,9 @@ export class MyOrdersComponent {
       .subscribe({
   next: (data) => {
     if (data) {
-      this.order.set(data);
-      console.log(data, 'orderdetail')
+       const total = this.getTotalOfInvoice(data);
+      this.invoice.set(data);
+      this.totalOfInvoice.set(total)
     } else {
       console.log('Data or data order is undefined');
     }
@@ -42,4 +53,17 @@ export class MyOrdersComponent {
   }
 })
   }
+
+  getTotalOfInvoice(data: OrderDetail) {
+    const answer = data.items?.map(
+      (item) => Number(item.price) * item.OrderProduct.amount)
+    .reduce((a: number, b: number) => a + b, 0)
+
+    return answer;
+  }
+
+  getSubtotal(item:ProductOrder) {
+    const subTotal = Number(item.price) * item.OrderProduct.amount;
+   return subTotal;
+   }
 }

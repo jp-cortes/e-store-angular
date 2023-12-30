@@ -1,18 +1,15 @@
 
       <div class="flex justify-between content-center w-full mb-8">
         <div class="flex justify-center flex-initial w-full mt-5">
-          <a passHref href="/my-account" class="flex">
+          <a passHref href="/my-account" class="flex w-24 rounded-3xl p-2 border-2 border-green-700 bg-green-700 text-white font-medium hover:bg-white hover:text-green-700">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
 
             <span class="">Back</span>
           </a>
         </div>
 
-        <button
-          class="w-32 p-1 md:p-2 lg:p-2 bg-buttonGreen hover:bg-hoverGreen text-white font-semibold rounded-md inline-block m-1"
-
-        >
-          Download PDF
-        </button>
       </div>
       <div
         class="bg-white print:bg-white md:flex lg:flex xl:flex print:flex md:justify-center lg:justify-center xl:justify-center print:justify-center" >
@@ -27,16 +24,16 @@
                 <span class="mr-4 text-sm">■ </span> #
               </div>
               <span id="invoice_id" class="text-gray-500">
-                order.id
+                {{invoice()?.id}}
               </span>
             </div>
             <div class="flex flex-col lg:ml-12 xl:ml-12 print:text-sm">
-              <span>Issue date: order.createdAt.slice(0, 10)</span>
-              <span>Paid date: order.createdAt.slice(0, 10)</span>
-              <span>Due date: order.createdAt.slice(0, 10)</span>
+              <span>Issue date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
+              <span>Paid date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
+              <span>Due date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
             </div>
             <div class="px-8 py-2 mt-16 mb-16 capitalize text-3xl font-bold text-green-700 border-4 border-green-700 border-dotted md:absolute md:right-0 md:top-0 md:mr-12 lg:absolute lg:right-0 lg:top-0 xl:absolute xl:right-0 xl:top-0 print:absolute print:right-0 print:top-0 lg:mr-20 xl:mr-20 print:mr-2 print:mt-8">
-              order.status
+              {{invoice()?.status}}
             </div>
           </div>
           <div class="border-gray-300 md:mt-8 print:hidden"></div>
@@ -57,20 +54,22 @@
                     <th class="px-4 py-2 text-right">Subtotal</th>
                   </tr>
                 </thead>
-                <tbody>
-                  order.items.map
-                    <tr key=''>
-                      <td class="px-4 py-2 border">item.name</td>
+                <tbody  >
+
+
+                    <tr *ngFor="let item of invoice()?.items">
+                      <td class="px-4 py-2 border">{{item.name}}</td>
                       <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
-                        item.OrderProduct.amount
+                        {{item.OrderProduct.amount}}
                       </td>
                       <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
-                        € item.price
+                        € {{item.price}}
                       </td>
                       <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
-                        € Number(item.price) * item.OrderProduct.amount
+                        € {{getSubtotal(item)}}
                       </td>
                     </tr>
+
 
 
                   <tr class="text-white bg-gray-700 print:bg-gray-300 print:text-black">
@@ -100,12 +99,7 @@
                     </td>
                     <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
                       €
-                      order.items
-                        .map(
-                          (item) =>
-                            parseInt(item.price) * item.OrderProduct.amount
-                        )
-                        .reduce((a: number, b: number) => a + b, 0)
+                      {{  totalOfInvoice() }}
                     </td>
                   </tr>
                 </tbody>
@@ -120,15 +114,11 @@
             <div class="flex flex-col items-center text-center print:text-sm">
               <p class="font-medium">
 
-                order.createdAt.slice(0, 10)
+                {{invoice()?.createdAt?.slice(0, 10)}}
                 <span class="font-light">
                   <i class="lab la-cc-mastercard la-lg"></i> Credit Card
                   Payment: €
-                  order.items
-                    .map(
-                      (item) => parseInt(item.price) * item.OrderProduct.amount
-                    )
-                    .reduce((a: number, b: number) => a + b, 0)
+                  {{ totalOfInvoice() }}
                   (Mastercard XXXX-XXXX-XXXX-0122)
                 </span>
               </p>
@@ -137,13 +127,13 @@
 
           <div class="flex flex-col items-center mb-24 leading-relaxed print:mt-0 print:mb-0">
             <span class="w-64 text-3xl text-center text-black font-mono border-b-2 border-black border-dotted opacity-75 print:text-lg">
-              order.customer.name order.customer.lastName
+              {{invoice()?.customer?.name}} {{invoice()?.customer?.lastName}}
             </span>
             <span class="text-center">Buyer</span>
           </div>
           <footer class="flex flex-col items-center justify-center pb-20 leading-loose text-white bg-gray-700 print:bg-white print:pb-0">
             <span class="mt-4 text-xs print:mt-0">
-              Invoice generated on order.createdAt.slice(0, 10)
+              Invoice generated on {{invoice()?.createdAt?.slice(0, 10)}}
             </span>
             <span class="mt-4 text-base print:text-xs">
               © 2023 E-store. All rights reserved.

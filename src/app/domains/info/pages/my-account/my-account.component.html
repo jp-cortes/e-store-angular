@@ -66,13 +66,15 @@
                       {{order.status}}
                     </span>
                   </p>
-                  <a href="/my-orders/order/order.id" >
+                  <a routerLink="/my-orders"
+                      [queryParams]="{ orderId: order.id }" >
                     <span class="capitalize font-medium text-lightGreen mx-3 hover:text-red-400 hover:underline">
                       Details
                     </span>
                   </a>
 
-                  <a href="/my-orders/invoice/order.id">
+                  <a routerLink="/my-orders"
+                      [queryParams]="{ invoiceId: order.id }">
                     <span class="hidden md:block lg:block capitalize font-medium text-lightGreen mx-3 hover:text-blue-400 hover:underline">
                       Invoice #: {{order.id}}
                     </span>

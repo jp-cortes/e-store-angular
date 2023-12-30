@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MyAccountComponent } from '@info/pages/my-account/my-account.component';
+import { MyOrdersComponent } from '@info/pages/my-orders/my-orders.component';
 import { NotFoundComponent } from '@info/pages/not-found/not-found.component';
 import { PasswordRecoveryComponent } from '@info/pages/password-recovery/password-recovery.component';
 import { ResetPasswordComponent } from '@info/pages/reset-password/reset-password.component';
@@ -28,6 +29,10 @@ export const routes: Routes = [
       {
         path: 'my-account',
         component: MyAccountComponent,
+      },
+      {
+        path: 'my-orders',
+        component: MyOrdersComponent,
       },
     ]
   },

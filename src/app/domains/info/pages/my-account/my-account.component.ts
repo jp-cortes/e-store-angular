@@ -4,11 +4,12 @@ import { UserService } from '@shared/services/user.service';
 import { UserAccount } from '@shared/models/user.model';
 import { AuthTokenService } from '@shared/services/auth-token.service';
 import { OrderResume } from '@shared/models/order.model';
+import { RouterLinkWithHref } from '@angular/router';
 
 @Component({
   selector: 'app-my-account',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLinkWithHref],
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css'
 })

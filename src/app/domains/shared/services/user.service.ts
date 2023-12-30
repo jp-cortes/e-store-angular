@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { User, UserAccount, UserSignIn } from '@shared/models/user.model';
 import { AuthTokenService } from './auth-token.service';
 import { tap } from 'rxjs/operators';
-import { OrderResume } from '@shared/models/order.model';
+import { OrderDetail, OrderResume } from '@shared/models/order.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,22 @@ export class UserService {
 
   getMyOrders() {
     return this.http.get<OrderResume[]>(`${this.url}/profile/my-orders`)
+  }
+
+  getInvoice(invoiceId?: number): Observable<any> {
+
+    if(invoiceId) {
+
+     return this.http.get<OrderDetail>(`${this.url}/api/v1/orders/${invoiceId}`,
+     {
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+     })
+
+    }
+    return new Observable<any>()
   }
 
   redirect(route: string) {

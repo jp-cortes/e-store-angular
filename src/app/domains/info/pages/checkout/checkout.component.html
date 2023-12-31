@@ -1,0 +1,55 @@
+<div class="mx-auto z-0">
+  <div class="w-full flex-1 px-4 overflow-auto relative">
+    <a href="/my-account" passHref class="absolute left-0">
+    </a>
+    <h1 class="text-center mb-8 font-semibold">My Order</h1>
+
+    items.map
+      <div class="" >
+        <p class="mb-2">item.name</p>
+        <div class="flex justify-between mb-3">
+          <Img
+            src=""
+            width="50"
+            height="50"
+            alt={item.name}
+          />
+          <p class="text-base">
+
+            € (item.price * item.quantity).toFixed(2)
+          </p>
+        </div>
+
+        <div class="flex justify-between px-4">
+          <p class="">Quantity:</p>
+          <p class="font-semibold">item.quantity</p>
+        </div>
+      </div>
+
+  </div>
+  items.length
+    <h3 class="text-center mt-[50%]">There is not pending Order</h3>
+
+    <div class="px-4">
+      <div class="border-t-2 border-b-2 border-black mt-3 py-2">
+        <div class="flex justify-between">
+          <p>Subtotal</p>
+          <p>€ subTotal.toFixed(2)</p>
+        </div>
+      </div>
+      <div class="flex justify-between">
+        <p>Total</p>
+        <p>€ subTotal.toFixed(2)</p>
+      </div>
+      <div class="flex flex-col justify-between items-center z-0">
+        <button>payment</button>
+        <div class="w-full flex items-center justify-center my-6">
+          <div class="h-[2px] w-6 bg-black" ></div>
+          <p class="mx-5 text-xl">or</p>
+          <div class="h-[2px] w-6 bg-black" ></div>
+        </div>
+
+      </div>
+    </div>
+
+</div>

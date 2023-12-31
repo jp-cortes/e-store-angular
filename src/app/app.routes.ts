@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { CheckoutComponent } from '@info/pages/checkout/checkout.component';
 import { MyAccountComponent } from '@info/pages/my-account/my-account.component';
 import { MyOrdersComponent } from '@info/pages/my-orders/my-orders.component';
 import { NotFoundComponent } from '@info/pages/not-found/not-found.component';
@@ -33,6 +34,10 @@ export const routes: Routes = [
       {
         path: 'my-orders',
         component: MyOrdersComponent,
+      },
+      {
+        path: 'checkout',
+        component: CheckoutComponent,
       },
     ]
   },

@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '@shared/services/cart.service';
+import { AuthTokenService } from '@shared/services/auth-token.service';
+import { UserService } from '@shared/services/user.service';
 
 @Component({
   selector: 'app-checkout',
@@ -11,6 +13,18 @@ import { CartService } from '@shared/services/cart.service';
 })
 export class CheckoutComponent {
   private cartService = inject(CartService);
-  cart = this.cartService.cart
+  private authTokenService = inject(AuthTokenService);
+  private userService = inject(UserService);
+  cart = this.cartService.cart;
+  total = this.cartService.total;
+
+  ngOnInit() {
+    const token = this.authTokenService.getToken();
+    if(token) {
+
+    } else {
+      this.userService.redirect('/sign-in')
+    }
+  }
 
 }

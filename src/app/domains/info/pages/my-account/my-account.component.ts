@@ -16,8 +16,8 @@ import { RouterLinkWithHref } from '@angular/router';
 export class MyAccountComponent {
   user = signal<UserAccount | null>(null)
   orders = signal<OrderResume[]>([])
-  userService = inject(UserService);
-  authTokenService = inject(AuthTokenService);
+  private userService = inject(UserService);
+  private authTokenService = inject(AuthTokenService);
 
   ngOnInit() {
     const token = this.authTokenService.getToken();

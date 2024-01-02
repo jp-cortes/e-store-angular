@@ -131,5 +131,5 @@
     <p>Total: {{ total() | currency: 'EUR' }}</p>
 
   </div>
-  <a routerLink="/checkout">checkout</a>
+  <a routerLink="/checkout" (click)="toggleCart()">checkout</a>
 </div>

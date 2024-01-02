@@ -1,9 +1,8 @@
 <h3 *ngIf="cart().length === 0; else elseBlock" class="text-center mt-[20%]">There is not pending Order</h3>
 <ng-template #elseBlock>
-  <div class="mx-auto z-0">
+  <div class="mx-auto mt-7 z-0">
     <div class="w-full flex-1 px-4 overflow-auto relative">
-      <a href="/my-account" passHref class="absolute left-0">
-      </a>
+
       <h1 class="text-center mb-8 font-semibold">My Order</h1>
 
         <div class="" *ngFor="let item of cart()" >
@@ -21,7 +20,7 @@
 
           <div class="flex justify-between px-4">
             <p class="">Quantity:</p>
-            <p class="font-semibold">{{item.price}}</p>
+            <p class="font-semibold">1</p>
           </div>
         </div>
 
@@ -38,7 +37,7 @@
         </div>
         <div class="flex justify-between">
           <p>Total</p>
-          <p>€ subTotal.toFixed(2)</p>
+          <p>€ {{total()}}</p>
         </div>
         <div class="flex flex-col justify-between items-center z-0">
           <button>payment</button>

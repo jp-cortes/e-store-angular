@@ -5,13 +5,13 @@ import { OrderDetail, ProductOrder } from '@shared/models/order.model';
 import { AuthTokenService } from '@shared/services/auth-token.service';
 
 @Component({
-  selector: 'app-my-orders',
+  selector: 'app-my-invoice',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './my-orders.component.html',
-  styleUrl: './my-orders.component.css'
+  templateUrl: './my-invoice.component.html',
+  styleUrl: './my-invoice.component.css'
 })
-export class MyOrdersComponent {
+export class MyInvoiceComponent {
   authTokenService = inject(AuthTokenService);
   userService = inject(UserService); // userService for invoice
   invoice = signal<OrderDetail | null>(null) // invoice
@@ -31,7 +31,7 @@ export class MyOrdersComponent {
     const invoiceId = changes['invoiceId']
     if(invoiceId && token) {
       this.getInvoice();
-    } else {
+    } else  {
       this.userService.redirect('/sign-in')
     }
   }

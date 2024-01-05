@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, UserAccount, UserSignIn } from '@shared/models/user.model';
@@ -15,33 +15,36 @@ export class UserService {
 
   private http = inject(HttpClient);
   private tokenService = inject(AuthTokenService);
-  private url = `https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1`;
-  private token = this.tokenService.getToken();
+  private apiUrl = `https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1`;
 
 
   signIn(dto: UserSignIn) {
     return this.http
-      .post<User>(`${this.url}/auth/login`, dto)
+      .post<User>(`${this.apiUrl}/auth/login`, dto)
       .pipe(tap((res) => this.tokenService.saveToken(res.token)))
       .subscribe({
         next: () => {this.router.navigate(['/my-account'])},
         error: (error) => console.log(error, 'error at userService signIn()'),
       });
   }
+  sendRecoveryEmail(dto: string) {
+    return this.http
+      .post<User>(`${this.apiUrl}/auth/recovery`, dto);
+  }
 
   getMyAccount() {
-    return this.http.get<UserAccount>(`${this.url}/users/account`)
+    return this.http.get<UserAccount>(`${this.apiUrl}/users/account`)
   }
 
   getMyOrders() {
-    return this.http.get<OrderResume[]>(`${this.url}/profile/my-orders`)
+    return this.http.get<OrderResume[]>(`${this.apiUrl}/profile/my-orders`)
   }
 
   getInvoice(invoiceId?: number): Observable<any> {
 
     if(invoiceId) {
 
-     return this.http.get<OrderDetail>(`${this.url}/orders/${invoiceId}`,
+     return this.http.get<OrderDetail>(`${this.apiUrl}/orders/${invoiceId}`,
      {
       headers:{
         'Accept': 'application/json',

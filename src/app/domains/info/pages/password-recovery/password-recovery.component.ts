@@ -29,10 +29,10 @@ export class PasswordRecoveryComponent {
       this.userService.sendRecoveryEmail(email)
       .subscribe({
         next: () => {
-          this.emailSent.update( prevState => !prevState);
+          this.emailSent.set(true);
           setTimeout(() => {
             this.router.navigate(['/sign-in']);
-          }, 3000)
+          }, 8000)
         },
         error: (error) => {
           console.log(error, 'error at userService sendRecoveryEmail()')

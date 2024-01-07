@@ -29,7 +29,7 @@ export class UserService {
   }
   sendRecoveryEmail(dto: string) {
     return this.http
-      .post<any>(`${this.apiUrl}/auth/recovery`, dto);
+      .post<any>(`${this.apiUrl}/auth/recovery`, { email: dto });
   }
 
   getMyAccount() {

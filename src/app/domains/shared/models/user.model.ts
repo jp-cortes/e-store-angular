@@ -22,6 +22,13 @@ export interface Customer {
   createdAt: string
   userId: number
 }
+export interface CreateCustomer {
+  name: string
+  lastName: string
+  phone: string
+  avatar?: string
+  user: UserSignIn
+}
 
 export interface UserAccount {
   id: number

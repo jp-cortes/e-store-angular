@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, UserAccount, UserSignIn } from '@shared/models/user.model';
+import { CreateCustomer, User, UserAccount, UserSignIn } from '@shared/models/user.model';
 import { AuthTokenService } from './auth-token.service';
 import { tap } from 'rxjs/operators';
 import { OrderDetail, OrderResume } from '@shared/models/order.model';
@@ -24,6 +24,15 @@ export class UserService {
       .pipe(tap((res) => this.tokenService.saveToken(res.token)))
       .subscribe({
         next: () => {this.router.navigate(['/my-account'])},
+        error: (error) => console.log(error, 'error at userService signIn()'),
+      });
+  }
+  signUp(dto: CreateCustomer) {
+    return this.http
+      .post<CreateCustomer>(`${this.apiUrl}/customers`, dto)
+
+      .subscribe({
+        next: () => {this.router.navigate(['/sign-in'])},
         error: (error) => console.log(error, 'error at userService signIn()'),
       });
   }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateCustomer, User, UserAccount, UserSignIn } from '@shared/models/user.model';
+import { CreateCustomer, NewCustomer, User, UserAccount, UserSignIn } from '@shared/models/user.model';
 import { AuthTokenService } from './auth-token.service';
 import { tap } from 'rxjs/operators';
 import { OrderDetail, OrderResume } from '@shared/models/order.model';
@@ -27,15 +27,20 @@ export class UserService {
         error: (error) => console.log(error, 'error at userService signIn()'),
       });
   }
+
   signUp(dto: CreateCustomer) {
     return this.http
-      .post<CreateCustomer>(`${this.apiUrl}/customers`, dto)
-
+      .post<NewCustomer>(`${this.apiUrl}/customers`, dto)
       .subscribe({
-        next: () => {this.router.navigate(['/sign-in'])},
+        next: (data) => {
+          const email = data.user.email;
+          const password = data.user.password
+          this.signIn({ email , password })
+        },
         error: (error) => console.log(error, 'error at userService signIn()'),
       });
   }
+
   sendRecoveryEmail(dto: string) {
     return this.http
       .post<any>(`${this.apiUrl}/auth/recovery`, { email: dto });

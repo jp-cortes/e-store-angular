@@ -22,12 +22,24 @@ export interface Customer {
   createdAt: string
   userId: number
 }
+
 export interface CreateCustomer {
   name: string
   lastName: string
   phone: string
   avatar?: string
-  user: UserSignIn
+  user: {
+    email: string
+    password: string
+    role?: string
+    createdAt: string
+},
+token: string
+}
+
+export interface NewCustomer extends CreateCustomer {
+  id: string
+  userId: string
 }
 
 export interface UserAccount {

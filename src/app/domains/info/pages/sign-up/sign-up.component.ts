@@ -66,7 +66,12 @@ export class SignUpComponent {
   });
 
   signUp() {
-console.log(this.newProfileForm.value.user?.email)
-console.log(this.newProfileForm.valid)
+    console.log(this.newProfileForm.value.name)
+    console.log(this.newProfileForm.value.lastName)
+    console.log(this.newProfileForm.value.phone)
+    console.log(this.newProfileForm.value.user?.email)
+    console.log(this.newProfileForm.value.user?.password)
+    console.log(this.newProfileForm.value.user?.confirm_password)
+    console.log(this.newProfileForm.valid)
   }
 }

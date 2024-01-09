@@ -13,7 +13,7 @@ export interface User {
    token: string // use this token as header to access the protected routes
 }
 
-export interface Customer {
+export interface CustomerProfile {
   id: number
   name: string
   lastName: string
@@ -23,7 +23,7 @@ export interface Customer {
   userId: number
 }
 
-export interface CreateCustomer {
+export interface NewCustomer {
   name: string
   lastName: string
   phone: string
@@ -34,10 +34,10 @@ export interface CreateCustomer {
     role?: string
     createdAt: string
 },
-token: string
+token?: string
 }
 
-export interface NewCustomer extends CreateCustomer {
+export interface Customer extends NewCustomer {
   id: string
   userId: string
 }
@@ -48,6 +48,6 @@ export interface UserAccount {
   recoveryToken: null
   role: string
   createdAt: string
-  customer: Customer
+  customer: CustomerProfile
 }
 

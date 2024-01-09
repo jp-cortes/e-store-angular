@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateCustomer, NewCustomer, User, UserAccount, UserSignIn } from '@shared/models/user.model';
+import { Customer, NewCustomer, User, UserAccount, UserSignIn } from '@shared/models/user.model';
 import { AuthTokenService } from './auth-token.service';
 import { tap } from 'rxjs/operators';
 import { OrderDetail, OrderResume } from '@shared/models/order.model';
@@ -28,7 +28,7 @@ export class UserService {
       });
   }
 
-  signUp(dto: CreateCustomer) {
+  signUp(dto: Customer) {
     return this.http
       .post<NewCustomer>(`${this.apiUrl}/customers`, dto)
       .subscribe({

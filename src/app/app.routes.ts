@@ -8,6 +8,7 @@ import { ResetPasswordComponent } from '@info/pages/reset-password/reset-passwor
 import { SignInComponent } from '@info/pages/sign-in/sign-in.component';
 import { SignUpComponent } from '@info/pages/sign-up/sign-up.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -29,14 +30,17 @@ export const routes: Routes = [
       },
       {
         path: 'my-account',
+        canActivate: [authGuard],
         component: MyAccountComponent,
       },
       {
         path: 'my-invoice',
+        canActivate: [authGuard],
         component: MyInvoiceComponent,
       },
       {
         path: 'checkout',
+        canActivate: [authGuard],
         component: CheckoutComponent,
       },
     ]

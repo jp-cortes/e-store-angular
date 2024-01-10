@@ -12,7 +12,7 @@ import { FormGroup, FormControl, FormsModule, Validators, ReactiveFormsModule } 
   styleUrl: './sign-up.component.css'
 })
 export class SignUpComponent {
-  userService = inject(UserService);
+  private userService = inject(UserService);
 
   newProfileForm = new FormGroup({
     name: new FormControl('',{
@@ -63,7 +63,17 @@ export class SignUpComponent {
        ]
        }),
     }),
-  });
+  },);
+
+  onInit() {
+
+  }
+
+  passwordMatchValidator() {
+    return this.newProfileForm.value.user?.password === this.newProfileForm.value.user?.confirm_password
+       ? true : null;
+ }
+
 
   signUp() {
     console.log(this.newProfileForm.value.name)

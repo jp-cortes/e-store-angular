@@ -20,25 +20,17 @@ export class MyAccountComponent {
   private authTokenService = inject(AuthTokenService);
 
   ngOnInit() {
-    const token = this.authTokenService.getToken();
-    if(token) {
       this.getProfileInfo();
       this.getProfileOrders();
-    } else {
-      this.userService.redirect('/sign-in')
-    }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
-  }
+  ngOnChanges(changes: SimpleChanges) { }
 
   getProfileInfo() {
     this.userService.getMyAccount()
     .subscribe({
       next: (data) => {
-        this.user.set(data)
-
+        this.user.set(data);
       },
       error: (error) => console.log(error, 'error at userService getMyAccount()'),
     });
@@ -48,7 +40,6 @@ export class MyAccountComponent {
     .subscribe({
       next: (data) => {
         this.orders.set(data)
-        // console.log(data)
       },
       error: (error) => console.log(error, 'error at userService getMyAccount()'),
     });

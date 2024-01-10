@@ -20,11 +20,7 @@ export class CheckoutComponent {
 
   ngOnInit() {
     const token = this.authTokenService.getToken();
-    if(token) {
 
-    } else {
-      this.userService.redirect('/sign-in')
-    }
   }
 
 }

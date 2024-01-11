@@ -9,6 +9,7 @@ import { SignInComponent } from '@info/pages/sign-in/sign-in.component';
 import { SignUpComponent } from '@info/pages/sign-up/sign-up.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
 import { authGuard } from './guards/auth.guard';
+import { exitGuard } from './guards/exit.guard';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,7 @@ export const routes: Routes = [
       {
         path: 'checkout',
         canActivate: [authGuard],
+        canDeactivate: [exitGuard],
         component: CheckoutComponent,
       },
     ]

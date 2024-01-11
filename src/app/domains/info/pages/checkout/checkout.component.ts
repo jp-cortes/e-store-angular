@@ -4,6 +4,7 @@ import { CartService } from '@shared/services/cart.service';
 import { AuthTokenService } from '@shared/services/auth-token.service';
 import { UserService } from '@shared/services/user.service';
 
+
 @Component({
   selector: 'app-checkout',
   standalone: true,
@@ -21,6 +22,10 @@ export class CheckoutComponent {
   ngOnInit() {
     const token = this.authTokenService.getToken();
 
+  }
+
+  onExit() {
+   return confirm('Do you wan to abandon the page?')
   }
 
 }

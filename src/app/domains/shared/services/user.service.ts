@@ -22,10 +22,6 @@ export class UserService {
     return this.http
       .post<User>(`${this.apiUrl}/auth/login`, dto)
       .pipe(tap((res) => this.tokenService.saveToken(res.token)))
-      .subscribe({
-        next: () => {this.router.navigate(['/my-account'])},
-        error: (error) => console.log(error, 'error at userService signIn()'),
-      });
   }
 
   signUp(dto: Customer) {

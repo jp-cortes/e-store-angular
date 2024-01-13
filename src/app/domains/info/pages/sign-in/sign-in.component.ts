@@ -1,24 +1,75 @@
-import { Component, Input, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLinkWithHref } from '@angular/router';
 import { UserService } from '@shared/services/user.service';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [CommonModule, RouterLinkWithHref, FormsModule],
+  imports: [CommonModule, RouterLinkWithHref, ReactiveFormsModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css',
 })
 export class SignInComponent {
   userService = inject(UserService);
-  signingIn = signal<boolean>(false);
-  @Input() email!: '';
-  @Input() password!: '';
+  signIngError = signal<boolean>(false);
 
-  userSignIn() {
-    this.userService
-    .signIn({ email: this.email, password: this.password })
+
+  user = new FormGroup({
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        // regex for email
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
+     ]
+     }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.pattern(/^.{8,}$/)
+     ]
+     }),
+  })
+
+  userSignIn(event: Event) {
+    this.user.markAllAsTouched();
+    const {email, password} = this.user.value;
+
+    if(this.user.valid) {
+      this.userService
+      .signIn({ email, password })
+      .subscribe({
+        next: () => {
+          this.signIngError();
+          this.userService.redirect('/my-account')
+        },
+        error: (error) => {
+          console.log(error, 'error at userService signIn()')
+          this.signIngError.update(prevState => !prevState);
+        },
+      });
+    }
   }
+
+  // getting the inputs
+  get emailField() {
+    return this.user.get('email');
+  }
+  get passwordField() {
+    return this.user.get('password');
+  }
+
+
+  // validators
+  get invalidEmailField() {
+    return this.emailField?.touched && this.emailField?.invalid;
+  }
+  get invalidPasswordField() {
+    return this.passwordField?.touched && this.passwordField?.invalid;
+  }
+
+
 }

@@ -24,9 +24,9 @@ export class UserService {
       .pipe(tap((res) => this.tokenService.saveToken(res.token)))
   }
 
-  signUp(dto: Customer) {
+  signUp(dto: NewCustomer) {
     return this.http
-      .post<NewCustomer>(`${this.apiUrl}/customers`, dto)
+      .post<Customer>(`${this.apiUrl}/customers`, dto)
       .subscribe({
         next: (data) => {
           const email = data.user.email;

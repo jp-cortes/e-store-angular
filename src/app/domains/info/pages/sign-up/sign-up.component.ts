@@ -19,7 +19,7 @@ export class SignUpComponent {
      nonNullable: true,
      validators: [
        Validators.required,
-       Validators.pattern(/[a-zA-Z ]*/),
+       Validators.pattern(/^([Aa-zA-áéíóúàèìòùüñ ]{2,}\s?){2,4}$/),
     ]
     }),
     lastName: new FormControl('', {
@@ -27,7 +27,7 @@ export class SignUpComponent {
       validators: [
         Validators.required,
         // regex for lastName
-        Validators.pattern(/^[a-zA-Z\u00C0-\u017F' \-]+$/),
+        Validators.pattern(/^([Aa-zA-áéíóúàèìòùüñ ]{2,}\s?){2,4}$/),
      ]
      }),
     phone: new FormControl('', {
@@ -42,8 +42,7 @@ export class SignUpComponent {
         nonNullable: true,
         validators: [
           Validators.required,
-          // regex for email
-          Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
+          Validators.email,
        ]
        }),
       password: new FormControl('', {
@@ -71,58 +70,67 @@ export class SignUpComponent {
 
 
   signUp(event: Event) {
-    this.newProfileForm.markAllAsTouched()
+    this.newProfileForm.markAllAsTouched();
+    console.log(this.newProfileForm.valid);
 
-    const {name, lastName,
-      phone, user} = this.newProfileForm.value;
-    console.log(name)
-    console.log(lastName)
-    console.log(phone)
-    console.log(user?.email)
-    console.log(user?.password)
-    console.log(user?.confirm_password)
-    console.log(this.newProfileForm.valid)
+    const {name, lastName, phone, user} = this.newProfileForm.value;
+    const email = user?.email;
+    const password = user?.password;
+
+    if(this.newProfileForm.valid) {
+
+      this.userService.signUp({
+        name,
+        lastName,
+        phone,
+        user:{
+          email,
+          password
+        }});
+
+    }
+
   }
 
 
 // getting the inputs
   get nameField() {
-    return this.newProfileForm.get('name')
+    return this.newProfileForm.get('name');
   }
   get lastNameField() {
-    return this.newProfileForm.get('lastName')
+    return this.newProfileForm.get('lastName');
   }
   get phoneField() {
-    return this.newProfileForm.get('phone')
+    return this.newProfileForm.get('phone');
   }
   get emailField() {
-    return this.newProfileForm.get('user.email')
+    return this.newProfileForm.get('user.email');
   }
   get passwordField() {
-    return this.newProfileForm.get('user.password')
+    return this.newProfileForm.get('user.password');
   }
   get confirmPasswordField() {
-    return this.newProfileForm.get('user.confirm_password')
+    return this.newProfileForm.get('user.confirm_password');
   }
 
 // validators
   get invalidNameField() {
-    return this.nameField?.touched && this.nameField?.invalid
+    return this.nameField?.touched && this.nameField?.invalid;
   }
   get invalidLastNameField() {
-    return this.lastNameField?.touched && this.lastNameField?.invalid
+    return this.lastNameField?.touched && this.lastNameField?.invalid;
   }
   get invalidPhoneField() {
-    return this.phoneField?.touched && this.phoneField?.invalid
+    return this.phoneField?.touched && this.phoneField?.invalid;
   }
   get invalidEmailField() {
-    return this.emailField?.touched && this.emailField?.invalid
+    return this.emailField?.touched && this.emailField?.invalid;
   }
   get invalidPasswordField() {
-    return this.passwordField?.touched && this.passwordField?.invalid
+    return this.passwordField?.touched && this.passwordField?.invalid;
   }
   get invalidConfirmPasswordField() {
-    return this.confirmPasswordField?.touched && this.confirmPasswordField?.invalid
+    return this.confirmPasswordField?.touched && this.confirmPasswordField?.invalid;
   }
 
   get passwordMatchValidator() {

@@ -21,8 +21,7 @@ export class SignInComponent {
       nonNullable: true,
       validators: [
         Validators.required,
-        // regex for email
-        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
+        Validators.email,
      ]
      }),
     password: new FormControl('', {

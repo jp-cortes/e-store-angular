@@ -24,15 +24,15 @@ export interface CustomerProfile {
 }
 
 export interface NewCustomer {
-  name: string
-  lastName: string
-  phone: string
+  name: string | undefined
+  lastName: string | undefined
+  phone: string | undefined
   avatar?: string
   user: {
-    email: string
-    password: string
+    email: string | undefined
+    password: string | undefined
     role?: string
-    createdAt: string
+    createdAt?: string
 },
 token?: string
 }

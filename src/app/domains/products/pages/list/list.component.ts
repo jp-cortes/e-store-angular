@@ -37,7 +37,7 @@ export default class ListComponent {
     if(category_id.currentValue === undefined) {
       this.getProducts();
     }
-    this.getProductsBycategory()
+    this.getProductsBycategory();
 
 
   }

@@ -52,7 +52,7 @@
                    <div>
                       <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                       <input [class.border-red-700]="!passwordMatchValidator" formControlName="confirm_password" type="password" name="confirm_password" id="confirm_password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
-                      <span *ngIf="invalidConfirmPasswordField && !passwordMatchValidator" class="text-xs text-red-700" >Must match the password</span>
+                      <span *ngIf="invalidConfirmPasswordField && !passwordMatchValidator" class="text-xs text-red-700" >Passwords must match </span>
                    </div>
                   </div>
                   <div class="flex items-start">

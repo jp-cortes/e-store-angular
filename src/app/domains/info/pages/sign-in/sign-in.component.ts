@@ -43,10 +43,10 @@ export class SignInComponent {
       .subscribe({
         next: () => {
           this.signIngError();
-          this.userService.redirect('/my-account')
+          this.userService.redirect('/my-account');
         },
         error: (error) => {
-          console.log(error, 'error at userService signIn()')
+          console.log(error, 'error at userService signIn()');
           this.signIngError.update(prevState => !prevState);
         },
       });

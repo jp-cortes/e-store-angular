@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Customer, NewCustomer, User, UserAccount, UserSignIn } from '@shared/models/user.model';
 import { AuthTokenService } from './auth-token.service';
 import { tap } from 'rxjs/operators';
@@ -12,9 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   constructor(private router: Router) {}
-  private routerLink = inject(RouterLink);
   private http = inject(HttpClient);
-  private params = inject(HttpParams);
   private tokenService = inject(AuthTokenService);
   private apiUrl = `https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1`;
 
@@ -44,9 +42,9 @@ export class UserService {
   }
 
   updatePassword(password: string) {
-    // const token = this.routerLink.queryParams
+
     return this.http
-      .post<any>(`${this.apiUrl}/auth/change-password`, {  password })
+      .post<any>(`${this.apiUrl}/auth/change-password`, { password })
       .subscribe({
         next: () => {},
         error: () => {}

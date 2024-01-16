@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '@shared/services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -12,6 +13,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class ResetPasswordComponent {
   userService = inject(UserService);
+
 
   resetPassword = new FormGroup({
     password: new FormControl('', {
@@ -32,8 +34,10 @@ export class ResetPasswordComponent {
      }),
   })
 
-  signUp(event: Event) {
+  changePassword(event: Event) {
     this.resetPassword.markAllAsTouched();
+
+
 const {password} = this.resetPassword.value;
 if(this.resetPassword.valid) {
   // this.userService.updatePassword(password)

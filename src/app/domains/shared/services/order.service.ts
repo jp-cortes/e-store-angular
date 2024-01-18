@@ -1,9 +1,25 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthTokenService } from './auth-token.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService {
+export class OrderService{
 
-  constructor() { }
+  constructor(private router: Router) {}
+  private http = inject(HttpClient);
+  private tokenService = inject(AuthTokenService);
+  private apiUrl = `https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1`;
+
+  createOrder(dto: { paid: boolean, status: string }) {
+    return this.http
+      .post(`${this.apiUrl}/orders`, dto)
+  }
+
+  addProduct(dto: { orderId: number, productId: number, amount: number }) {
+    return this.http
+      .post(`${this.apiUrl}/orders/add-item`, dto)
+  }
 }

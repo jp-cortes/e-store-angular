@@ -1,95 +1,58 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Product } from '../models/product.model';
 import { CartAction, CartItemType, CartState } from '../models/cart.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CartService {
   cart = signal<Product[]>([]);
   total = computed(() => {
     const cart = this.cart();
     return cart.reduce((total, product) => total + Number(product.price), 0);
-  })
+  });
+
+  // addToCart(product: Product) {
+  //   this.cart.update(state => [...state, product])
+  //   }
+
+  private cartItemsSubject: BehaviorSubject<CartState> = new BehaviorSubject<CartState>({});
+  public cartItems$: Observable<CartState> = this.cartItemsSubject.asObservable();
 
   constructor() {}
 
-    addToCart(product: Product) {
-    this.cart.update(state => [...state, product])
+  private get getCartItems(): CartState {
+    return this.cartItemsSubject.getValue();
+  }
+
+  private set setCartItems(items: CartState) {
+    this.cartItemsSubject.next(items);
+  }
+
+  addToCart(item: Product, quantity: number = 1): void {
+    const existingItem = this.getCartItems[item.id];
+
+    if (existingItem) {
+      // Item already exists, update quantity
+      const updatedItem = { ...existingItem, quantity: existingItem.quantity + quantity };
+      this.setCartItems = { ...this.getCartItems, [item.id]: updatedItem };
+    } else {
+      // Item doesn't exist, add to the cart
+      const newItem = { ...item, quantity };
+      this.setCartItems = { ...this.getCartItems, [item.id]: newItem };
     }
+  }
 
+  removeFromCart(item: CartItemType): void {
+    const { [item.id]: _, ...updatedItems } = this.getCartItems;
+    this.setCartItems = updatedItems;
+  }
 
-  cartState = signal<CartState>({});
-  cartStateType = signal<"add" | "remove" | "clear">("add");
-  cartStateItem = signal<Product | {}>({});
-  cartStateQuantity = signal<number | undefined>(undefined);
-  cartAction = signal({});
-
-
-
-
-  ShoppingCartReducers(
-    { item, type, quantity: qtyToAdd = 1 }: CartAction
-  ) {
-
-      // const item = this.cartStateItem()
-      // const type = this.cartStateType()
-      // const quantity = this.cartStateQuantity()
-      const state = this.cartState()
-
-      const existingShoppingCartItem = state[item.id];
-
-      switch (type) {
-        case "add": {
-          if (existingShoppingCartItem !== undefined) {
-            const quantity = existingShoppingCartItem.quantity + qtyToAdd;
-            return {
-              ...state,
-              [item.id]: {
-                ...existingShoppingCartItem,
-                quantity,
-              },
-            };
-          }
-
-          return {
-            ...state,
-            [item.id]: {
-              ...item,
-              quantity: qtyToAdd,
-            },
-          };
-        }
-
-        case "remove": {
-          if (existingShoppingCartItem === undefined) {
-            return state;
-          }
-
-          const quantity = existingShoppingCartItem.quantity - 1;
-          if (quantity > 0) {
-            return {
-              ...state,
-              [item.id]: {
-                ...existingShoppingCartItem,
-                quantity,
-              },
-            };
-          }
-
-          const newShoppingCartItems = { ...state };
-          delete newShoppingCartItems[item.id];
-          return newShoppingCartItems;
-        }
-
-
-         case "clear": { return {}}
-
-        default: {
-          throw new Error(`Unhandled action type: ${type}`);
-        }
-      }
-    }
+  clearCart(): void {
+    this.setCartItems = {};
+  }
 
 
    getShoppingCartSubTotal(sum: number, item: CartItemType){
@@ -102,7 +65,7 @@ export class CartService {
   }
 
     useShoppingCart() {
-      const itemsById = this.cartState;
+      const itemsById = this.getCartItems
       const items = Object.values(itemsById);
       const count = items.reduce(this.getShoppingCartCount, 0);
       const subTotal = items.reduce(this.getShoppingCartSubTotal, 0);
@@ -112,30 +75,10 @@ export class CartService {
         itemsById,
         count,
         subTotal,
-      };
-    };
+      }
+    }
 
 
-  //  useShoppingCartMutations() {
-  //     const dispatch = this.ShoppingCartReducers();
 
-  //     const addToShoppingCart = (product: Product, quantity?: number) =>
-  //       dispatch({
-  //         type: "add",
-  //         item: product,
-  //         quantity,
-  //       });
-
-  //     const removeFromShoppingCart = (product: Product) =>
-  //       dispatch({
-  //         type: "remove",
-  //         item: product,
-  //       });
-
-  //     // const clearShoppingCart = () =>
-  //     //   dispatch({ type: "clear"});
-
-
-  //   };
 
 }

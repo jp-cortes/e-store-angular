@@ -43,7 +43,7 @@ export default class ListComponent {
   }
 
   addToCart(product: Product) {
-   this.cartService.addToCart(product);
+   this.cartService.addToCart(product, 1);
   }
 
   getProducts() {

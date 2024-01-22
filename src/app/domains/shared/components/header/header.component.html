@@ -94,7 +94,7 @@
 </nav>
 
 <div
-  class="fixed border-l-4 top-0 right-0 bg-red z-40 w-72 h-screen p-4 overflow-y-auto transition-transform bg-white"
+  class="fixed border-l-4 top-0 right-0 bg-red z-40 w-80 h-screen p-4 overflow-y-auto transition-transform bg-white"
   [class.translate-x-full]="hideCart()"
 >
   <div class="flex justify-between items-center">
@@ -133,11 +133,13 @@
           />
         </svg>
   </div>
-  <div class="pt-4 flex flex-col w-full h-[55%] lg:h-[60%] px-4 overflow-y-auto">
-    <div
-    class=" flex justify-between items-center space-y-2 "
-     *ngFor="let product of cart()">
-      <div class="flex items-center space-x-2 border-b-2 border-gray-300">
+  <div  class="pt-4 flex flex-col w-full h-[55%] lg:h-[60%] px-4 overflow-y-auto">
+    <div *ngFor="let product of cart()" >
+
+      <div
+      class=" flex justify-between items-center space-y-2 mb-1"
+      >
+      <div class="flex items-center space-x-2 ">
         <figure class="mt-1">
           <img class="h-7 w-7"
           [src]="product.image" [alt]="product.name">
@@ -146,13 +148,23 @@
       </div>
       <p>{{ product.price | currency: 'EUR' }}</p>
     </div>
+    <div class="flex">
+      <p class="w-[250px] pl-3 border border-gray-300">{{product.quantity}}</p>
+      <button class="w-8 text-xl border border-gray-300" type="button">
+        -
+      </button>
+      <button class="w-8 text-xl border border-gray-300" type="button">
+        +
+      </button>
+    </div>
+    </div>
 
   </div>
   <div *ngIf="cart().length" class="px-4 pb-3">
     <div class="border-t-2 border-b-2 border-black mt-3 py-2">
       <div class="flex justify-between">
         <p>Subtotal</p>
-        <p> {{ total() | currency: 'EUR' }}</p>
+        <p> {{ subtotal() | currency: 'EUR' }}</p>
       </div>
       <div class="flex justify-between">
         <p>Taxes</p>
@@ -165,7 +177,7 @@
     </div>
     <div class="flex justify-between">
       <p>Total</p>
-      <p> {{ total() | currency: 'EUR' }}</p>
+      <p> {{ subtotal() | currency: 'EUR' }}</p>
     </div>
     <a class="flex justify-center w-52 px-4 py-2 rounded-xl bg-black text-white font-medium mx-auto my-6"
     routerLink="/checkout" (click)="toggleCart()">checkout</a>

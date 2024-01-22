@@ -43,6 +43,8 @@ export default class ListComponent {
   }
 
   addToCart(product: Product) {
+    // console.log(this.cartService.useShoppingCart());
+
    this.cartService.addToCart(product, 1);
   }
 

@@ -1,34 +1,43 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Product } from '../models/product.model';
-import { CartAction, CartItemType, CartState } from '../models/cart.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { CartItemType, CartState } from '../models/cart.model';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class CartService {
-  cart = signal<Product[]>([]);
-  total = computed(() => {
+   private cart = signal<CartState>({});
+
+   // Product in the shoppingCart
+   items = computed(() => {
     const cart = this.cart();
-    return cart.reduce((total, product) => total + Number(product.price), 0);
+    const items = Object.values(cart);
+    return items;
   });
 
-  // addToCart(product: Product) {
-  //   this.cart.update(state => [...state, product])
-  //   }
+  // count the quantity of a product in the shoppingCart
+  count = computed(() => {
+      const cart = this.cart();
+      const items = Object.values(cart);
+      return items.reduce((sum:number, product: CartItemType) => sum + Number(product.quantity), 0);
+    });
 
-  private cartItemsSubject: BehaviorSubject<CartState> = new BehaviorSubject<CartState>({});
-  public cartItems$: Observable<CartState> = this.cartItemsSubject.asObservable();
+    // total before taxes of the products
+  subtotal = computed(() => {
+      const cart = this.cart();
+      const items = Object.values(cart);
+      return items.reduce((sum:number, product: CartItemType) => sum += Number(product.price) * product.quantity, 0);
+    });
 
   constructor() {}
 
   private get getCartItems(): CartState {
-    return this.cartItemsSubject.getValue();
+    return this.cart();
   }
 
-  private set setCartItems(items: CartState) {
-    this.cartItemsSubject.next(items);
+  private set setCartItems(item: any) {
+    this.cart.update(state => { return {...state, ...item }} );
   }
 
   addToCart(item: Product, quantity: number = 1): void {
@@ -45,9 +54,17 @@ export class CartService {
     }
   }
 
-  removeFromCart(item: CartItemType): void {
-    const { [item.id]: _, ...updatedItems } = this.getCartItems;
-    this.setCartItems = updatedItems;
+  removeFromCart(item: Product): void {
+    const existingItem = this.getCartItems[item.id];
+    const quantity = existingItem.quantity - 1;
+    const updatedItems = this.getCartItems;
+
+    this.setCartItems = {
+
+      [item.id]: {
+      ...existingItem,
+      quantity,
+    },...updatedItems};
   }
 
   clearCart(): void {
@@ -64,19 +81,9 @@ export class CartService {
     return sum + item.quantity
   }
 
-    useShoppingCart() {
-      const itemsById = this.getCartItems
-      const items = Object.values(itemsById);
-      const count = items.reduce(this.getShoppingCartCount, 0);
-      const subTotal = items.reduce(this.getShoppingCartSubTotal, 0);
 
-      return {
-        items,
-        itemsById,
-        count,
-        subTotal,
-      }
-    }
+
+
 
 
 

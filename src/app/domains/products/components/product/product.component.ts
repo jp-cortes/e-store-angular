@@ -4,7 +4,6 @@ import { Product } from '@shared/models/product.model';
 import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
 import { ReversePipe } from '@shared/pipes/reverse.pipe';
 import { RouterLink } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -19,7 +18,7 @@ export class ProductComponent {
   @Output() addToCart = new EventEmitter();
 
   addToCartHandler() {
-    console.log('Click from child');
+    // console.log('Click from child');
     this.addToCart.emit(this.product);
   }
 }

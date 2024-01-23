@@ -30,18 +30,21 @@ toggleCart() {
 }
 
 ngOnInit() {
-  let getToken = this.authTokenService.getToken()
-  if(getToken) this.user.set(true)
+  let getToken = this.authTokenService.getToken();
+  if(getToken) this.user.set(true);
 
 }
 
 ngOnChanges(changes: SimpleChanges) {
-  console.log(changes, 'headers component')
+  // console.log(changes, 'headers component')
 
 }
 
+addProduct(product: Product) {
+  this.cartService.addToCart(product);
+}
 removeProduct(product: Product) {
-  this.cartService.removeFromCart(product)
+  this.cartService.removeFromCart(product);
 }
 
 }

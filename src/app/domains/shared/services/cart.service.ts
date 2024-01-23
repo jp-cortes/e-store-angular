@@ -31,7 +31,7 @@ export class CartService {
     });
 
   constructor() {}
-    // get value of the shoppincart
+    // get value of the shoppingCart
   private get getCartItems(): CartState {
     return this.cart();
   }
@@ -40,6 +40,7 @@ export class CartService {
     this.cart.update(state => { return {...state, ...item }} );
   }
 
+  // add product to shoppingCart
   addToCart(item: Product, quantity: number = 1): void {
     const existingItem = this.getCartItems[item.id];
 
@@ -54,39 +55,42 @@ export class CartService {
     }
   }
 
-  removeFromCart(item: Product): void {
+  removeFromCart(item: Product) {
     const existingItem = this.getCartItems[item.id];
     const quantity = existingItem.quantity - 1;
-    const updatedItems = this.getCartItems;
+    const shoppingCart = this.getCartItems;
 
-    this.setCartItems = {
+    // if the product is undefined, return what is left in the shoppingCart
+    if(existingItem === undefined) {
+      return shoppingCart;
+    }
+
+    // when thw quantity of a product is higher to 0, reduce quantity by one
+    if(quantity > 0) {
+
+     this.setCartItems = {
+      ...shoppingCart,
 
       [item.id]: {
-      ...existingItem,
-      quantity,
-    },...updatedItems};
+        ...existingItem,
+        quantity,
+      },
+    };
+    return shoppingCart;
+
+    }
+
+      const newShoppingCartItems = this.getCartItems;
+      delete newShoppingCartItems[item.id];
+      this.setCartItems = {...newShoppingCartItems}
+
+      return shoppingCart;
   }
 
-
+// clear all shoppingCart
   clearCart(): void {
     this.setCartItems = {};
   }
-
-
-   getShoppingCartSubTotal(sum: number, item: CartItemType){
-      sum += item.price * item.quantity;
-      return sum;
-    };
-
-  getShoppingCartCount(sum: number, item: CartItemType) {
-    return sum + item.quantity
-  }
-
-
-
-
-
-
 
 
 }

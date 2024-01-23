@@ -150,7 +150,7 @@
     </div>
     <div class="flex">
       <p class="w-[250px] pl-3 border border-gray-300">{{product.quantity}}</p>
-      <button class="w-8 text-xl border border-gray-300" type="button">
+      <button (click)="removeProduct(product)" class="w-8 text-xl border border-gray-300" type="button">
         -
       </button>
       <button class="w-8 text-xl border border-gray-300" type="button">

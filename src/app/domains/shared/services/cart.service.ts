@@ -23,7 +23,7 @@ export class CartService {
       return items.reduce((sum:number, product: CartItemType) => sum + Number(product.quantity), 0);
     });
 
-    // total before taxes of the products
+    // total price before taxes of the products
   subtotal = computed(() => {
       const cart = this.cart();
       const items = Object.values(cart);
@@ -31,11 +31,11 @@ export class CartService {
     });
 
   constructor() {}
-
+    // get value of the shoppincart
   private get getCartItems(): CartState {
     return this.cart();
   }
-
+  // modify the shoppingCart
   private set setCartItems(item: any) {
     this.cart.update(state => { return {...state, ...item }} );
   }
@@ -66,6 +66,7 @@ export class CartService {
       quantity,
     },...updatedItems};
   }
+
 
   clearCart(): void {
     this.setCartItems = {};

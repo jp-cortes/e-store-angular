@@ -4,6 +4,7 @@ import { CartService } from '../../services/cart.service';
 import { RouterLinkWithHref, RouterLinkActive } from '@angular/router';
 import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 import { AuthTokenService } from '@shared/services/auth-token.service';
+import { Product } from '@shared/models/product.model';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +38,10 @@ ngOnInit() {
 ngOnChanges(changes: SimpleChanges) {
   console.log(changes, 'headers component')
 
+}
+
+removeProduct(product: Product) {
+  this.cartService.removeFromCart(product)
 }
 
 }

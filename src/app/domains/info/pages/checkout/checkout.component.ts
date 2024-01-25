@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '@shared/services/cart.service';
 import { AuthTokenService } from '@shared/services/auth-token.service';
 import { UserService } from '@shared/services/user.service';
+import { OrderService } from '@shared/services/order.service';
+import { Product } from '@shared/models/product.model';
+import { CartItemType } from '@shared/models/cart.model';
+import { OrderResume } from '@shared/models/order.model';
 
 
 @Component({
@@ -15,7 +19,7 @@ import { UserService } from '@shared/services/user.service';
 export class CheckoutComponent {
   private cartService = inject(CartService);
   private authTokenService = inject(AuthTokenService);
-  private userService = inject(UserService);
+  private orderService = inject(OrderService);
   cart = this.cartService.items;
   subtotal = this.cartService.subtotal;
 
@@ -25,7 +29,26 @@ export class CheckoutComponent {
   }
 
   checkout() {
+    this.orderService.createOrder({ paid: true, status: 'on the way' })
+    .subscribe({
+      next: (order) => {
+        this.cart().forEach((item) => this.addProductToOrder(item, order))
 
+      },
+      error: () => {
+        console.log('error creating order');
+
+      }
+    })
+
+  }
+
+  addProductToOrder(product: CartItemType, order: OrderResume) {
+    return this.orderService.addProduct({
+      orderId: order.id,
+      productId: product.id,
+      amount: product.quantity
+    })
   }
 
   onExit() {

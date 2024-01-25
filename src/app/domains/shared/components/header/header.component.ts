@@ -1,7 +1,7 @@
 import { Component, SimpleChanges, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
-import { RouterLinkWithHref, RouterLinkActive } from '@angular/router';
+import { RouterLinkWithHref, RouterLinkActive, Router } from '@angular/router';
 import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 import { AuthTokenService } from '@shared/services/auth-token.service';
 import { Product } from '@shared/models/product.model';
@@ -9,7 +9,7 @@ import { Product } from '@shared/models/product.model';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule,RouterLinkWithHref, RouterLinkActive, MenuMobileComponent],
+  imports: [CommonModule, RouterLinkWithHref, RouterLinkActive, MenuMobileComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -20,10 +20,12 @@ hideCart = signal(true);
 user = signal<boolean>(false);
 cartService = inject(CartService);
 private authTokenService = inject(AuthTokenService);
-cart = this.cartService.items
-subtotal = this.cartService.subtotal
+cart = this.cartService.items;
+subtotal = this.cartService.subtotal;
 
+constructor(private _router: Router) {}
 
+router = this._router.url;
 
 toggleCart() {
   this.hideCart.update(prevState => !prevState);
@@ -35,10 +37,9 @@ ngOnInit() {
 
 }
 
-ngOnChanges(changes: SimpleChanges) {
-  // console.log(changes, 'headers component')
-
-}
+// ngOnChanges(changes: SimpleChanges) {
+//   console.log(this.router);
+// }
 
 addProduct(product: Product) {
   this.cartService.addToCart(product);
@@ -46,5 +47,6 @@ addProduct(product: Product) {
 removeProduct(product: Product) {
   this.cartService.removeFromCart(product);
 }
+
 
 }

@@ -20,15 +20,16 @@ export interface ProductOrder  {
   OrderProduct: OrderProduct;
 }
 
-
-export interface OrderDetail  {
+export interface OrderResume {
   id: number;
   status: string;
   paid: boolean;
   createdAt: string;
+}
+
+export interface OrderDetail extends OrderResume  {
   customerId: number;
   customer: Customer;
   items: ProductOrder[];
 }
 
-export interface OrderResume extends Partial<OrderDetail>{}

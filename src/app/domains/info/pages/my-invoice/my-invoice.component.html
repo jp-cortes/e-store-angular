@@ -14,7 +14,7 @@
       <div *ngIf="invoice()"
         class="bg-white print:bg-white md:flex lg:flex xl:flex print:flex md:justify-center lg:justify-center xl:justify-center print:justify-center" >
         <div class="w-full bg-white lg:w-full xl:w-2/3 lg:mt-20 lg:mb-20 lg:shadow-xl xl:mt-02 xl:mb-20 xl:shadow-xl print:transform print:scale-90">
-          <div class="flex flex-col items-center px-8 pt-20 text-lg text-center bg-white border-t-8 border-green-700 md:block lg:block xl:block print:block md:items-start lg:items-start xl:items-start print:items-start md:text-left lg:text-left xl:text-left print:text-left print:pt-8 print:px-2 md:relative lg:relative xl:relative print:relative">
+          <div class="flex flex-col items-center px-8 pt-20 text-lg text-center bg-white border-t-8 border-green-700 md:block lg:block xl:block print:block md:items-start lg:items-start xl:items-start print:items-start md:text-left lg:text-left xl:text-left print:text-left md:relative lg:relative xl:relative print:relative">
             <h1 class="text-2xl font-bold md:text-3xl lg:text-4xl xl:text-4xl ">
               E-store
             </h1>
@@ -59,14 +59,14 @@
 
                     <tr *ngFor="let item of invoice()?.items">
                       <td class="px-4 py-2 border">{{item.name}}</td>
-                      <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
+                      <td class="px-4 py-2 text-right border ">
                         {{item.OrderProduct.amount}}
                       </td>
-                      <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
-                        € {{item.price}}
+                      <td class="px-4 py-2 text-right border">
+                        {{item.price | currency: 'EUR'}}
                       </td>
-                      <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
-                        € {{getSubtotal(item)}}
+                      <td class="px-4 py-2 text-right border ">
+                        {{getSubtotal(item) | currency: 'EUR'}}
                       </td>
                     </tr>
 
@@ -76,7 +76,7 @@
                     <td class="invisible"></td>
                     <td class="invisible"></td>
                     <td class="px-4 py-2 text-right border">
-                      <span class="flag-icon flag-icon-hu print:hidden"></span>" "
+                      <span class="print:hidden"></span>" "
                       VAT
                     </td>
                     <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
@@ -98,8 +98,8 @@
                       Total
                     </td>
                     <td class="px-4 py-2 text-right border tabular-nums slashed-zero">
-                      €
-                      {{  totalOfInvoice() }}
+
+                      {{  totalOfInvoice() | currency: 'EUR' }}
                     </td>
                   </tr>
                 </tbody>
@@ -116,10 +116,13 @@
 
                 {{invoice()?.createdAt?.slice(0, 10)}}
                 <span class="font-light">
-                  <i class="lab la-cc-mastercard la-lg"></i> Credit Card
-                  Payment: €
-                  {{ totalOfInvoice() }}
-                  (Mastercard XXXX-XXXX-XXXX-0122)
+                  <i class="">
+                    Credit Card Payment:
+                  </i>
+                  <b>
+                    {{ totalOfInvoice() | currency: 'EUR'}}
+                  </b>
+                  (Mastercard XXXX-XXXX-XXXX-4242)
                 </span>
               </p>
             </div>

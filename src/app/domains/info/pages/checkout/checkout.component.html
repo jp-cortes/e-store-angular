@@ -20,7 +20,7 @@
 
           <div class="flex justify-between px-4">
             <p class="">Quantity:</p>
-            <p class="font-semibold">1</p>
+            <p class="font-semibold">{{item.quantity}}</p>
           </div>
         </div>
 
@@ -31,16 +31,18 @@
       <div class="px-4">
         <div class="border-t-2 border-b-2 border-black mt-3 py-2">
           <div class="flex justify-between">
-            <p>Subtotal</p>
-            <p>€ subTotal.toFixed(2)</p>
+            <p>Tax</p>
+            <p> {{ 0 | currency: 'EUR'}}</p>
           </div>
         </div>
         <div class="flex justify-between">
           <p>Total</p>
-          <p>€ {{subtotal()}}</p>
+          <p>{{subtotal() | currency: 'EUR'}}</p>
         </div>
         <div class="flex flex-col justify-between items-center z-0">
-          <button>payment</button>
+          <button (click)="checkout()"
+          class="flex justify-center w-52 px-4 py-2 rounded-xl bg-black text-white font-medium mx-auto my-6"
+          >Payment</button>
           <div class="w-full flex items-center justify-center my-6">
           </div>
 

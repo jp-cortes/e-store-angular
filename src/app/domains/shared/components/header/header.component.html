@@ -69,7 +69,7 @@
       </ul>
     </div>
     <div class="flex items-center">
-      <button class="p-2 border rounded relative" (click)="toggleCart()">
+      <button class="p-2 border rounded relative shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]" (click)="toggleCart()">
         <div *ngIf="cart().length"
          class="absolute -top-1 left-1 rounded-full h-5 w-5 bg-black text-white text-xs">
           {{ cart().length }}
@@ -179,8 +179,8 @@
       <p>Total</p>
       <p> {{ subtotal() | currency: 'EUR' }}</p>
     </div>
-    <a class="flex justify-center w-52 px-4 py-2 rounded-xl bg-black text-white font-medium mx-auto my-6"
-    routerLink="/checkout" (click)="toggleCart()">checkout</a>
+    <a class="flex justify-center w-52 px-4 py-2 rounded-xl bg-black text-white font-medium mx-auto my-6 hover:bg-gray-500 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]"
+    routerLink="/checkout" (click)="toggleCart()">Checkout</a>
 
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { Component, SimpleChanges, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
-import { RouterLinkWithHref, RouterLinkActive, Router } from '@angular/router';
+import { RouterLinkWithHref, RouterLinkActive } from '@angular/router';
 import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 import { AuthTokenService } from '@shared/services/auth-token.service';
 import { Product } from '@shared/models/product.model';
@@ -23,9 +23,9 @@ private authTokenService = inject(AuthTokenService);
 cart = this.cartService.items;
 subtotal = this.cartService.subtotal;
 
-constructor(private _router: Router) {}
+constructor() {}
 
-router = this._router.url;
+
 
 toggleCart() {
   this.hideCart.update(prevState => !prevState);

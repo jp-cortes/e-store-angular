@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { environment } from '@environments/environment';
 import { Category } from '@shared/models/category.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  private apiUrl = 'https://express-rest-api-dev-hacj.2.us-1.fl0.io'
+  private apiUrl = environment.API_URL
   private http = inject(HttpClient);
 
   constructor() { }

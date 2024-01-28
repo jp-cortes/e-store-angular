@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Product } from '../models/product.model';
 import { Observable } from 'rxjs';
 import { Category } from '@shared/models/category.model';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Category } from '@shared/models/category.model';
 export class ProductService {
 
   private http = inject(HttpClient);
-  private apiUrl = `https://express-rest-api-dev-hacj.2.us-1.fl0.io`
+  private apiUrl = environment.API_URL
 
   constructor() { }
 

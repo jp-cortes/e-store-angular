@@ -5,6 +5,7 @@ import { Customer, NewCustomer, User, UserAccount, UserSignIn } from '@shared/mo
 import { AuthTokenService } from './auth-token.service';
 import { tap } from 'rxjs/operators';
 import { OrderDetail, OrderResume } from '@shared/models/order.model';
+import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class UserService {
   constructor(private router: Router) {}
   private http = inject(HttpClient);
   private tokenService = inject(AuthTokenService);
-  private apiUrl = `https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1`;
+  private apiUrl = environment.API_URL;
 
 
   signIn(dto: UserSignIn) {

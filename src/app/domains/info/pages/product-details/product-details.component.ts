@@ -42,7 +42,7 @@ export default class ProductDetailsComponent {
   addToCart() {
     const product = this.product();
     if(product) {
-      this.cartService.addToCart(product);
+      return this.cartService.addToCart(product);
     }
   }
 

@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthTokenService } from './auth-token.service';
 import { OrderResume } from '@shared/models/order.model';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class OrderService{
   constructor(private router: Router) {}
   private http = inject(HttpClient);
   private tokenService = inject(AuthTokenService);
-  private apiUrl = `https://express-rest-api-dev-hacj.2.us-1.fl0.io/api/v1`;
+  private apiUrl = environment.API_URL;
 
   createOrder(dto: { paid: boolean, status: string }) {
     return this.http

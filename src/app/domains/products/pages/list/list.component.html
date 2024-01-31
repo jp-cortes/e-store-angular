@@ -9,7 +9,7 @@
         >All
         </a>
       </li>
-      <li class="mt-4 py-2 capitalize" *ngFor="let category of categories()">
+      <li class="mt-4 py-2 capitalize hover:underline duration-1000" *ngFor="let category of categories()">
         <a
           routerLink="/"
           [queryParams]="{ categoryId: category.id }"

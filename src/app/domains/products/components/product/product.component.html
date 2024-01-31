@@ -1,13 +1,13 @@
 <div class="group rounded-lg border w-[290px] lg:w-full shadow-lg">
   <a [routerLink]="['/product', product.id]" class="w-full overflow-hidden rounded-t-lg bg-gray-200">
-      <img [src]="product.image" [alt]="product.name" class="h-full w-full object-cover object-center group-hover:opacity-75">
+      <img [src]="product.image" [alt]="product.name" class="h-full w-full object-cover object-center group-hover:opacity-75 duration-300">
   </a>
   <div class="flex flex-col space-y-2 p-4">
       <h3 class="text-sm text-gray-700">{{ product.name | reverse }}</h3>
       <p class="text-lg font-medium text-gray-900">{{ product.price | currency: 'EUR'}}</p>
       <p class="text-lg font-normal text-gray-900 h-12 overflow-hidden whitespace-nowrap text-ellipsis ">{{ product.description }}</p>
       <p class="text-xs font-light text-gray-900">{{ product.createdAt | timeAgo }}</p>
-      <button class="text-red-500 bg-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 w-full hover:bg-red-500 hover:text-white"
+      <button class="text-red-500 bg-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 w-full duration-300 hover:bg-red-500 hover:text-white active:scale-50"
           (click)="addToCartHandler()">Add to cart</button>
   </div>
 </div>

@@ -22,6 +22,7 @@
     "@apollo/client": "^3.0.0",
     "date-fns": "^2.30.0",
     "graphql": "^16",
+    "karma-mocha-reporter": "^2.2.5",
     "ngx-cookie-service": "^17.0.1",
     "ngx-paypal": "^11.0.0",
     "rxjs": "~7.8.0",

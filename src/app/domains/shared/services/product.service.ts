@@ -11,7 +11,7 @@ import { environment } from '@environments/environment';
 export class ProductService {
 
   private http = inject(HttpClient);
-  private apiUrl = environment.API_URL
+  private apiUrl = environment.API_URL;
 
   constructor() { }
 

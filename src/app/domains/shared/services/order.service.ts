@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthTokenService } from './auth-token.service';
-import { OrderResume } from '@shared/models/order.model';
+import { CreateOrder, OrderResume } from '@shared/models/order.model';
 import { environment } from '@environments/environment';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class OrderService{
   private tokenService = inject(AuthTokenService);
   private apiUrl = environment.API_URL;
 
-  createOrder(dto: { paid: boolean, status: string }) {
+  createOrder(dto: CreateOrder) {
     return this.http
       .post<OrderResume>(`${this.apiUrl}/orders`, dto)
   }

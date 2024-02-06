@@ -42,15 +42,15 @@ export class UserService {
       .post<any>(`${this.apiUrl}/auth/recovery`, { email: dto });
   }
 
-  updatePassword(password: string) {
+  // updatePassword(password: string) {
 
-    return this.http
-      .post<any>(`${this.apiUrl}/auth/change-password`, { password })
-      .subscribe({
-        next: () => {},
-        error: () => {}
-      })
-  }
+  //   return this.http
+  //     .post<any>(`${this.apiUrl}/auth/change-password`, { password })
+  //     .subscribe({
+  //       next: () => {},
+  //       error: () => {}
+  //     })
+  // }
 
   getMyAccount() {
     return this.http.get<UserAccount>(`${this.apiUrl}/users/account`)

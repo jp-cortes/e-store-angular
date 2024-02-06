@@ -34,7 +34,7 @@ describe('test for getCategories', () => {
         });
 
         //http config
-        const url = `${environment.API_URL}/api/v1/categories`;
+        const url = `${environment.API_URL}/categories`;
         const req = httpControler.expectOne(url);
         req.flush(mockCategoriesData);
         httpControler.verify();
@@ -51,7 +51,7 @@ describe('test for getCategories', () => {
         });
 
         //http config
-        const url = `${environment.API_URL}/api/v1/categories/1`;
+        const url = `${environment.API_URL}/categories/1`;
         const req = httpControler.expectOne(url);
         req.flush(mockCategoryData);
         httpControler.verify();

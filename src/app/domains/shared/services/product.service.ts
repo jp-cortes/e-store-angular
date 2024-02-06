@@ -22,21 +22,21 @@ export class ProductService {
       params = params.set('offset', offset);
     }
 
-    return this.http.get<Product[]>(`${this.apiUrl}/api/v1/products`, { params })
+    return this.http.get<Product[]>(`${this.apiUrl}/products`, { params })
   }
 
   getProductsByCategory(categoryId?: number): Observable<any> {
 
     if(categoryId) {
 
-     return this.http.get<Category>(`${this.apiUrl}/api/v1/categories/${categoryId}`)
+     return this.http.get<Category>(`${this.apiUrl}/categories/${categoryId}`)
 
     }
     return new Observable<any>()
   }
 
   getOne(id: string) {
-    return this.http.get<Product>(`${this.apiUrl}/api/v1/products/${id}`)
+    return this.http.get<Product>(`${this.apiUrl}/products/${id}`)
   }
 
 

@@ -27,6 +27,8 @@ export interface OrderResume {
   createdAt: string;
 }
 
+export interface CreateOrder extends Omit<OrderResume, 'id' | 'createdAt'> {}
+
 export interface OrderDetail extends OrderResume  {
   customerId: number;
   customer: Customer;

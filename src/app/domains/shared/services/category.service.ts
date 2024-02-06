@@ -15,10 +15,10 @@ export class CategoryService {
 
 
   getCategories() {
-    return this.http.get<Category[]>(`${this.apiUrl}/api/v1/categories`)
+    return this.http.get<Category[]>(`${this.apiUrl}/categories`)
   }
 
   getCategory(id: string) {
-    return this.http.get<Category>(`${this.apiUrl}/api/v1/categories/${id}`)
+    return this.http.get<Category>(`${this.apiUrl}/categories/${id}`)
   }
 }

@@ -29,6 +29,20 @@ export interface OrderResume {
 
 export interface CreateOrder extends Omit<OrderResume, 'id' | 'createdAt'> {}
 
+export interface AddItem {
+  orderId: number;
+  productId: number;
+  amount: number;
+}
+
+export interface ItemAdded {
+  amount: number;
+  createdAt: string;
+  id: number;
+  orderId: number;
+  productId: number;
+}
+
 export interface OrderDetail extends OrderResume  {
   customerId: number;
   customer: Customer;

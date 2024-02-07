@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthTokenService } from './auth-token.service';
-import { CreateOrder, OrderResume } from '@shared/models/order.model';
+import { AddItem, CreateOrder, ItemAdded, OrderResume } from '@shared/models/order.model';
 import { environment } from '@environments/environment';
 
 @Injectable({
@@ -20,9 +20,9 @@ export class OrderService{
       .post<OrderResume>(`${this.apiUrl}/orders`, dto)
   }
 
-  addProduct(dto: { orderId: number, productId: number, amount: number }) {
+  addProduct(dto: AddItem) {
     return this.http
-      .post(`${this.apiUrl}/orders/add-item`, dto)
+      .post<ItemAdded>(`${this.apiUrl}/orders/add-item`, dto)
       .subscribe({
         next:(data) => {
           this.router.navigate(['/my-account'])

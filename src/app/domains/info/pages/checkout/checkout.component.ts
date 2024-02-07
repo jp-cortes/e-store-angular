@@ -20,6 +20,7 @@ export class CheckoutComponent {
   private cartService = inject(CartService);
   private authTokenService = inject(AuthTokenService);
   private orderService = inject(OrderService);
+  private userService = inject(UserService);
   cart = this.cartService.items;
   subtotal = this.cartService.subtotal;
 
@@ -48,6 +49,15 @@ export class CheckoutComponent {
       orderId: order.id,
       productId: product.id,
       amount: product.quantity
+    }).subscribe({
+      next:(data) => {
+        
+        this.userService.redirect('/my-account');
+      },
+      error: () => {
+        console.log('Error at addProduct Orderservice');
+
+      }
     })
   }
 

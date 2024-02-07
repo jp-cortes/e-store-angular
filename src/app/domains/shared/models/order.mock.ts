@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { AddItem, OrderResume } from './order.model';
+import { ItemAdded, OrderResume } from './order.model';
 
 export const generateOneOrder = (): OrderResume => {
     return {
@@ -10,11 +10,13 @@ export const generateOneOrder = (): OrderResume => {
     }
 }
 
-export const generateItem = (): AddItem => {
+export const generateItemAdded = (): ItemAdded => {
     return {
-      orderId: faker.number.int(),
-      productId: faker.number.int(),
-      amount: faker.number.int(),
+        id: faker.number.int(),
+        orderId: faker.number.int(),
+        productId: faker.number.int(),
+        createdAt: `${faker.date.anytime()}`,
+        amount: faker.number.int(),
     };
 }
 

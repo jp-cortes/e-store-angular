@@ -23,14 +23,6 @@ export class OrderService{
   addProduct(dto: AddItem) {
     return this.http
       .post<ItemAdded>(`${this.apiUrl}/orders/add-item`, dto)
-      .subscribe({
-        next:(data) => {
-          this.router.navigate(['/my-account'])
-        },
-        error: () => {
-          console.log('Error addProduct');
-
-        }
-      })
+    
   }
 }

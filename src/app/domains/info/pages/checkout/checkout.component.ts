@@ -51,7 +51,6 @@ export class CheckoutComponent {
       amount: product.quantity
     }).subscribe({
       next:(data) => {
-        
         this.userService.redirect('/my-account');
       },
       error: () => {

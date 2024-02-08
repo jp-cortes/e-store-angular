@@ -39,7 +39,7 @@ export class UserService {
 
   sendRecoveryEmail(dto: string) {
     return this.http
-      .post<any>(`${this.apiUrl}/auth/recovery`, { email: dto });
+      .post<unknown>(`${this.apiUrl}/auth/recovery`, { email: dto });
   }
 
   // updatePassword(password: string) {
@@ -74,7 +74,7 @@ export class UserService {
      })
 
     }
-    return new Observable<any>()
+    return new Observable<unknown>()
   }
 
   redirect(route: string) {

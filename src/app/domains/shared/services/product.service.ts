@@ -1,7 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Product } from '../models/product.model';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Category } from '@shared/models/category.model';
 import { environment } from '@environments/environment';
 
@@ -37,6 +37,14 @@ export class ProductService {
 
   getOne(id: string) {
     return this.http.get<Product>(`${this.apiUrl}/products/${id}`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        if(error.status === HttpStatusCode.NotFound) {
+          return throwError(() => "The product doesn't exist")
+        }
+        return throwError(() => "Something went wrong");
+      })
+      )
   }
 
 

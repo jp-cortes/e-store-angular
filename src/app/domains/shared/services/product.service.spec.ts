@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { environment } from "@environments/environment";
 import { generateOneProduct, generateProducts } from "@shared/models/product.mock";
+import { HttpStatusCode } from "@angular/common/http";
 
 describe('Test for ProductService', () => {
     let productService: ProductService;
@@ -70,16 +71,42 @@ describe('test for getProducts', () => {
     it('should return a product', (doneFn) => {
       //Arrange
       const mockProductData: Product = generateOneProduct();
+      const productId = '1';
       // Act
-      productService.getOne('1').subscribe((data) => {
+      productService.getOne(productId).subscribe((data) => {
         expect(data).toBe(mockProductData);
         doneFn();
       });
 
       //http config
-      const url = `${environment.API_URL}/products/1`;
+      const url = `${environment.API_URL}/products/${productId}`;
       const req = httpControler.expectOne(url);
+      expect(req.request.method).toEqual('GET');
       req.flush(mockProductData);
+    });
+
+    //test for the error
+    it('should return a the right msg when the status code is 404', (doneFn) => {
+      //Arrange
+      const msgError = '404 message';
+      const mockError = {
+        status: HttpStatusCode.NotFound,
+        statusText: msgError,
+      };
+      const productId = '1';
+      // Act
+      productService.getOne(productId).subscribe({
+        error: (error) => {
+          // Assert
+        expect(error).toEqual("The product doesn't exist");
+        doneFn();
+      }});
+
+      //http config
+      const url = `${environment.API_URL}/products/${productId}`;
+      const req = httpControler.expectOne(url);
+      expect(req.request.method).toEqual('GET');
+      req.flush(msgError, mockError);
     });
   });
 

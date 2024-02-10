@@ -1,10 +1,10 @@
-import { ProductService } from "./product.service";
-import { Product } from "@shared/models/product.model";
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { environment } from "@environments/environment";
-import { generateOneProduct, generateProducts } from "@shared/models/product.mock";
 import { HttpStatusCode } from "@angular/common/http";
+import { Product } from "@shared/models/product.model";
+import { ProductService } from "./product.service";
+import { generateOneProduct, generateProducts } from "@shared/models/product.mock";
 
 describe('Test for ProductService', () => {
     let productService: ProductService;

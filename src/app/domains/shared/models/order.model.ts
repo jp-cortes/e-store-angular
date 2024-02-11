@@ -1,6 +1,6 @@
 import { Customer, UserAccount } from "./user.model";
 
-export interface OrderProduct  {
+export interface OrderOfProduct  {
   id: number;
   amount: number;
   createdAt: string;
@@ -17,7 +17,7 @@ export interface ProductOrder  {
   price: string;
   categoryId: number;
   createdAt: string;
-  OrderProduct: OrderProduct;
+  OrderProduct: OrderOfProduct;
 }
 
 export interface OrderResume {

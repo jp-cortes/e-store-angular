@@ -51,3 +51,6 @@ export interface UserAccount {
   customer: CustomerProfile
 }
 
+export interface EmailResponse {
+  message: string;
+}

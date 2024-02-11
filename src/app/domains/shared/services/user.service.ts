@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Customer, NewCustomer, User, UserAccount, UserSignIn } from '@shared/models/user.model';
+import { Customer, EmailResponse, NewCustomer, User, UserAccount, UserSignIn } from '@shared/models/user.model';
 import { AuthTokenService } from './auth-token.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { OrderDetail, OrderResume } from '@shared/models/order.model';
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -37,9 +37,17 @@ export class UserService {
       });
   }
 
-  sendRecoveryEmail(dto: string) {
+  sendRecoveryEmail(dto?: string) {
     return this.http
-      .post<unknown>(`${this.apiUrl}/auth/recovery`, { email: dto });
+      .post<EmailResponse>(`${this.apiUrl}/auth/recovery`, { email: dto })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if(error.status === HttpStatusCode.ServiceUnavailable) {
+            return throwError(() => "The email doesn't exist")
+          }
+          return throwError(() => "Something went wrong");
+        })
+      )
   }
 
   // updatePassword(password: string) {
@@ -61,7 +69,7 @@ export class UserService {
   }
 
 
-  getInvoice(invoiceId?: number): Observable<unknown> {
+  getInvoice(invoiceId?: number): Observable<OrderDetail> {
 
     if(invoiceId) {
 
@@ -74,7 +82,7 @@ export class UserService {
      })
 
     }
-    return new Observable<unknown>()
+    return new Observable<OrderDetail>()
   }
 
   redirect(route: string) {

@@ -3,8 +3,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { environment } from "@environments/environment";
 import { HttpStatusCode } from "@angular/common/http";
 import { UserService } from './user.service';
-import { User, UserSignIn } from '@shared/models/user.model';
-import { generateSignInUser } from '@shared/models/user.mock';
+import { User, UserAccount, UserSignIn } from '@shared/models/user.model';
+import { generateSignInUser, generateUserAccount } from '@shared/models/user.mock';
 
 
 describe('Test for UserService', () => {
@@ -58,7 +58,7 @@ describe('test for signIn', () => {
 });
 
 describe('test for sendRecoveryEmail', () => {
-  it('should return a user', (doneFn) => {
+  it('should return a confirmation message', (doneFn) => {
     //Arrange
     const mockUserData  = { message: 'email sent' };
     const dummyUser = 'dummyUser@mail.com';
@@ -73,11 +73,28 @@ describe('test for sendRecoveryEmail', () => {
     //http config
     const url = `${environment.API_URL}/auth/recovery`;
     const req = httpControler.expectOne(url);
-    expect(req.request.body).toEqual(dummyUser);
+    expect(req.request.body).toEqual({ email: dummyUser });
     expect(req.request.method).toEqual('POST');
     req.flush(mockUserData);
   });
 
+  describe('Test for getMyAccount', () => {
+    it('should return a user account', (doneFn) => {
+      //Arrange
+      const mockUserAccountData: UserAccount = generateUserAccount();
+  
+      // Act
+      userService.getMyAccount().subscribe((data) => {
+        expect(data).toEqual(mockUserAccountData);
+        doneFn();
+      });
+  
+      //http config
+      const url = `${environment.API_URL}/users/account`;
+      const req = httpControler.expectOne(url);
+      req.flush(mockUserAccountData);
+    });
+  })
 
 
 });

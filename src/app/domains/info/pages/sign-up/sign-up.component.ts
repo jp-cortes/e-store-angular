@@ -86,7 +86,15 @@ export class SignUpComponent {
         user:{
           email,
           password
-        }});
+        }})
+        // .subscribe({
+        //   next: (data) => {
+        //     const email = data.user.email;
+        //     const password = data.user.password
+        //     this.userService.signIn({ email , password })
+        //   },
+        //   error: (error) => console.log(error, 'error at userService signIn()'),
+        // });
 
     }
 

@@ -6,6 +6,7 @@ import {
   OrderResume,
   ProductOrder,
 } from './order.model';
+import { generateCustomer } from './user.mock';
 
 export const generateOneOrder = (): OrderResume => {
   return {
@@ -15,6 +16,7 @@ export const generateOneOrder = (): OrderResume => {
     createdAt: `${faker.date.anytime()}`,
   };
 };
+
 export const generateOneOrderProduct = (): OrderOfProduct => {
   return {
     id: faker.number.int(),
@@ -25,7 +27,7 @@ export const generateOneOrderProduct = (): OrderOfProduct => {
   };
 };
 
-export const generateOrderDetail = (): ProductOrder => {
+export const generateProductOrder = (): ProductOrder => {
   return {
     quantity: `${faker.number.int()}`,
     id: faker.number.int(),
@@ -49,10 +51,30 @@ export const generateItemAdded = (): ItemAdded => {
   };
 };
 
+export const generateOrderItems = (size = 9): ProductOrder[] => {
+  const items: ProductOrder[] = [];
+  for (let index = 0; index < size; index++) {
+    items.push(generateProductOrder());
+  }
+  return [...items];
+};
+
 export const generateOrders = (size = 9): OrderResume[] => {
   const orders: OrderResume[] = [];
   for (let index = 0; index < size; index++) {
     orders.push(generateOneOrder());
   }
   return [...orders];
+};
+
+export const generateOrderDetail = (): OrderDetail => {
+  return {
+    id: faker.number.int(),
+    status: faker.string.alpha(),
+    paid: faker.datatype.boolean(),
+    createdAt: `${faker.date.anytime()}`,
+    customerId: faker.number.int(),
+    customer: generateCustomer(),
+    items: generateOrderItems(),
+  };
 };

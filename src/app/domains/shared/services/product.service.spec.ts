@@ -7,7 +7,7 @@ import { ProductService } from "./product.service";
 import { generateOneProduct, generateProducts } from "@shared/models/product.mock";
 import { AuthTokenService } from './auth-token.service';
 
-fdescribe('Test for ProductService', () => {
+describe('Test for ProductService', () => {
     let productService: ProductService;
     let httpControler: HttpTestingController;
     let authTokenService: AuthTokenService;

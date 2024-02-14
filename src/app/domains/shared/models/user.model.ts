@@ -54,3 +54,7 @@ export interface UserAccount {
 export interface EmailResponse {
   message: string;
 }
+
+export interface Auth {
+  token: string
+}

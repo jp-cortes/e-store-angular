@@ -3,20 +3,23 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { environment } from "@environments/environment";
 import { HttpStatusCode } from "@angular/common/http";
 import { UserService } from './user.service';
+import { AuthTokenService } from './auth-token.service';
 import { User, UserAccount, UserSignIn } from '@shared/models/user.model';
 import { generateCustomer, generateSignInUser, generateSignUpCustomer, generateUserAccount } from '@shared/models/user.mock';
 import { OrderDetail, OrderResume } from '@shared/models/order.model';
 import { generateOrderDetail, generateOrders } from '@shared/models/order.mock';
 
 
-fdescribe('Test for UserService', () => {
+describe('Test for UserService', () => {
   let userService: UserService;
   let httpControler: HttpTestingController;
+  let authTokenService: AuthTokenService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [UserService],
+      imports: [ HttpClientTestingModule ],
+      providers: [ UserService, AuthTokenService ],
     });
+    authTokenService = TestBed.inject(AuthTokenService);
     userService = TestBed.inject(UserService);
     httpControler = TestBed.inject(HttpTestingController);
   });
@@ -37,7 +40,6 @@ fdescribe('Test for UserService', () => {
         email: 'dummyUser@mail.com',
         password: 'dummyPassword123',
       };
-
       // Act
       userService.signIn(dummyUser).subscribe((data) => {
         // Assert
@@ -50,6 +52,38 @@ fdescribe('Test for UserService', () => {
       const req = httpControler.expectOne(url);
       expect(req.request.body).toEqual(dummyUser);
       expect(req.request.method).toEqual('POST');
+      const headers = req.request.headers;
+      expect(headers.get('Auhtorization')).toBeNull();
+      req.flush(mockUserData);
+    });
+
+    it('should call AuthTokenService saveToken', (doneFn) => {
+      //Arrange
+      const mockUserData: User = generateSignInUser();
+      const dummyUser: UserSignIn = {
+        email: 'dummyUser@mail.com',
+        password: 'dummyPassword123',
+      };
+
+      spyOn(authTokenService, 'saveToken').and.callThrough();
+
+      // Act
+      userService.signIn(dummyUser).subscribe((data) => {
+        // Assert
+        
+        expect(data).toEqual(mockUserData);
+        expect(authTokenService.saveToken).toHaveBeenCalled();
+        expect(authTokenService.saveToken).toHaveBeenCalledTimes(1);
+        expect(authTokenService.saveToken).toHaveBeenCalledWith(mockUserData.token);
+        doneFn();
+      });
+
+      //http config
+      const url = `${environment.API_URL}/auth/login`;
+      const req = httpControler.expectOne(url);
+      expect(req.request.method).toEqual('POST');
+      // const headers = req.request.headers;
+      // expect(headers.get('Auhtorization')).toBeNull();
       req.flush(mockUserData);
     });
   });

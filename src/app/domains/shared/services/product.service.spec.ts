@@ -5,15 +5,18 @@ import { HttpStatusCode } from "@angular/common/http";
 import { Product } from "@shared/models/product.model";
 import { ProductService } from "./product.service";
 import { generateOneProduct, generateProducts } from "@shared/models/product.mock";
+import { AuthTokenService } from './auth-token.service';
 
-describe('Test for ProductService', () => {
+fdescribe('Test for ProductService', () => {
     let productService: ProductService;
     let httpControler: HttpTestingController;
+    let authTokenService: AuthTokenService;
     beforeEach(() => {
     TestBed.configureTestingModule({
         imports: [ HttpClientTestingModule ],
-        providers: [ ProductService ]
+        providers: [ ProductService, AuthTokenService ]
     })
+    authTokenService = TestBed.inject(AuthTokenService);
     productService = TestBed.inject(ProductService);
     httpControler = TestBed.inject(HttpTestingController);
 });
@@ -30,6 +33,8 @@ describe('test for getProducts', () => {
   it('should return a list of products', (doneFn) => {
     //Arrange
     const mockProductsData: Product[] = generateProducts();
+    // spy on interceptor
+    spyOn(authTokenService, 'getToken').and.returnValue('');
 
     // Act
     productService.getProducts().subscribe((data) => {
@@ -41,6 +46,9 @@ describe('test for getProducts', () => {
     //http config
     const url = `${environment.API_URL}/products`;
     const req = httpControler.expectOne(url);
+    const headers = req.request.headers;
+    expect(headers.get('Auhtorization')).toBeNull();
+    expect(req.request.method).toEqual('GET');
     req.flush(mockProductsData);
   });
 
@@ -123,6 +131,7 @@ describe('test for getProducts', () => {
       //http config
       const url = `${environment.API_URL}/categories/1`;
       const req = httpControler.expectOne(url);
+      expect(req.request.method).toEqual('GET');
       req.flush(mockData);
     });
   });

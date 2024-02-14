@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Customer, CustomerProfile, User, UserAccount } from './user.model';
+import { Customer, CustomerProfile, NewCustomer, User, UserAccount } from './user.model';
 
 
 export const generateSignInUser = (): User => {
@@ -41,6 +41,19 @@ export const generateCustomer = (): Customer => {
       createdAt: `${faker.date.anytime()}`,
     },
     token: faker.string.uuid(),
+  };
+};
+
+export const generateSignUpCustomer = (): NewCustomer => {
+  return {
+    name: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    phone: `${faker.phone.number()}`,
+    user: {
+      email: faker.internet.email(),
+      password: faker.string.alphanumeric(),
+      role: faker.person.jobTitle(), // should be customer, admin, seller.
+    }
   };
 };
 

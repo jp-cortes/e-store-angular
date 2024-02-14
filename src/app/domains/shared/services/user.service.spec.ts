@@ -4,12 +4,12 @@ import { environment } from "@environments/environment";
 import { HttpStatusCode } from "@angular/common/http";
 import { UserService } from './user.service';
 import { User, UserAccount, UserSignIn } from '@shared/models/user.model';
-import { generateSignInUser, generateUserAccount } from '@shared/models/user.mock';
+import { generateCustomer, generateSignInUser, generateSignUpCustomer, generateUserAccount } from '@shared/models/user.mock';
 import { OrderDetail, OrderResume } from '@shared/models/order.model';
 import { generateOrderDetail, generateOrders } from '@shared/models/order.mock';
 
 
-describe('Test for UserService', () => {
+fdescribe('Test for UserService', () => {
   let userService: UserService;
   let httpControler: HttpTestingController;
   beforeEach(() => {
@@ -51,6 +51,28 @@ describe('Test for UserService', () => {
       expect(req.request.body).toEqual(dummyUser);
       expect(req.request.method).toEqual('POST');
       req.flush(mockUserData);
+    });
+  });
+
+  describe('test for signUp', () => {
+    it('should return a customer', (doneFn) => {
+      //Arrange
+      const mockCustomerData = generateCustomer();
+      const dummyCustomer = generateSignUpCustomer(); 
+
+      // Act
+      userService.signUp(dummyCustomer).subscribe((data) => {
+        // Assert
+        expect(data).toEqual(mockCustomerData);
+        doneFn();
+      });
+
+      //http config
+      const url = `${environment.API_URL}/customers`;
+      const req = httpControler.expectOne(url);
+      expect(req.request.body).toEqual(dummyCustomer);
+      expect(req.request.method).toEqual('POST');
+      req.flush(mockCustomerData);
     });
   });
 

@@ -27,17 +27,16 @@ export class UserService {
   signUp(dto: NewCustomer) {
     return this.http
       .post<Customer>(`${this.apiUrl}/customers`, dto)
-      .subscribe({
-        next: (data) => {
-          const email = data.user.email;
-          const password = data.user.password
+      .pipe(
+        tap(response => {
+          const email = response.user.email;
+          const password = response.user.password
           this.signIn({ email , password })
-        },
-        error: (error) => console.log(error, 'error at userService signIn()'),
-      });
-  }
+        }) 
+  )
+}
 
-  sendRecoveryEmail(dto?: string) {
+sendRecoveryEmail(dto?: string) {
     return this.http
       .post<EmailResponse>(`${this.apiUrl}/auth/recovery`, { email: dto })
       .pipe(

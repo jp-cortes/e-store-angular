@@ -33,8 +33,7 @@ describe('test for getProducts', () => {
   it('should return a list of products', (doneFn) => {
     //Arrange
     const mockProductsData: Product[] = generateProducts();
-    // spy on interceptor
-    spyOn(authTokenService, 'getToken').and.returnValue('');
+   
 
     // Act
     productService.getProducts().subscribe((data) => {

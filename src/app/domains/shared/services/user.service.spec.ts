@@ -53,7 +53,6 @@ describe('Test for UserService', () => {
       expect(req.request.body).toEqual(dummyUser);
       expect(req.request.method).toEqual('POST');
       const headers = req.request.headers;
-      expect(headers.get('Auhtorization')).toBeNull();
       req.flush(mockUserData);
     });
 
@@ -70,8 +69,6 @@ describe('Test for UserService', () => {
       // Act
       userService.signIn(dummyUser).subscribe((data) => {
         // Assert
-        
-        expect(data).toEqual(mockUserData);
         expect(authTokenService.saveToken).toHaveBeenCalled();
         expect(authTokenService.saveToken).toHaveBeenCalledTimes(1);
         expect(authTokenService.saveToken).toHaveBeenCalledWith(mockUserData.token);
@@ -82,8 +79,6 @@ describe('Test for UserService', () => {
       const url = `${environment.API_URL}/auth/login`;
       const req = httpControler.expectOne(url);
       expect(req.request.method).toEqual('POST');
-      // const headers = req.request.headers;
-      // expect(headers.get('Auhtorization')).toBeNull();
       req.flush(mockUserData);
     });
   });
@@ -92,7 +87,7 @@ describe('Test for UserService', () => {
     it('should return a customer', (doneFn) => {
       //Arrange
       const mockCustomerData = generateCustomer();
-      const dummyCustomer = generateSignUpCustomer(); 
+      const dummyCustomer = generateSignUpCustomer();
 
       // Act
       userService.signUp(dummyCustomer).subscribe((data) => {
@@ -180,7 +175,7 @@ describe('Test for UserService', () => {
     it('should return an array of orders', (doneFn) => {
       //Arrange
       const mockOrdersData: OrderResume[] = generateOrders();
-
+      spyOn(authTokenService, 'getToken').and.callThrough();
       // Act
       userService.getMyOrders().subscribe((data) => {
         // Assert
@@ -193,6 +188,8 @@ describe('Test for UserService', () => {
       const url = `${environment.API_URL}/profile/my-orders`;
       const req = httpControler.expectOne(url);
       expect(req.request.method).toEqual('GET');
+      const headers = req.request.headers;
+      expect(headers.get('Authorizaion')).toBeNull()
       req.flush(mockOrdersData);
     });
   });

@@ -175,7 +175,6 @@ describe('Test for UserService', () => {
     it('should return an array of orders', (doneFn) => {
       //Arrange
       const mockOrdersData: OrderResume[] = generateOrders();
-      spyOn(authTokenService, 'getToken').and.callThrough();
       // Act
       userService.getMyOrders().subscribe((data) => {
         // Assert
@@ -189,7 +188,6 @@ describe('Test for UserService', () => {
       const req = httpControler.expectOne(url);
       expect(req.request.method).toEqual('GET');
       const headers = req.request.headers;
-      expect(headers.get('Authorizaion')).toBeNull()
       req.flush(mockOrdersData);
     });
   });

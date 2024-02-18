@@ -40,13 +40,13 @@ module.exports = function (config) {
           lines: 80
         }
       }
-      
+
     },
     reporters: ['mocha'],
     browsers: ['ChromeHeadless'],
     customLaunchers: {
       ChromeHeadlessCI: {
-        base: 'ChromeHeadless', 
+        base: 'ChromeHeadless',
         flags: ['--no-sandbox']
       }
     },

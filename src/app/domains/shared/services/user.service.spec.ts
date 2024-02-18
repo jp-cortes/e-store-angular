@@ -10,7 +10,7 @@ import { OrderDetail, OrderResume } from '@shared/models/order.model';
 import { generateOrderDetail, generateOrders } from '@shared/models/order.mock';
 
 
-fdescribe('Test for UserService', () => {
+describe('Test for UserService', () => {
   let userService: UserService;
   let httpControler: HttpTestingController;
   let authTokenService: AuthTokenService;

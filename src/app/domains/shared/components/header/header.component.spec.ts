@@ -5,6 +5,8 @@ import { By } from "@angular/platform-browser";
 
 import { HeaderComponent } from "./header.component";
 import { provideHttpClient } from "@angular/common/http";
+import { AuthTokenService } from "@shared/services/auth-token.service";
+import { CartService } from "@shared/services/cart.service";
 
 describe('HeaderComponent', () => {
  let component: HeaderComponent;
@@ -15,7 +17,9 @@ describe('HeaderComponent', () => {
         imports: [ HeaderComponent ],
         providers: [
             provideHttpClient(),
-            provideHttpClientTesting()
+            provideHttpClientTesting(),
+            AuthTokenService,
+            CartService
         ]
     })
     .compileComponents();

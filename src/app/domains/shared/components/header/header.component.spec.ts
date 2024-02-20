@@ -11,6 +11,8 @@ import { CartService } from "@shared/services/cart.service";
 describe('HeaderComponent', () => {
  let component: HeaderComponent;
  let fixture: ComponentFixture<HeaderComponent>;
+ let cartService: CartService;
+ let authTokenService: AuthTokenService;
 
  beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -23,6 +25,9 @@ describe('HeaderComponent', () => {
         ]
     })
     .compileComponents();
+
+  cartService =TestBed.inject(CartService);
+  authTokenService =TestBed.inject(AuthTokenService);
  });
 
  beforeEach(() => {

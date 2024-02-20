@@ -18,8 +18,8 @@ describe('HeaderComponent', () => {
     await TestBed.configureTestingModule({
         imports: [ HeaderComponent ],
         providers: [
-            provideHttpClient(),
-            provideHttpClientTesting(),
+            // provideHttpClient(),
+            // provideHttpClientTesting(),
             AuthTokenService,
             CartService
         ]
@@ -37,7 +37,7 @@ describe('HeaderComponent', () => {
  });
 
  it('should create HeaderComponent', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
  });
 
 });

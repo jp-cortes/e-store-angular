@@ -5,13 +5,13 @@ import { generateOneCategory } from './category.mock';
 
 export const generateOneProduct =  (): Product => {
     return {
-        id: faker.number.int(),
+        id: faker.number.int(100),
         name: faker.commerce.department(),
         image: faker.image.url(),
         description: faker.commerce.productDescription(),
-        price: `${faker.commerce.price()}`,
+        price: faker.number.int({min: 100, max: 1000}),
         createdAt:`${faker.date.anytime()}`,
-        categoryId: faker.number.int(),
+        categoryId: faker.number.int(100),
         category: generateOneCategory(),
         }
 }

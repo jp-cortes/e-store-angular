@@ -7,7 +7,7 @@ import { CartItemType, CartState } from '../models/cart.model';
 })
 
 export class CartService {
-   private cart = signal<CartState>({});
+   readonly cart = signal<CartState>({});
 
    // Product in the shoppingCart
    items = computed(() => {

@@ -2,7 +2,7 @@ import { generateCartItems } from "@shared/models/cart.mock";
 import { CartService } from "./cart.service"
 import { TestBed } from "@angular/core/testing";
 
-fdescribe('Test for  Cartservice', () => {
+describe('Test for  Cartservice', () => {
     let cartService: CartService;
 
     beforeEach(() => {

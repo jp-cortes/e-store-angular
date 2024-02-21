@@ -11,7 +11,7 @@ import { CartService } from "@shared/services/cart.service";
 import { MenuMobileComponent } from "@shared/components/menu-mobile/menu-mobile.component";
 import { CategoryService } from "@shared/services/category.service";
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
  let component: HeaderComponent;
  let httpControler: HttpTestingController;
  let routerTestingModule: RouterTestingModule;

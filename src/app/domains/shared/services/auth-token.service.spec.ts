@@ -2,7 +2,7 @@ import { TestBed } from "@angular/core/testing";
 import { AuthTokenService } from "./auth-token.service";
 
 
-fdescribe('Test for AuthTokenService', () => {
+describe('Test for AuthTokenService', () => {
     let authTokenService: AuthTokenService;
 
     

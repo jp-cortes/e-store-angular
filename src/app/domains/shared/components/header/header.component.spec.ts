@@ -11,7 +11,7 @@ import { CartService } from "@shared/services/cart.service";
 import { MenuMobileComponent } from "@shared/components/menu-mobile/menu-mobile.component";
 import { CategoryService } from "@shared/services/category.service";
 
-describe('HeaderComponent', () => {
+fdescribe('HeaderComponent', () => {
  let component: HeaderComponent;
  let httpControler: HttpTestingController;
  let routerTestingModule: RouterTestingModule;
@@ -48,5 +48,26 @@ describe('HeaderComponent', () => {
  it('should create HeaderComponent', () => {
     expect(component).toBeDefined();
  });
+
+ it('Should display <span>E-STORE</span>', () => {
+   const spanDe: DebugElement = fixture.debugElement.query(By.css('nav a span.self-center'));
+   const spanEl: HTMLElement = spanDe.nativeElement;
+   // Act
+   fixture.detectChanges();
+   // Assert
+   expect(spanEl.textContent).toContain('E-STORE')
+ })
+
+ it('Should display navbar routes Home, About, Services', () => {
+   const liDe: DebugElement = fixture.debugElement.query(By.all());
+   const liEl: HTMLElement = liDe.nativeElement;
+   // Act
+   fixture.detectChanges();
+   // Assert
+   expect(liEl.textContent).toContain('Home');
+   expect(liEl.textContent).toContain('About');
+   expect(liEl.textContent).toContain('Services');
+   // expect(liEl.textContent).toContain('Sing in');
+ })
 
 });

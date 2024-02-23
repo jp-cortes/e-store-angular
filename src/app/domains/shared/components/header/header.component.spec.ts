@@ -49,52 +49,58 @@ fdescribe('HeaderComponent', () => {
     expect(component).toBeDefined();
  });
 
- it('Should display <span>E-STORE</span>', () => {
-   const spanDe: DebugElement = fixture.debugElement.query(By.css('nav a span.self-center'));
-   const spanEl: HTMLElement = spanDe.nativeElement;
-   // Act
-   fixture.detectChanges();
-   // Assert
-   expect(spanEl.textContent).toContain('E-STORE')
- })
-
- it('Should display navbar routes Home, About, Services', () => {
-   const liDe: DebugElement = fixture.debugElement.query(By.all());
-   const liEl: HTMLElement = liDe.nativeElement;
-   // Act
-   fixture.detectChanges();
-   // Assert
-   expect(liEl.textContent).toContain('Home');
-   expect(liEl.textContent).toContain('About');
-   expect(liEl.textContent).toContain('Services');
+ describe('Test for navbar', () => {
+  it('Should display <span>E-STORE</span>', () => {
+    const spanDe: DebugElement = fixture.debugElement.query(By.css('nav a span.self-center'));
+    const spanEl: HTMLElement = spanDe.nativeElement;
+    // Act
+    fixture.detectChanges();
+    // Assert
+    expect(spanEl.textContent).toContain('E-STORE')
+  })
+ 
+  it('Should display navbar routes Home, About, Services', () => {
+    const liDe: DebugElement = fixture.debugElement.query(By.all());
+    const liEl: HTMLElement = liDe.nativeElement;
+    // Act
+    fixture.detectChanges();
+    // Assert
+    expect(liEl.textContent).toContain('Home');
+    expect(liEl.textContent).toContain('About');
+    expect(liEl.textContent).toContain('Services');
+  });
+ 
  });
 
- it('Should display the shoppingCart', () => {
-  const cartDe: DebugElement = fixture.debugElement.query(By.css('div h3.mb-8'));
-  const cartEl: HTMLElement = cartDe.nativeElement;
-  // Act
-  fixture.detectChanges();
-  // Assert
-  expect(cartEl.textContent).toContain('Your Cart is empty');
-});
-
-it('Should toggle the shoppingCart', () => {
-  const btnOpenDe: DebugElement = fixture.debugElement.query(By.css('nav div button.rounded'));
-  const btnCloseDe: DebugElement = fixture.debugElement.query(By.css('div.fixed div.flex button.bg-transparent '));
+ 
+ describe('Test for shoppingCart', () => {
+  it('Should display the shoppingCart', () => {
+    const cartDe: DebugElement = fixture.debugElement.query(By.css('div h3.mb-8'));
+    const cartEl: HTMLElement = cartDe.nativeElement;
+    // Act
+    fixture.detectChanges();
+    // Assert
+    expect(cartEl.textContent).toContain('Your Cart is empty');
+  });
   
-  // Act
-  //this click to change the signal hideCart() false
-  btnOpenDe.triggerEventHandler('click', null);
-
-  fixture.detectChanges();
-  // Assert
-  expect(component.hideCart()).toBe(false);
+  it('Should toggle the shoppingCart', () => {
+    const btnOpenDe: DebugElement = fixture.debugElement.query(By.css('nav div button.rounded'));
+    const btnCloseDe: DebugElement = fixture.debugElement.query(By.css('div.fixed div.flex button.bg-transparent '));
+    
+    // Act
+    //this click to change the signal hideCart() false
+    btnOpenDe.triggerEventHandler('click', null);
   
-  // this click should change the signal hideCart() to true
-  btnCloseDe.triggerEventHandler('click', null);
-  fixture.detectChanges();
-
-  expect(component.hideCart()).toBe(true);
-});
+    fixture.detectChanges();
+    // Assert
+    expect(component.hideCart()).toBe(false);
+    
+    // this click should change the signal hideCart() to true
+    btnCloseDe.triggerEventHandler('click', null);
+    fixture.detectChanges();
+  
+    expect(component.hideCart()).toBe(true);
+  });
+ });
 
 });

@@ -67,7 +67,37 @@ fdescribe('HeaderComponent', () => {
    expect(liEl.textContent).toContain('Home');
    expect(liEl.textContent).toContain('About');
    expect(liEl.textContent).toContain('Services');
-   // expect(liEl.textContent).toContain('Sing in');
- })
+ });
+
+ it('Should click the shoppingCart button and display the shoppingCart', () => {
+  const btnOpenDe: DebugElement = fixture.debugElement.query(By.css('nav div button.rounded'));
+  const cartDe: DebugElement = fixture.debugElement.query(By.css('div h3.mb-8'));
+
+  const cartEl: HTMLElement = cartDe.nativeElement;
+  // Act
+  btnOpenDe.triggerEventHandler('click', null);
+  fixture.detectChanges();
+  // Assert
+  expect(component.hideCart()).toBe(false);
+  expect(cartEl.textContent).toContain('Your Cart is empty');
+});
+
+xit('Should click the shoppingCart button, display the shoppingCart and then close it', () => {
+  const btnOpenDe: DebugElement = fixture.debugElement.query(By.css('nav div button.rounded'));
+  const btnCloseDe: DebugElement = fixture.debugElement.query(By.css('div.fixed button.bg-transparent'));
+  const cartDe: DebugElement = fixture.debugElement.query(By.css('div h3.mb-8'));
+  const cartEl: HTMLElement = cartDe.nativeElement;
+  const btnEl: HTMLElement = btnCloseDe.nativeElement;
+  // Act
+  btnOpenDe.triggerEventHandler('click', null);
+  fixture.detectChanges();
+  // // Assert
+  expect(component.hideCart()).toBe(false)
+  // expect(cartEl.textContent).toContain('Your Cart is empty');
+  
+  btnCloseDe.triggerEventHandler('click', null);
+  fixture.detectChanges();
+  expect(component.hideCart()).toBe(true);
+});
 
 });

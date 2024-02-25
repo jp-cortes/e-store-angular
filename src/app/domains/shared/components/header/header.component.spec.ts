@@ -33,7 +33,7 @@ describe('HeaderComponent', () => {
  beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // life
+    fixture.detectChanges(); // ngOnInit
  });
 
  it('should create HeaderComponent', () => {

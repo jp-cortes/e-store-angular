@@ -83,7 +83,7 @@ fdescribe('HeaderComponent', () => {
     const btnCloseDe: DebugElement = fixture.debugElement.query(By.css('div.fixed div.flex button.bg-transparent '));
 
     // Act
-    //this click to change the signal hideCart() false
+    //this click should change the signal hideCart() false
     btnOpenDe.triggerEventHandler('click', null);
 
     fixture.detectChanges();

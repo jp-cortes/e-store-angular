@@ -25,14 +25,14 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/products`, { params })
   }
 
-  getProductsByCategory(categoryId?: number): Observable<any> {
+  getProductsByCategory(categoryId?: number): Observable<Category> {
 
     if(categoryId) {
 
      return this.http.get<Category>(`${this.apiUrl}/categories/${categoryId}`)
 
     }
-    return new Observable<any>()
+    return new Observable<Category>()
   }
 
   getOne(id: string) {

@@ -17,7 +17,7 @@ beforeEach(async () => {
   const productServiceSpy = jasmine.createSpyObj('ProductService', ['getProducts']);
 
 await TestBed.configureTestingModule({
-  declarations: [ ProductComponent, ListComponent],
+  imports: [ ProductComponent, ListComponent],
   providers: [
     { provide: ProductService, useValue: productServiceSpy },
   ]

@@ -16,7 +16,7 @@ import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export default class ListComponent {
+export class ListComponent {
   products = signal<Product[]>([]);// initial array of products
   categories = signal<Category[]>([]);// initial array of categories
   cartService = inject(CartService);// shopping cart

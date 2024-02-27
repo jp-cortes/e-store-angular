@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import ListComponent from "./list.component";
+import { RouterTestingModule } from "@angular/router/testing";
 import { ProductService } from "@shared/services/product.service";
 import { ProductComponent } from "@products/components/product/product.component";
 import { generateProducts } from "@shared/models/product.mock";
 import { of } from "rxjs";
 import { CategoryService } from "@shared/services/category.service";
 import { generateCategories } from "@shared/models/category.mock";
+import { ListComponent } from "./list.component";
 
 
 
@@ -21,7 +22,7 @@ beforeEach(async () => {
   const categoryServiceSpy = jasmine.createSpyObj('CategoryService', ['getCategories']);
 
 await TestBed.configureTestingModule({
-  imports: [ ProductComponent, ListComponent],
+  imports: [ ProductComponent, ListComponent, RouterTestingModule],
   providers: [
     { provide: ProductService, useValue: productServiceSpy },
     { provide: CategoryService, useValue: categoryServiceSpy },

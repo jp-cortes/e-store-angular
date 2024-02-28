@@ -46,7 +46,7 @@ describe('HeaderComponent', () => {
     // Act
     fixture.detectChanges();
     // Assert
-    expect(spanEl.textContent).toContain('E-STORE')
+    expect(spanEl.textContent).toContain('E-STORE');
   })
 
   it('Should display navbar routes Home, About, Services', () => {

@@ -11,7 +11,7 @@ import { ListComponent } from "./list.component";
 
 
 
-fdescribe('listComponent',  () => {
+describe('listComponent',  () => {
 let component: ListComponent;
 let fixture: ComponentFixture<ListComponent>;
 let productService: jasmine.SpyObj<ProductService>;

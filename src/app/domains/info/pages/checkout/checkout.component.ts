@@ -16,7 +16,7 @@ import { OrderResume } from '@shared/models/order.model';
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
-export class CheckoutComponent {
+export default class CheckoutComponent {
   private cartService = inject(CartService);
   private authTokenService = inject(AuthTokenService);
   private orderService = inject(OrderService);

@@ -13,7 +13,7 @@ import { RouterLinkWithHref } from '@angular/router';
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css'
 })
-export class MyAccountComponent {
+export default class MyAccountComponent {
   user = signal<UserAccount | null>(null)
   orders = signal<OrderResume[]>([])
   private userService = inject(UserService);

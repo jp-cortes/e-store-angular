@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { CheckoutComponent } from '@info/pages/checkout/checkout.component';
-import { MyAccountComponent } from '@info/pages/my-account/my-account.component';
-import { MyInvoiceComponent } from '@info/pages/my-invoice/my-invoice.component';
 import { NotFoundComponent } from '@info/pages/not-found/not-found.component';
 import { PasswordRecoveryComponent } from '@info/pages/password-recovery/password-recovery.component';
 import { ResetPasswordComponent } from '@info/pages/reset-password/reset-password.component';
@@ -32,18 +29,18 @@ export const routes: Routes = [
       {
         path: 'my-account',
         canActivate: [authGuard],
-        component: MyAccountComponent,
+        loadComponent: () => import('@info/pages/my-account/my-account.component')
       },
       {
         path: 'my-invoice',
         canActivate: [authGuard],
-        component: MyInvoiceComponent,
+        loadComponent: () => import('@info/pages/my-invoice/my-invoice.component')
       },
       {
         path: 'checkout',
         canActivate: [authGuard],
         canDeactivate: [exitGuard],
-        component: CheckoutComponent,
+        loadComponent: () => import('@info/pages/checkout/checkout.component')
       },
     ]
   },

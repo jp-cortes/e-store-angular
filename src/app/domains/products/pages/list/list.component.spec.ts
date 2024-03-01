@@ -6,7 +6,7 @@ import { generateProducts } from "@shared/models/product.mock";
 import { of } from "rxjs";
 import { CategoryService } from "@shared/services/category.service";
 import { generateCategories } from "@shared/models/category.mock";
-import { ListComponent } from "./list.component";
+import  ListComponent  from "./list.component";
 import { DebugElement } from "@angular/core";
 import { By } from "@angular/platform-browser";
 
@@ -61,14 +61,14 @@ describe('Test for getProducts', () => {
     productService.getProducts.and.returnValue(of(productsMock));
     const countPrev = component.products.length;
     const appProductDe = fixture.debugElement.queryAll(By.css('app-product'));
-    
-    
-  
+
+
+
     // Act
     component.getProducts();
     expect(appProductDe).toBeDefined();
-    
-    
+
+
     fixture.detectChanges();
     // Assert
     expect(component.products().length).toEqual(productsMock.length + countPrev);
@@ -86,7 +86,7 @@ describe('Test for getCategories', () => {
 
     // Act
     component.getCategories();
-    
+
     expect(liEl).toBeDefined();
 
     fixture.detectChanges();

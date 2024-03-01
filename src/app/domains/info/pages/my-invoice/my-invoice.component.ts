@@ -11,7 +11,7 @@ import { AuthTokenService } from '@shared/services/auth-token.service';
   templateUrl: './my-invoice.component.html',
   styleUrl: './my-invoice.component.css'
 })
-export class MyInvoiceComponent {
+export default class MyInvoiceComponent {
   authTokenService = inject(AuthTokenService);
   userService = inject(UserService); // userService for invoice
   invoice = signal<OrderDetail | null>(null) // invoice

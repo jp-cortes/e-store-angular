@@ -6,11 +6,12 @@ import { Directive, ElementRef, inject } from '@angular/core';
 })
 export class HighlightDirective {
   element = inject(ElementRef);
-
+  defaultColor = 'yellow'
+  
   constructor() { }
 
   ngOnInit() {
-    this.element.nativeElement.style.backgroundColor = 'yellow'
+    this.element.nativeElement.style.backgroundColor = this.defaultColor;
   }
 
 }

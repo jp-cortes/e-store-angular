@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProductComponent } from './product.component';
+import { generateOneProduct } from '@shared/models/product.mock';
 
-xdescribe('ProductComponent', () => {
+describe('ProductComponent', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
 
@@ -14,8 +15,10 @@ xdescribe('ProductComponent', () => {
   });
 
   beforeEach(() => {
+    const product = generateOneProduct();
     fixture = TestBed.createComponent(ProductComponent);
     component = fixture.componentInstance;
+    component.product = product;
     fixture.detectChanges();
   });
 

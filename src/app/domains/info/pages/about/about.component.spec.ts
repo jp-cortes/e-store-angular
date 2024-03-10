@@ -9,7 +9,7 @@ import { By } from "@angular/platform-browser";
 
 
 
-describe('AboutComponent', () => {
+describe('Test for AboutComponent', () => {
  let component: AboutComponent;
  let fixture: ComponentFixture<AboutComponent>;
 

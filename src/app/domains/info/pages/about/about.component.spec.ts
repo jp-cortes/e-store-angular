@@ -14,7 +14,6 @@ describe('AboutComponent', () => {
  let fixture: ComponentFixture<AboutComponent>;
 
  beforeEach(async () => {
-   const categoryServiceSpy = jasmine.createSpyObj('CategoryService', ['getCategories'])
 
     await TestBed.configureTestingModule({
         imports: [ AboutComponent, CounterComponent, WaveAudioComponent, HighlightDirective, RouterTestingModule ],

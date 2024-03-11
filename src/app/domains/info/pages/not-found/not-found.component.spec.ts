@@ -6,7 +6,7 @@ import { By } from "@angular/platform-browser";
 
 
 
-fdescribe('Test for NotFoundComponent', () => {
+describe('Test for NotFoundComponent', () => {
     let component: NotFoundComponent;
  let fixture: ComponentFixture<NotFoundComponent>;
 
@@ -21,7 +21,7 @@ fdescribe('Test for NotFoundComponent', () => {
  beforeEach(() => {
     fixture = TestBed.createComponent(NotFoundComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); 
+    fixture.detectChanges();
  });
 
  it('should create NotFoundComponent', () => {

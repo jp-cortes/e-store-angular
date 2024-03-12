@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuMobileComponent } from './menu-mobile.component';
-import { generateOneProduct } from '@shared/models/product.mock';
 import { CategoryService } from '@shared/services/category.service';
 import { generateCategories } from '@shared/models/category.mock';
 import { of } from 'rxjs';
 
-fdescribe('Test for MenuMobileComponent', () => {
+describe('Test for MenuMobileComponent', () => {
   let component: MenuMobileComponent;
   let fixture: ComponentFixture<MenuMobileComponent>;
   let categoryService: jasmine.SpyObj<CategoryService>;

@@ -9,8 +9,10 @@ import { AuthTokenService } from "@shared/services/auth-token.service";
 import { CartService } from "@shared/services/cart.service";
 import { MenuMobileComponent } from "@shared/components/menu-mobile/menu-mobile.component";
 import { CategoryService } from "@shared/services/category.service";
+import { generateCategories } from "@shared/models/category.mock";
+import { of } from "rxjs";
 
-describe('HeaderComponent', () => {
+fdescribe('HeaderComponent', () => {
  let component: HeaderComponent;
  let fixture: ComponentFixture<HeaderComponent>;
  let categoryService: jasmine.SpyObj<CategoryService>;
@@ -23,7 +25,7 @@ describe('HeaderComponent', () => {
         providers: [
             AuthTokenService,
             CartService,
-            { provide: categoryService, useValue: categoryServiceSpy }
+            { provide: CategoryService, useValue: categoryServiceSpy }
         ]
     })
     .compileComponents();
@@ -32,11 +34,18 @@ describe('HeaderComponent', () => {
  beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
+    categoryService = TestBed.inject(CategoryService) as jasmine.SpyObj<CategoryService>;
+
+    const categoriesMock = generateCategories(3);
+
+
+    categoryService.getCategories.and.returnValue(of(categoriesMock));
     fixture.detectChanges(); // ngOnInit
  });
 
  it('should create HeaderComponent', () => {
     expect(component).toBeDefined();
+    expect(categoryService.getCategories).toHaveBeenCalled()
  });
 
  describe('Test for navbar', () => {

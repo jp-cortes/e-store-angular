@@ -12,7 +12,7 @@ import { CategoryService } from "@shared/services/category.service";
 import { generateCategories } from "@shared/models/category.mock";
 import { of } from "rxjs";
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
  let component: HeaderComponent;
  let fixture: ComponentFixture<HeaderComponent>;
  let categoryService: jasmine.SpyObj<CategoryService>;

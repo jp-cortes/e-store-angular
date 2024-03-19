@@ -6,7 +6,7 @@ import { generateOneCategory } from './category.mock';
 export const generateOneProduct =  (): Product => {
     return {
         id: faker.number.int(100),
-        name: faker.commerce.department(),
+        name: faker.commerce.product(),
         image: faker.image.url(),
         description: faker.commerce.productDescription(),
         price: faker.number.int({min: 100, max: 1000}),

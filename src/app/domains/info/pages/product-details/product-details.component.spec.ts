@@ -4,6 +4,8 @@ import  ProductDetailsComponent  from './product-details.component';
 import { generateOneProduct } from '@shared/models/product.mock';
 import { ProductService } from '@shared/services/product.service';
 import { of } from 'rxjs';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('Test for ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
@@ -27,16 +29,32 @@ describe('Test for ProductDetailsComponent', () => {
 
     const productMock = generateOneProduct();
 
-
     productService.getOne.and.returnValue(of(productMock));
+
     component = fixture.componentInstance;
+    component.id = `${productMock.id}`;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ProductDetailsComponent', () => {
     expect(component).toBeDefined();
+    expect(productService.getOne).toHaveBeenCalled();
   });
 
-
+  describe('Test for signal product', () => {
+    it('Should display the name of the product', () => {
+      // Arrange
+      const productMock = generateOneProduct();
+      component.product.set(productMock);
+      const h1De: DebugElement = fixture.debugElement.query(By.css('div > h1'));
+      const h1El: HTMLElement = h1De.nativeElement;
+      // Act
+      fixture.detectChanges();
+      // Assert
+      expect(h1El.textContent).toEqual(` ${productMock.name} `);
+  
+      
+    });
+  });
 
 });

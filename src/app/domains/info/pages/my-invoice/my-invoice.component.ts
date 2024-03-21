@@ -55,11 +55,11 @@ export default class MyInvoiceComponent {
   }
 
   getTotalOfInvoice(data: OrderDetail) {
-    const answer = data.items?.map(
+    const total = data.items?.map(
       (item) => Number(item.price) * item.OrderProduct.amount)
     .reduce((a: number, b: number) => a + b, 0)
 
-    return answer;
+    return total;
   }
 
   getSubtotal(item:ProductOrder) {

@@ -8,6 +8,8 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Product } from '@shared/models/product.model';
 
+
+
 describe('Test for ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
@@ -49,9 +51,20 @@ describe('Test for ProductDetailsComponent', () => {
       productMock =  generateOneProduct();
     });
 
+    it('Should display the product image', () => {
+      // Arrange
+      component.product.set(productMock);
+      const imgDe: DebugElement = fixture.debugElement.query(By.css('div > img'));
+      const imgEl: HTMLImageElement = imgDe.nativeElement;
+      // Act
+      fixture.detectChanges();
+      // Assert
+      expect(imgEl.src).toEqual(component.cover());
+  
+    });    
+
     it('Should display the product name', () => {
       // Arrange
-      // const productMock = generateOneProduct();
       component.product.set(productMock);
       const h1De: DebugElement = fixture.debugElement.query(By.css('div > h1'));
       const h1El: HTMLElement = h1De.nativeElement;

@@ -6,6 +6,7 @@ import { ProductService } from '@shared/services/product.service';
 import { of } from 'rxjs';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Product } from '@shared/models/product.model';
 
 describe('Test for ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
@@ -41,10 +42,16 @@ describe('Test for ProductDetailsComponent', () => {
     expect(productService.getOne).toHaveBeenCalled();
   });
 
-  describe('Test for signal product', () => {
-    it('Should display the name of the product', () => {
+  describe('Test for the signal product', () => {
+    let productMock: Product;
+
+    beforeAll(() => {
+      productMock =  generateOneProduct();
+    });
+
+    it('Should display the product name', () => {
       // Arrange
-      const productMock = generateOneProduct();
+      // const productMock = generateOneProduct();
       component.product.set(productMock);
       const h1De: DebugElement = fixture.debugElement.query(By.css('div > h1'));
       const h1El: HTMLElement = h1De.nativeElement;
@@ -53,8 +60,21 @@ describe('Test for ProductDetailsComponent', () => {
       // Assert
       expect(h1El.textContent).toEqual(` ${productMock.name} `);
   
-      
     });
+
+    it('Should display the product description', () => {
+      // Arrange
+      // const productMock = generateOneProduct();
+      component.product.set(productMock);
+      const pDe: DebugElement = fixture.debugElement.query(By.css('div > p.leading-relaxed'));
+      const pEl: HTMLElement = pDe.nativeElement;
+      // Act
+      fixture.detectChanges();
+      // Assert
+      expect(pEl.textContent).toEqual(` ${productMock.description} `);
+  
+    });
+
   });
 
 });

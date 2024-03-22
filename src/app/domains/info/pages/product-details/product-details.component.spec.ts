@@ -50,7 +50,7 @@ describe('Test for ProductDetailsComponent', () => {
     beforeAll(() => {
       productMock =  generateOneProduct();
     });
-
+    
     it('Should display the product image', () => {
       // Arrange
       component.product.set(productMock);
@@ -77,7 +77,6 @@ describe('Test for ProductDetailsComponent', () => {
 
     it('Should display the product description', () => {
       // Arrange
-      // const productMock = generateOneProduct();
       component.product.set(productMock);
       const pDe: DebugElement = fixture.debugElement.query(By.css('div > p.leading-relaxed'));
       const pEl: HTMLElement = pDe.nativeElement;
@@ -85,6 +84,17 @@ describe('Test for ProductDetailsComponent', () => {
       fixture.detectChanges();
       // Assert
       expect(pEl.textContent).toEqual(` ${productMock.description} `);
+  
+    });
+
+    it('Should display the button Add To Cart', () => {
+      // Arrange
+      const buttonDe: DebugElement = fixture.debugElement.query(By.css('div > button.flex'));
+      const buttonEl: HTMLElement = buttonDe.nativeElement;
+      // Act
+      fixture.detectChanges();
+      // Assert
+      expect(buttonEl.textContent).toContain(' Add To Cart ');
   
     });
 

@@ -28,6 +28,7 @@
       "@products/*":["./src/app/domains/products/*"],
       "@info/*":["./src/app/domains/info/*"],
       "@environments/*":["./src/environments/*"],
+      "@testing/*": ["./src/testing/*"]
     },
     "allowSyntheticDefaultImports": true
   },

@@ -11,6 +11,7 @@ import { MenuMobileComponent } from "@shared/components/menu-mobile/menu-mobile.
 import { CategoryService } from "@shared/services/category.service";
 import { generateCategories } from "@shared/models/category.mock";
 import { of } from "rxjs";
+import { getText, queryAll, queryById } from "@testing/finders";
 
 describe('HeaderComponent', () => {
  let component: HeaderComponent;
@@ -50,16 +51,17 @@ describe('HeaderComponent', () => {
 
  describe('Test for navbar', () => {
   it('Should display <span>E-STORE</span>', () => {
-    const spanDe: DebugElement = fixture.debugElement.query(By.css('nav a span.self-center'));
-    const spanEl: HTMLElement = spanDe.nativeElement;
+    // Arrange
+    const textContent = getText(fixture, 'shop-title');
     // Act
     fixture.detectChanges();
     // Assert
-    expect(spanEl.textContent).toContain('E-STORE');
+    expect(textContent).toContain('E-STORE');
   })
 
   it('Should display navbar routes Home, About, Services', () => {
-    const liDe: DebugElement = fixture.debugElement.query(By.all());
+    // Arrange
+    const liDe = queryAll(fixture);
     const liEl: HTMLElement = liDe.nativeElement;
     // Act
     fixture.detectChanges();
@@ -74,17 +76,18 @@ describe('HeaderComponent', () => {
 
  describe('Test for shoppingCart', () => {
   it('Should display the shoppingCart', () => {
-    const cartDe: DebugElement = fixture.debugElement.query(By.css('div h3.mb-8'));
-    const cartEl: HTMLElement = cartDe.nativeElement;
+    // Arrange
+    const cartEl = getText(fixture, 'shoppingcart-h3')
     // Act
     fixture.detectChanges();
     // Assert
-    expect(cartEl.textContent).toContain('Your Cart is empty');
+    expect(cartEl).toContain('Your Cart is empty');
   });
 
   it('Should toggle the shoppingCart', () => {
-    const btnOpenDe: DebugElement = fixture.debugElement.query(By.css('nav div button.rounded'));
-    const btnCloseDe: DebugElement = fixture.debugElement.query(By.css('div.fixed div.flex button.bg-transparent '));
+    // Arrange
+    const btnOpenDe = queryById(fixture, 'open-btn');;
+    const btnCloseDe = queryById(fixture, 'close-btn');
 
     // Act
     //this click should change the signal hideCart() false

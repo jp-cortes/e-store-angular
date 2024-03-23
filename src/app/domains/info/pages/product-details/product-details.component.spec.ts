@@ -5,8 +5,8 @@ import { generateOneProduct } from '@shared/models/product.mock';
 import { ProductService } from '@shared/services/product.service';
 import { of } from 'rxjs';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { Product } from '@shared/models/product.model';
+import { queryById } from '@testing/finders';
 
 
 
@@ -54,7 +54,7 @@ describe('Test for ProductDetailsComponent', () => {
     it('Should display the product image', () => {
       // Arrange
       component.product.set(productMock);
-      const imgDe: DebugElement = fixture.debugElement.query(By.css('div > img'));
+      const imgDe = queryById(fixture, 'product-img');
       const imgEl: HTMLImageElement = imgDe.nativeElement;
       // Act
       fixture.detectChanges();
@@ -66,7 +66,7 @@ describe('Test for ProductDetailsComponent', () => {
     it('Should display the product name', () => {
       // Arrange
       component.product.set(productMock);
-      const h1De: DebugElement = fixture.debugElement.query(By.css('div > h1'));
+      const h1De = queryById(fixture, 'product-name');
       const h1El: HTMLElement = h1De.nativeElement;
       // Act
       fixture.detectChanges();
@@ -78,7 +78,7 @@ describe('Test for ProductDetailsComponent', () => {
     it('Should display the product description', () => {
       // Arrange
       component.product.set(productMock);
-      const pDe: DebugElement = fixture.debugElement.query(By.css('div > p.leading-relaxed'));
+      const pDe = queryById(fixture, 'product-description');
       const pEl: HTMLElement = pDe.nativeElement;
       // Act
       fixture.detectChanges();
@@ -89,7 +89,7 @@ describe('Test for ProductDetailsComponent', () => {
 
     it('Should display the button Add To Cart', () => {
       // Arrange
-      const buttonDe: DebugElement = fixture.debugElement.query(By.css('div > button.flex'));
+      const buttonDe = queryById(fixture, 'product-btn');
       const buttonEl: HTMLElement = buttonDe.nativeElement;
       // Act
       fixture.detectChanges();

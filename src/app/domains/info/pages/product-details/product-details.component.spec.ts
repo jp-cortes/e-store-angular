@@ -4,7 +4,6 @@ import  ProductDetailsComponent  from './product-details.component';
 import { generateOneProduct } from '@shared/models/product.mock';
 import { ProductService } from '@shared/services/product.service';
 import { of } from 'rxjs';
-import { DebugElement } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { queryById } from '@testing/finders';
 

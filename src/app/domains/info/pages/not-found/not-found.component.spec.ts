@@ -2,11 +2,11 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NotFoundComponent } from "./not-found.component";
 import { RouterTestingModule } from "@angular/router/testing";
 import { DebugElement } from "@angular/core";
-import { By } from "@angular/platform-browser";
+import { queryById } from "@testing/finders";
 
 
 
-describe('Test for NotFoundComponent', () => {
+fdescribe('Test for NotFoundComponent', () => {
     let component: NotFoundComponent;
  let fixture: ComponentFixture<NotFoundComponent>;
 
@@ -31,7 +31,7 @@ describe('Test for NotFoundComponent', () => {
 
  it('Should display <h1>404</h1>', () => {
     // Arrange
-    const spanDe: DebugElement = fixture.debugElement.query(By.css('section h1'));
+    const spanDe: DebugElement = queryById(fixture, 'not-found-title');
     const spanEl: HTMLElement = spanDe.nativeElement;
     // Act
     fixture.detectChanges();
@@ -41,7 +41,7 @@ describe('Test for NotFoundComponent', () => {
 
   it('Should display Tag <p>', () => {
     // Arrange
-    const spanDe: DebugElement = fixture.debugElement.query(By.css('section p'));
+    const spanDe: DebugElement = queryById(fixture, 'not-found-paragraph');
     const spanEl: HTMLElement = spanDe.nativeElement;
     // Act
     fixture.detectChanges();
@@ -51,7 +51,7 @@ describe('Test for NotFoundComponent', () => {
 
   it('Should display Tag Back to Homepage', () => {
     // Arrange
-    const spanDe: DebugElement = fixture.debugElement.query(By.css('section a'));
+    const spanDe: DebugElement = queryById(fixture, 'not-found-redirect');
     const spanEl: HTMLElement = spanDe.nativeElement;
     // Act
     fixture.detectChanges();

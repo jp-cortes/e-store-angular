@@ -1,8 +1,7 @@
-import { By } from "@angular/platform-browser";
 import { CounterComponent } from "./counter.component";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { DebugElement } from "@angular/core";
 import { RouterTestingModule } from "@angular/router/testing";
+import { query } from "@testing/finders";
 
 
 
@@ -30,7 +29,7 @@ describe('Test for CounterComponent', () => {
 
  it('Should display tag <span>', () => {
     // Arrange
-    const spanDe: DebugElement = fixture.debugElement.query(By.css('span'));
+    const spanDe = query(fixture, 'span');
     const spanEl: HTMLElement = spanDe.nativeElement;
     // Act
     fixture.detectChanges();

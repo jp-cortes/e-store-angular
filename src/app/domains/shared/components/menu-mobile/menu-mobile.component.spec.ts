@@ -4,8 +4,7 @@ import { MenuMobileComponent } from './menu-mobile.component';
 import { CategoryService } from '@shared/services/category.service';
 import { generateCategories } from '@shared/models/category.mock';
 import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { queryById } from '@testing/finders';
 
 describe('Test for MenuMobileComponent', () => {
   let component: MenuMobileComponent;
@@ -46,7 +45,7 @@ it('should create', () => {
 
   it('Should display the text "Menu" in tag h5', () => {
     // Arrange
-    const h5De: DebugElement = fixture.debugElement.query(By.css('h5.text-base'));
+    const h5De = queryById(fixture, 'menu-mobile-title');
     const h5El: HTMLElement = h5De.nativeElement;
     // Act
     fixture.detectChanges();
@@ -57,8 +56,8 @@ it('should create', () => {
   
   
   it('Should toggle the signal showSideMenu', () => {
-    const btnOpenDe: DebugElement = fixture.debugElement.query(By.css('div.relative button'));
-    const btnCloseDe: DebugElement = fixture.debugElement.query(By.css('div.fixed button.bg-transparent '));
+    const btnOpenDe = queryById(fixture, 'open-menu-btn');
+    const btnCloseDe = queryById(fixture, 'close-menu-btn')
 
     // Act
     //this click should change the signal showSideMenu() false
@@ -81,7 +80,7 @@ it('should create', () => {
     // Arrange
     const categoriesMock = generateCategories(3);
     categoryService.getCategories.and.returnValue(of(categoriesMock));
-    const liDe = fixture.debugElement.query(By.css('div > ul > li.mt-4 > a'));
+    const liDe = queryById(fixture, 'categories-title');
     const liEl: HTMLElement = liDe.nativeElement;
 
     // Act

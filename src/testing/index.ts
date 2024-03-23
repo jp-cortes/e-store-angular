@@ -1,1 +1,1 @@
-export * from './finders'
+export * from './finders';

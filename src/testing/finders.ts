@@ -26,7 +26,12 @@ export function queryAll<T>(fixture: ComponentFixture<T>) {
     return debugElement;
 }
 
+export function queryAllBySelector<T>(fixture: ComponentFixture<T>, selector: string) {
+    const debugElement = fixture.debugElement.queryAll(By.css(selector));
+    return debugElement;
+}
+
 export function queryAllByDirective<T, D>(fixture: ComponentFixture<T>, directive: Type<D>) {
-    const debugElement: DebugElement = fixture.debugElement.query(By.directive(directive));
+    const debugElement = fixture.debugElement.queryAll(By.directive(directive));
     return debugElement;
 }

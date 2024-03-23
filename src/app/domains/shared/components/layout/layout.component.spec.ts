@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { LayoutComponent } from "./layout.component";
-import { DebugElement } from "@angular/core";
-import { By } from "@angular/platform-browser";
 import { RouterTestingModule } from "@angular/router/testing";
 import { HeaderComponent } from "../header/header.component";
 import { CategoryService } from "@shared/services/category.service";
 import { generateCategories } from "@shared/models/category.mock";
 import { of } from "rxjs";
+import { query } from "@testing/finders";
 
 
 describe('Test for LayoutComponent', () => {
@@ -45,7 +44,7 @@ describe('Test for LayoutComponent', () => {
    
     it('Should display tag <app-header />', () => {
        // Arrange
-       const spanDe: DebugElement = fixture.debugElement.query(By.css('app-header'));
+       const spanDe = query(fixture, 'app-header');
        const spanEl: HTMLElement = spanDe.nativeElement;
        // Act
        fixture.detectChanges();
@@ -55,7 +54,7 @@ describe('Test for LayoutComponent', () => {
    
      it('Should display tag <router-outlet />', () => {
         // Arrange
-        const spanDe: DebugElement = fixture.debugElement.query(By.css('router-outlet'));
+        const spanDe = query(fixture, 'router-outlet');
         const spanEl: HTMLElement = spanDe.nativeElement;
         // Act
         fixture.detectChanges();

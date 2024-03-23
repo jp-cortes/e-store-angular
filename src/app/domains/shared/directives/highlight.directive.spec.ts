@@ -1,8 +1,9 @@
-import { Component, DebugElement } from "@angular/core";
+import { Component } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 
 import { HighlightDirective } from "./highlight.directive";
+import { queryAllByDirective, queryAllBySelector } from "@testing/finders";
 
 @Component({
     template: `
@@ -37,8 +38,8 @@ describe('HighlightDirective', () => {
     });
 
     it('Should highlight 2 element', () => {
-        const elements = fixture.debugElement.queryAll(By.directive(HighlightDirective));
-        const elementsWithout = fixture.debugElement.queryAll(By.css('*:not([highlight])'));
+        const elements = queryAllByDirective(fixture, HighlightDirective);
+        const elementsWithout = queryAllBySelector(fixture, '*:not([highlight])');
         expect(elements.length).toEqual(2);
         expect(elementsWithout.length).toEqual(2);
     });

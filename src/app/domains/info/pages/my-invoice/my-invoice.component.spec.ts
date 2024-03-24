@@ -4,6 +4,8 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { UserService } from "@shared/services/user.service";
 import { generateOrderDetail } from "@shared/models/order.mock";
 import { AuthTokenService } from "@shared/services/auth-token.service";
+import { of } from "rxjs";
+import { SimpleChange } from "@angular/core";
 
 
 
@@ -16,7 +18,7 @@ let component: MyInvoiceComponent;
   let userService: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
-    const authTokenServiceSpy = jasmine.createSpyObj('UserService', ['getToken']);
+    const authTokenServiceSpy = jasmine.createSpyObj('AuthTokenService', ['getToken']);
     const userServiceSpy = jasmine.createSpyObj('UserService', ['getInvoice', 'redirect']);
 
     await TestBed.configureTestingModule({
@@ -35,19 +37,27 @@ let component: MyInvoiceComponent;
     userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
 
     const orderMock = generateOrderDetail();
-    const fakeToken = '@!903Dm'
+    const fakeToken = 'abE903Dm';
 
-    // authTokenService.getToken.and.returnValue(of(fakeToken))
-    // userService.getInvoice.and.returnValue(of(orderMock));
-
+    authTokenService.getToken.and.returnValue(fakeToken);
+    userService.getInvoice.and.returnValue(of(orderMock));
+    
     component = fixture.componentInstance;
-    component.invoiceId = orderMock.id;
+    
     fixture.detectChanges();
   });
 
   it('should create MyInvoiceComponent', () => {
+    
+    component.ngOnChanges({
+      invoiceId: new SimpleChange(null, component.invoiceId, false)
+    })
+    fixture.detectChanges();
+    
     expect(component).toBeDefined();
-    // expect(authTokenService.getToken).toHaveBeenCalled();
-    // expect(userService.getInvoice).toHaveBeenCalled();
+    expect(authTokenService.getToken).toHaveBeenCalled();
+    expect(userService.getInvoice).toHaveBeenCalled();
   });
+
+
 });

@@ -21,9 +21,7 @@ export default class MyInvoiceComponent {
 
 
 
-  ngOnInit() {
-
-  }
+  // ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     const token = this.authTokenService.getToken();

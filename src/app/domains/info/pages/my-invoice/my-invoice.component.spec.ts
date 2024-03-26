@@ -41,19 +41,21 @@ let component: MyInvoiceComponent;
 
     authTokenService.getToken.and.returnValue(fakeToken);
     userService.getInvoice.and.returnValue(of(orderMock));
-    
+
     component = fixture.componentInstance;
-    
+
     fixture.detectChanges();
   });
 
   it('should create MyInvoiceComponent', () => {
-    
+    // Arrange
+    const invoiceId = component.invoiceId = 1
+    // Act
     component.ngOnChanges({
-      invoiceId: new SimpleChange(null, component.invoiceId, false)
+      invoiceId: new SimpleChange(null, invoiceId, false)
     })
     fixture.detectChanges();
-    
+    // Assert
     expect(component).toBeDefined();
     expect(authTokenService.getToken).toHaveBeenCalled();
     expect(userService.getInvoice).toHaveBeenCalled();

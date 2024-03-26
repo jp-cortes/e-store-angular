@@ -12,11 +12,11 @@ import { AuthTokenService } from '@shared/services/auth-token.service';
   styleUrl: './my-invoice.component.css'
 })
 export default class MyInvoiceComponent {
-  authTokenService = inject(AuthTokenService);
-  userService = inject(UserService); // userService for invoice
+  private authTokenService = inject(AuthTokenService);
+  private userService = inject(UserService); // userService for invoice
   invoice = signal<OrderDetail | null>(null) // invoice
-  subTotal = signal<number | null>(null) // invoice
-  totalOfInvoice = signal<number | null>(null) // invoice
+  subTotal = signal<number | null>(null) // invoice subtotal
+  totalOfInvoice = signal<number | null>(null) // invoice total
   @Input() invoiceId?: number;
 
 

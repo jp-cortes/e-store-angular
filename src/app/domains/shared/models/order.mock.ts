@@ -70,7 +70,7 @@ export const generateOrders = (size = 9): OrderResume[] => {
 export const generateOrderDetail = (): OrderDetail => {
   return {
     id: faker.number.int(),
-    status: faker.string.alpha(),
+    status: faker.string.alpha(10),
     paid: faker.datatype.boolean(),
     createdAt: `${faker.date.anytime()}`,
     customerId: faker.number.int(),

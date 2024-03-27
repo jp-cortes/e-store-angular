@@ -23,28 +23,27 @@
               <div class="text-green-700">
                 <span class="mr-4 text-sm">■ </span> #
               </div>
-              <span id="invoice_id" class="text-gray-500">
+              <span data-testId="invoice-id" class="text-gray-500">
                 {{invoice()?.id}}
               </span>
             </div>
             <div class="flex flex-col lg:ml-12 xl:ml-12 print:text-sm">
-              <span>Issue date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
-              <span>Paid date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
-              <span>Due date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
+              <span data-testId="invoice-issue-date">Issue date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
+              <span data-testId="invoice-paid-date">Paid date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
+              <span data-testId="invoice-due-date">Due date: {{invoice()?.createdAt?.slice(0, 10)}}</span>
             </div>
-            <div class="px-8 py-2 mt-16 mb-16 capitalize text-3xl font-bold text-green-700 border-4 border-green-700 border-dotted md:absolute md:right-0 md:top-0 md:mr-12 lg:absolute lg:right-0 lg:top-0 xl:absolute xl:right-0 xl:top-0 print:absolute print:right-0 print:top-0 lg:mr-20 xl:mr-20 print:mr-2 print:mt-8">
+            <div data-testId="invoice-status" class="px-8 py-2 mt-16 mb-16 capitalize text-3xl font-bold text-green-700 border-4 border-green-700 border-dotted md:absolute md:right-0 md:top-0 md:mr-12 lg:absolute lg:right-0 lg:top-0 xl:absolute xl:right-0 xl:top-0 print:absolute print:right-0 print:top-0 lg:mr-20 xl:mr-20 print:mr-2 print:mt-8">
               {{invoice()?.status}}
             </div>
           </div>
           <div class="border-gray-300 md:mt-8 print:hidden"></div>
           <div>
             <div
-              id="content"
               class="flex justify-center md:p-8 lg:p-20 xl:p-20 print:p-2"
             >
               <table
                 class="w-full text-left table-auto print:text-sm"
-                id="table-items"
+                
               >
                 <thead>
                   <tr class="text-white bg-gray-700 print:bg-gray-300 print:text-black">

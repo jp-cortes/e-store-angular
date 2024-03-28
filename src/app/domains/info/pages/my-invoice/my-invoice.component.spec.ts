@@ -13,7 +13,7 @@ import { queryAllBySelector, queryById } from "@testing/finders";
 
 
 
-fdescribe('Test for MyInvoiceComponent', () => {
+describe('Test for MyInvoiceComponent', () => {
 let component: MyInvoiceComponent;
   let fixture: ComponentFixture<MyInvoiceComponent>;
   let authTokenService: jasmine.SpyObj<AuthTokenService>;

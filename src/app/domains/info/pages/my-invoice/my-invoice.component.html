@@ -57,7 +57,7 @@
 
 
                     <tr *ngFor="let item of invoice()?.items">
-                      <td class="px-4 py-2 border">{{item.name}}</td>
+                      <td data-testId="invoice-items-name" class="item-name px-4 py-2 border">{{item.name}}</td>
                       <td class="px-4 py-2 text-right border ">
                         {{item.OrderProduct.amount}}
                       </td>

@@ -75,6 +75,6 @@ export const generateOrderDetail = (): OrderDetail => {
     createdAt: `${faker.date.anytime()}`,
     customerId: faker.number.int(),
     customer: generateCustomer(),
-    items: generateOrderItems(),
+    items: generateOrderItems(3),
   };
 };

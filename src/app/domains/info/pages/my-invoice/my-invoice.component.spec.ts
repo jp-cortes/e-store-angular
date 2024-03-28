@@ -7,13 +7,13 @@ import { AuthTokenService } from "@shared/services/auth-token.service";
 import { of } from "rxjs";
 import { SimpleChange } from "@angular/core";
 import { OrderDetail } from "@shared/models/order.model";
-import { queryById } from "@testing/finders";
+import { queryAllBySelector, queryById } from "@testing/finders";
 
 
 
 
 
-describe('Test for MyInvoiceComponent', () => {
+fdescribe('Test for MyInvoiceComponent', () => {
 let component: MyInvoiceComponent;
   let fixture: ComponentFixture<MyInvoiceComponent>;
   let authTokenService: jasmine.SpyObj<AuthTokenService>;
@@ -113,6 +113,22 @@ it('Should display invoice status', () => {
 
   // Assert
   expect(divEl.textContent).toEqual(` ${invoiceMock.status} `);
+});
+
+it('Should display invoice items', () => {
+  // Arrange
+  component.invoice.set(invoiceMock);
+  fixture.detectChanges();
+
+  // Act
+  const divDe = queryAllBySelector(fixture, 'td.item-name');
+
+
+  fixture.detectChanges();
+
+  // Assert
+  expect(divDe.length).toEqual(invoiceMock.items.length);
+  expect(component.invoice()?.items).toEqual(invoiceMock.items);
 });
 
 });

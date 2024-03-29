@@ -4,12 +4,13 @@
   <div class="grid md:flex lg:flex mt-7 ">
     <div class="w-full my-8 grid justify-center">
 
-      <h2 class="font-normal capitalize">Hi, {{user()?.customer?.name}} </h2>
+      <h2 data-testId="customer-name" class="font-normal capitalize">Hi, {{user()?.customer?.name}} </h2>
       <div class="gap-4">
 
           <figure *ngIf="user()?.customer?.avatar !== null; else elseBlock"
              class="my-5">
             <Img
+              data-testId="user-img"
               class="rounded-full"
               [src]="user()?.customer?.avatar"
               alt="avatar"
@@ -29,15 +30,15 @@
           </ng-template>
 
         <div class="">
-          <p class="my-5 font-light text-gray-700 capitalize">
+          <p data-testId="user-name" class="my-5 font-light text-gray-700 capitalize">
             <b>Name: </b>
             {{user()?.customer?.name}}
           </p>
-          <p class="my-5 font-light text-gray-700 capitalize">
+          <p data-testId="user-lastname" class="my-5 font-light text-gray-700 capitalize">
             <b>Lastname: </b>
             {{user()?.customer?.lastName}}
           </p>
-          <p class="my-5 font-light text-gray-700 capitalize">
+          <p data-testId="user-phonenumber" class="my-5 font-light text-gray-700 capitalize">
             <b>Phone number: </b>
             {{user()?.customer?.phone}}
           </p>
@@ -58,11 +59,11 @@
         <div *ngFor="let order of orders()"
             class="border-2 rounded-lg mt-2 w-60 px-2 mx-auto max-h-max"
                 >
-                  <p class="font-medium">
+                  <p  class="test-order font-medium">
                     Paid:
                     <span class="capitalize font-normal">{{order.paid}}</span>
                   </p>
-                  <p class="font-medium">
+                  <p class="test-order-status font-medium">
                     Current status:
                     <span class="capitalize font-normal">
                       {{order.status}}

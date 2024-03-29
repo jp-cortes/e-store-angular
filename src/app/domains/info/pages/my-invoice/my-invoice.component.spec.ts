@@ -63,7 +63,7 @@ let component: MyInvoiceComponent;
     expect(userService.getInvoice).toHaveBeenCalled();
   });
 
-describe('Tes for invoice signal', () => {
+describe('Test for invoice signal', () => {
   let invoiceMock:OrderDetail;
 
   beforeAll(() => {

@@ -7,7 +7,7 @@ import { AuthTokenService } from "@shared/services/auth-token.service";
 import { of } from "rxjs";
 import { SimpleChange } from "@angular/core";
 import { OrderDetail } from "@shared/models/order.model";
-import { queryAllBySelector, queryById } from "@testing/finders";
+import { getText, queryAllBySelector } from "@testing/finders";
 
 
 
@@ -76,13 +76,12 @@ it('Should display invoice id', () => {
   fixture.detectChanges();
 
   // Act
-  const spanDe = queryById(fixture, 'invoice-id');
-  const spanEl: HTMLElement = spanDe.nativeElement;
+  const spanDe = getText(fixture, 'invoice-id');
 
   fixture.detectChanges();
 
   // Assert
-  expect(spanEl.textContent).toEqual(` ${invoiceMock.id} `);
+  expect(spanDe).toEqual(` ${invoiceMock.id} `);
 });
 
 it('Should display invoice Issue date', () => {
@@ -91,13 +90,12 @@ it('Should display invoice Issue date', () => {
   fixture.detectChanges();
 
   // Act
-  const spanDe = queryById(fixture, 'invoice-issue-date');
-  const spanEl: HTMLElement = spanDe.nativeElement;
+  const spanDe = getText(fixture, 'invoice-issue-date');
 
   fixture.detectChanges();
 
   // Assert
-  expect(spanEl.textContent).toEqual(`Issue date: ${invoiceMock.createdAt.slice(0, 10)}`);
+  expect(spanDe).toEqual(`Issue date: ${invoiceMock.createdAt.slice(0, 10)}`);
 });
 
 it('Should display invoice status', () => {
@@ -106,13 +104,12 @@ it('Should display invoice status', () => {
   fixture.detectChanges();
 
   // Act
-  const divDe = queryById(fixture, 'invoice-status');
-  const divEl: HTMLElement = divDe.nativeElement;
+  const divDe = getText(fixture, 'invoice-status');
 
   fixture.detectChanges();
 
   // Assert
-  expect(divEl.textContent).toEqual(` ${invoiceMock.status} `);
+  expect(divDe).toEqual(` ${invoiceMock.status} `);
 });
 
 it('Should display invoice items', () => {

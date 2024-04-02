@@ -24,7 +24,7 @@
               <form [formGroup]="newProfileForm"  class="mt-8 space-y-2" (ngSubmit)="signUp($event)">
                 <div>
                       <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
-                      <input [class.border-red-700]="invalidNameField" formControlName="name" type="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="your name" required>
+                      <input [class.border-red-700]="invalidNameField" id="name" formControlName="name" type="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="your name" required>
                       <span *ngIf="invalidNameField" class="text-xs text-red-700" >Invalid name</span>
                   </div>
                   <div>

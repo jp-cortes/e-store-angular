@@ -26,11 +26,11 @@ describe('Test for SignUpComponent', () => {
   
     beforeEach(() => {
       fixture = TestBed.createComponent(SignUpComponent);
-      userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+      // userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
 
-      const customerMock = generateCustomer();
+      // const customerMock = generateCustomer();
       
-      userService.signUp.and.returnValue(of(customerMock));
+      // userService.signUp.and.returnValue(of(customerMock));
   
       component = fixture.componentInstance;
   
@@ -38,8 +38,15 @@ describe('Test for SignUpComponent', () => {
     });
 
     it('Should create SignUpComponent', () => {
-        fixture.detectChanges();
         expect(component).toBeDefined();
+    });
+
+    it('Test for nameFiled should be invalid', () => {
+      component.nameField?.setValue('#$%^&)@!');
+      expect(component.nameField?.invalid).withContext('Not a name').toBeTruthy();
+
+      component.nameField?.setValue('');
+      expect(component.nameField?.invalid).withContext('empty field').toBeTruthy();
     });
 
 

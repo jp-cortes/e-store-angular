@@ -41,12 +41,56 @@ describe('Test for SignUpComponent', () => {
         expect(component).toBeDefined();
     });
 
-    it('Test for nameFiled should be invalid', () => {
+    it('Test for nameFiled, should be invalid', () => {
       component.nameField?.setValue('#$%^&)@!');
       expect(component.nameField?.invalid).withContext('Not a name').toBeTruthy();
 
       component.nameField?.setValue('');
       expect(component.nameField?.invalid).withContext('empty field').toBeTruthy();
+    });
+
+    it('Test for lastnameFiled, should be invalid', () => {
+      component.lastNameField?.setValue('#$%^&)@!8090987');
+      expect(component.lastNameField?.invalid).withContext('Not a lastname').toBeTruthy();
+
+      component.lastNameField?.setValue('');
+      expect(component.lastNameField?.invalid).withContext('empty field').toBeTruthy();
+    });
+
+    it('Test for phoneField, should be invalid', () => {
+      component.phoneField?.setValue('012345');
+      expect(component.phoneField?.invalid).withContext('Not a phone number').toBeTruthy();
+
+      component.phoneField?.setValue('');
+      expect(component.phoneField?.invalid).withContext('empty field').toBeTruthy();
+    });
+
+    it('Test for emailField, should be invalid', () => {
+      component.emailField?.setValue('examplemail.com');
+      expect(component.emailField?.invalid).withContext('Not a valid email').toBeTruthy();
+
+      component.emailField?.setValue('');
+      expect(component.emailField?.invalid).withContext('empty field').toBeTruthy();
+    });
+
+    it('Test for passwordField, should be invalid', () => {
+      component.passwordField?.setValue('password');
+      expect(component.passwordField?.invalid).withContext('Not a valid password').toBeTruthy();
+
+      component.passwordField?.setValue('');
+      expect(component.passwordField?.invalid).withContext('empty field').toBeTruthy();
+    });
+
+    it('Test for confirmPasswordField, should be invalid', () => {
+      component.confirmPasswordField?.setValue('confirmPassword');
+      expect(component.confirmPasswordField?.invalid).withContext('Not a valid password').toBeTruthy();
+
+      component.confirmPasswordField?.setValue('');
+      expect(component.confirmPasswordField?.invalid).withContext('empty field').toBeTruthy();
+    });
+
+    it('Test for passwordValidator, should be invalid', () => {
+      expect(component.passwordMatchValidator.valueOf()).withContext('Not a passwords must match').toBeTruthy();
     });
 
 

@@ -4,6 +4,7 @@ import { UserService } from "@shared/services/user.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { generateCustomer, generateSignUpCustomer } from "@shared/models/user.mock";
 import { of } from "rxjs";
+import { getText, query } from "@testing/finders";
 
 
 
@@ -42,7 +43,7 @@ describe('Test for SignUpComponent', () => {
     });
 
     it('Test for nameFiled, should be invalid', () => {
-      component.nameField?.setValue('#$%^&)@!');
+      component.nameField?.setValue('afsfs^&)@!');
       expect(component.nameField?.invalid).withContext('Not a name').toBeTruthy();
 
       component.nameField?.setValue('');
@@ -74,7 +75,7 @@ describe('Test for SignUpComponent', () => {
     });
 
     it('Test for passwordField, should be invalid', () => {
-      component.passwordField?.setValue('password');
+      component.passwordField?.setValue('not a password');
       expect(component.passwordField?.invalid).withContext('Not a valid password').toBeTruthy();
 
       component.passwordField?.setValue('');
@@ -91,6 +92,22 @@ describe('Test for SignUpComponent', () => {
 
     it('Test for passwordValidator, should be invalid', () => {
       expect(component.passwordMatchValidator.valueOf()).withContext('Not a passwords must match').toBeTruthy();
+    });
+
+
+    it('Test for nameField UI, should be invalid', () => {
+      const inputDe = query(fixture, 'input#name');
+      const inputEl: HTMLInputElement = inputDe.nativeElement;
+
+      inputEl.value = 'J0hnny';
+      inputEl.dispatchEvent(new Event('input'));
+      inputEl.dispatchEvent(new Event('blur'));
+      fixture.detectChanges();
+      expect(component.nameField?.invalid).withContext('Not a name').toBeTruthy();
+
+      const textError = getText(fixture, 'nameField-name');
+      expect(textError).toContain('Invalid name')
+
     });
 
 

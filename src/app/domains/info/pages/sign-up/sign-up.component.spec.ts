@@ -5,6 +5,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { generateCustomer, generateSignUpCustomer } from "@shared/models/user.mock";
 import { of } from "rxjs";
 import { getText, query } from "@testing/finders";
+import { setInputValue } from "@testing/forms";
 
 
 
@@ -112,6 +113,56 @@ describe('Test for SignUpComponent', () => {
       const textError = getText(fixture, 'nameField-name');
       expect(textError).toContain('Invalid name');
 
+    });
+
+    it('Test for lastNameField UI, should be invalid', () => {
+      
+      setInputValue(fixture, 'input#lastName', 'C@g3');
+      fixture.detectChanges();
+      expect(component.lastNameField?.invalid).withContext('Not a lastname');
+
+      const textError = getText(fixture, 'lastNameField-lastName');
+      expect(textError).toContain('Invalid lastname');
+    });
+
+    it('Test for phoneField UI, should be invalid', () => {
+      
+      setInputValue(fixture, 'input#phone', 'dsjsnd');
+      fixture.detectChanges();
+      expect(component.phoneField?.invalid).withContext('Not a phone number');
+
+      const textError = getText(fixture, 'phoneField-phone');
+      expect(textError).toContain('Invalid phone number');
+    });
+
+    it('Test for emailField UI, should be invalid', () => {
+      
+      setInputValue(fixture, 'input#email', 'dsjsndmdksmdk');
+      fixture.detectChanges();
+      expect(component.emailField?.invalid).withContext('Not an email');
+
+      const textError = getText(fixture, 'emailField-email');
+      expect(textError).toContain('Invalid email');
+    });
+
+    it('Test for passwordField UI, should be invalid', () => {
+      
+      setInputValue(fixture, 'input#password', 'not a password');
+      fixture.detectChanges();
+      expect(component.passwordField?.invalid).withContext('Not a valid password');
+
+      const textError = getText(fixture, 'passwordField-password');
+      expect(textError).toContain('Invalid password must contain at least one number, one special character, lowercase & uppercase');
+    });
+
+    it('Test for confirmPasswordField UI, should be invalid', () => {
+      
+      setInputValue(fixture, 'input#confirm_password ', 'another password');
+      fixture.detectChanges();
+      expect(component.confirmPasswordField?.invalid).withContext('passwords must match');
+
+      const textError = getText(fixture, 'confirmPasswordField-confirm_password');
+      expect(textError).toContain('Passwords must match ');
     });
 
 

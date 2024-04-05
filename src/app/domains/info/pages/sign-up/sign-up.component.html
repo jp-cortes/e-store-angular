@@ -30,29 +30,29 @@
                   <div>
                       <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your lastname</label>
                       <input [class.border-red-700]="invalidLastNameField" formControlName="lastName" type="text" name="lastName" id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Your lastname" required>
-                      <span *ngIf="invalidLastNameField" class="text-xs text-red-700" >Invalid lastname</span>
+                      <span data-testId="lastNameField-lastName" *ngIf="invalidLastNameField" class="text-xs text-red-700" >Invalid lastname</span>
                   </div>
                   <div>
                       <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your phone number</label>
                       <input [class.border-red-700]="invalidPhoneField" formControlName="phone" type="text" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Phone number" required>
-                      <span *ngIf="invalidPhoneField" class="text-xs text-red-700" >Invalid phone number</span>
+                      <span data-testId="phoneField-phone" *ngIf="invalidPhoneField" class="text-xs text-red-700" >Invalid phone number</span>
                   </div>
                   <div formGroupName="user">
                    <div>
                       <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                       <input [class.border-red-700]="invalidEmailField" formControlName="email" type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="user@example.com" required>
-                      <span *ngIf="invalidEmailField" class="text-xs text-red-700" >Invalid email</span>
+                      <span data-testId="emailField-email" *ngIf="invalidEmailField" class="text-xs text-red-700" >Invalid email</span>
 
                    </div>
                    <div>
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
                       <input [class.border-red-700]="invalidPasswordField" formControlName="password" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
-                      <span *ngIf="invalidPasswordField" class="text-xs text-red-700" >Invalid password must contain at least one number, one special character, lowercase & uppercase</span>
+                      <span data-testId="passwordField-password" *ngIf="invalidPasswordField" class="text-xs text-red-700" >Invalid password must contain at least one number, one special character, lowercase & uppercase</span>
                    </div>
                    <div>
                       <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                       <input [class.border-red-700]="!passwordMatchValidator" formControlName="confirm_password" type="password" name="confirm_password" id="confirm_password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
-                      <span *ngIf="invalidConfirmPasswordField && !passwordMatchValidator" class="text-xs text-red-700" >Passwords must match </span>
+                      <span data-testId="confirmPasswordField-confirm_password" *ngIf="invalidConfirmPasswordField && !passwordMatchValidator" class="text-xs text-red-700" >Passwords must match </span>
                    </div>
                   </div>
                   <div class="flex items-start">

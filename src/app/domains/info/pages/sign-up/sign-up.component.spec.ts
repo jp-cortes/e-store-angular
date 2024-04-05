@@ -96,17 +96,21 @@ describe('Test for SignUpComponent', () => {
 
 
     it('Test for nameField UI, should be invalid', () => {
+      // Arrange
       const inputDe = query(fixture, 'input#name');
       const inputEl: HTMLInputElement = inputDe.nativeElement;
 
+      // Act
       inputEl.value = 'J0hnny';
-      inputEl.dispatchEvent(new Event('input'));
-      inputEl.dispatchEvent(new Event('blur'));
+      inputEl.dispatchEvent(new Event('input')); // focusS
+      inputEl.dispatchEvent(new Event('blur')); // unfocus
       fixture.detectChanges();
+      
+      // Assert
       expect(component.nameField?.invalid).withContext('Not a name').toBeTruthy();
 
       const textError = getText(fixture, 'nameField-name');
-      expect(textError).toContain('Invalid name')
+      expect(textError).toContain('Invalid name');
 
     });
 

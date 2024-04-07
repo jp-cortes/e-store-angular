@@ -28,12 +28,8 @@ describe('Test for SignUpComponent', () => {
   
     beforeEach(() => {
       fixture = TestBed.createComponent(SignUpComponent);
-      // userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+      userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
 
-      // const customerMock = generateCustomer();
-      
-      // userService.signUp.and.returnValue(of(customerMock));
-  
       component = fixture.componentInstance;
   
       fixture.detectChanges();
@@ -163,6 +159,30 @@ describe('Test for SignUpComponent', () => {
 
       const textError = getText(fixture, 'confirmPasswordField-confirm_password');
       expect(textError).toContain('Passwords must match ');
+    });
+
+
+    it('Should test the form should be valid', () => {
+
+      component.newProfileForm.patchValue({
+        name: 'Jhonny',
+        lastName: 'Cage',
+        phone:'07345591919',
+        user: {
+          email: 'jcage@mk.com',
+          password: 'gvGv80#5;3$Jt',
+          confirm_password: 'gvGv80#5;3$Jt'
+        }
+      });
+
+      const customerMock = generateCustomer();
+      
+      userService.signUp.and.returnValue(of(customerMock));
+      // Act
+      component.signUp(new Event('submit'));
+      expect(component.newProfileForm.valid).toBeTruthy();
+      expect(userService.signUp).toHaveBeenCalled();
+  
     });
 
 

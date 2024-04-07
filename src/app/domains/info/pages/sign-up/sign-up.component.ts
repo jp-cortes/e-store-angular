@@ -71,7 +71,7 @@ export class SignUpComponent {
 
   signUp(event: Event) {
     this.newProfileForm.markAllAsTouched();
-    console.log(this.newProfileForm.valid);
+    // console.log(this.newProfileForm.valid);
 
     const {name, lastName, phone, user} = this.newProfileForm.value;
     const email = user?.email;

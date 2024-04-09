@@ -4,6 +4,8 @@ import { UserService } from "@shared/services/user.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { setInputValue } from "@testing/forms";
 import { getText } from "@testing/finders";
+import { of } from "rxjs";
+import { generateSignInUser } from "@shared/models/user.mock";
 
 
 
@@ -13,7 +15,7 @@ describe('Test for SignInComponent', () => {
     let userService: jasmine.SpyObj<UserService>;
   
     beforeEach(async () => {
-      const userServiceSpy = jasmine.createSpyObj('UserService', ['signUp']);
+      const userServiceSpy = jasmine.createSpyObj('UserService', ['signIn', 'redirect']);
   
       await TestBed.configureTestingModule({
         imports: [ SignInComponent, RouterTestingModule ],
@@ -26,7 +28,7 @@ describe('Test for SignInComponent', () => {
   
     beforeEach(() => {
       fixture = TestBed.createComponent(SignInComponent);
-
+      userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
   
       component = fixture.componentInstance;
   
@@ -72,5 +74,23 @@ describe('Test for SignInComponent', () => {
   
         const textError = getText(fixture, 'passwordField-password');
         expect(textError).toContain('Invalid password');
+      });
+
+
+      it('Should test the  user form should be valid', () => {
+
+        component.user.patchValue({
+            email: 'jcage@mk.com',
+            password: 'gvGv80#5;3$Jt'
+        });
+  
+        const userMock = generateSignInUser();
+        
+        userService.signIn.and.returnValue(of(userMock));
+        // Act
+        component.userSignIn(new Event('submit'));
+        expect(component.user.valid).toBeTruthy();
+        expect(userService.signIn).toHaveBeenCalled();
+    
       });
 });

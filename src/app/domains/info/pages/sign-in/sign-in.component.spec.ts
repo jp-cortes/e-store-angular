@@ -78,7 +78,7 @@ describe('Test for SignInComponent', () => {
 
 
       it('Should test the  user form should be valid', () => {
-
+        // Arrange
         component.user.patchValue({
             email: 'jcage@mk.com',
             password: 'gvGv80#5;3$Jt'
@@ -89,8 +89,10 @@ describe('Test for SignInComponent', () => {
         userService.signIn.and.returnValue(of(userMock));
         // Act
         component.userSignIn(new Event('submit'));
+        // Assert
         expect(component.user.valid).toBeTruthy();
-        expect(userService.signIn).toHaveBeenCalled();
+        expect(userService.signIn).toHaveBeenCalled(); // user sign in
+        expect(userService.redirect).toHaveBeenCalled(); // user redirect to my-aacount route
     
       });
 });

@@ -28,7 +28,8 @@ export class SignInComponent {
       nonNullable: true,
       validators: [
         Validators.required,
-        Validators.pattern(/^.{8,}$/)
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>ยง?\\[\]\/]).{8,}$/)
+        // Validators.pattern(/^.{8,}$/)
      ]
      }),
   })

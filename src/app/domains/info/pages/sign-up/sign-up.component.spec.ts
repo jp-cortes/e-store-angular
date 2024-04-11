@@ -3,9 +3,10 @@ import { SignUpComponent } from "./sign-up.component";
 import { UserService } from "@shared/services/user.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { generateCustomer, generateSignUpCustomer } from "@shared/models/user.mock";
-import { of } from "rxjs";
+import { of, repeat } from "rxjs";
 import { getText, query } from "@testing/finders";
 import { setInputValue } from "@testing/forms";
+import { clickElement } from "@testing/click";
 
 
 
@@ -180,6 +181,30 @@ describe('Test for SignUpComponent', () => {
       userService.signUp.and.returnValue(of(customerMock));
       // Act
       component.signUp(new Event('submit'));
+      expect(component.newProfileForm.valid).toBeTruthy();
+      expect(userService.signUp).toHaveBeenCalled();
+  
+    });
+
+    it('Should test the form should be valid UI demo', () => {
+
+      setInputValue(fixture, 'input#name', 'Jhonny');
+      setInputValue(fixture, 'input#lastName', 'Cage');
+      setInputValue(fixture, 'input#phone', '7345591919');
+      setInputValue(fixture, 'input#email', 'jcage@mk.com');
+      setInputValue(fixture, 'input#password', 'gvGv80#5;3$Jt');
+      setInputValue(fixture, 'input#confirm_password', 'gvGv80#5;3$Jt');
+     
+      
+      const customerMock = generateCustomer();
+      
+      userService.signUp.and.returnValue(of(customerMock));
+      // Act
+      // component.signUp(new Event('submit'));
+      // queryById(fixture, 'btn-submit').triggerEventHandler('ngSubmit', new Event('submit'));
+      clickElement(fixture, 'btn-submit', true);
+      fixture.detectChanges();
+      
       expect(component.newProfileForm.valid).toBeTruthy();
       expect(userService.signUp).toHaveBeenCalled();
   

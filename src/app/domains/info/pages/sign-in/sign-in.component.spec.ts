@@ -6,6 +6,7 @@ import { setInputValue } from "@testing/forms";
 import { getText } from "@testing/finders";
 import { of } from "rxjs";
 import { generateSignInUser } from "@shared/models/user.mock";
+import { clickElement } from "@testing/click";
 
 
 
@@ -92,7 +93,25 @@ describe('Test for SignInComponent', () => {
         // Assert
         expect(component.user.valid).toBeTruthy();
         expect(userService.signIn).toHaveBeenCalled(); // user sign in
-        expect(userService.redirect).toHaveBeenCalled(); // user redirect to my-aacount route
+        expect(userService.redirect).toHaveBeenCalled(); // user redirect to my-account route
     
+      });
+
+      it('Should test the user form should be valid UI demo', () => {
+
+        setInputValue(fixture, 'input#email', 'jcage@mk.com');
+        setInputValue(fixture, 'input#password', 'gvGv80#5;3$Jt');
+       
+        
+        const userMock = generateSignInUser();
+        
+        userService.signIn.and.returnValue(of(userMock));
+        // Act
+        clickElement(fixture, 'btn-signIn', true);
+        fixture.detectChanges();
+        
+        expect(component.user.valid).toBeTruthy();
+        expect(userService.signIn).toHaveBeenCalled(); // user sign in
+        expect(userService.redirect).toHaveBeenCalled(); // user redirect to my-account route
       });
 });

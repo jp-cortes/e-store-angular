@@ -8,7 +8,7 @@ import { clickElement } from "@testing/click";
 
 
 
-fdescribe('Test for ResetPasswordComponent', () => {
+describe('Test for ResetPasswordComponent', () => {
     let component: ResetPasswordComponent;
     let fixture: ComponentFixture<ResetPasswordComponent>;
     let userService: jasmine.SpyObj<UserService>;

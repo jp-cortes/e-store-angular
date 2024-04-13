@@ -163,7 +163,7 @@ describe('Test for SignUpComponent', () => {
     });
 
 
-    it('Should test the form should be valid', () => {
+    it('Should test the form  newProfileForm should be valid', () => {
 
       component.newProfileForm.patchValue({
         name: 'Jhonny',
@@ -186,7 +186,7 @@ describe('Test for SignUpComponent', () => {
   
     });
 
-    it('Should test the form should be valid UI demo', () => {
+    it('Should test the form newProfileForm should be valid UI demo', () => {
 
       setInputValue(fixture, 'input#name', 'Jhonny');
       setInputValue(fixture, 'input#lastName', 'Cage');

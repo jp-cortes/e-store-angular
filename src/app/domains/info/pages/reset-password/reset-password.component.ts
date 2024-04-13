@@ -41,7 +41,7 @@ export class ResetPasswordComponent {
 const {password} = this.resetPassword.value;
 if(this.resetPassword.valid) {
   // this.userService.updatePassword(password)
-  // this.userService.redirect('/login');
+  this.userService.redirect('/login');
 }
   }
 

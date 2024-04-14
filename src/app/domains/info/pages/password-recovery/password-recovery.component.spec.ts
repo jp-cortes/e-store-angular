@@ -4,6 +4,9 @@ import { UserService } from "@shared/services/user.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { setInputValue } from "@testing/forms";
 import { getText } from "@testing/finders";
+import { clickElement } from "@testing/click";
+import { of } from "rxjs";
+import { generateEmailResponse } from "@shared/models/user.mock";
 
 describe('Test for PasswordRecoveryComponent', () => {
     let component: PasswordRecoveryComponent;
@@ -11,7 +14,7 @@ describe('Test for PasswordRecoveryComponent', () => {
     let userService: jasmine.SpyObj<UserService>;
   
     beforeEach(async () => {
-      const userServiceSpy = jasmine.createSpyObj('UserService', ['sendRecoveryEmail']);
+      const userServiceSpy = jasmine.createSpyObj('UserService', ['sendRecoveryEmail', 'redirect']);
   
       await TestBed.configureTestingModule({
         imports: [ PasswordRecoveryComponent, RouterTestingModule ],
@@ -51,5 +54,22 @@ describe('Test for PasswordRecoveryComponent', () => {
   
         const textError = getText(fixture, 'invalidEmail-recovery');
         expect(textError).toContain('Invalid email');
+      });
+
+      it('Should test the user form should be valid UI demo', () => {
+
+        setInputValue(fixture, 'input#email', 'jcage@mk.com');
+       
+        
+        const EmailResponseMock = generateEmailResponse();
+        
+        userService.sendRecoveryEmail.and.returnValue(of(EmailResponseMock));
+        // Act
+        clickElement(fixture, 'btn-password-recovery', true);
+        fixture.detectChanges();
+        
+        expect(component.user.valid).toBeTruthy();
+        expect(userService.sendRecoveryEmail).toHaveBeenCalled(); // sending recovery email
+        // expect(userService.redirect).toHaveBeenCalled(); // user redirect to sign-in route
       });
 });

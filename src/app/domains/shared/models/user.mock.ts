@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Customer, CustomerProfile, NewCustomer, User, UserAccount } from './user.model';
+import { Customer, CustomerProfile, EmailResponse, NewCustomer, User, UserAccount } from './user.model';
 
 
 export const generateSignInUser = (): User => {
@@ -68,3 +68,9 @@ export const generateUserAccount = (): UserAccount  => {
 
   };
 };
+
+export const generateEmailResponse = (): EmailResponse =>  {
+return {
+  message: faker.lorem.text()
+};
+}

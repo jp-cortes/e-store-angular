@@ -66,14 +66,12 @@ fdescribe('Test for PasswordRecoveryComponent', () => {
         userService.sendRecoveryEmail.and.returnValue(of(EmailResponseMock));
         // Act
         clickElement(fixture, 'btn-password-recovery', true);
+        // await for setTimeout
+        tick(8000);
         fixture.detectChanges();
         
         expect(component.user.valid).toBeTruthy();
         expect(userService.sendRecoveryEmail).toHaveBeenCalled(); // sending recovery email
-        
-        
-        tick();
-        fixture.detectChanges();
-        expect(userService.redirect).toHaveBeenCalled(); // user redirect to sign-in route
+        expect(userService.redirect).toHaveBeenCalled(); // user redirect to sign-in route afetr 8 seconds
       }));
 });

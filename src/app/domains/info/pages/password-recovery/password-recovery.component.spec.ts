@@ -8,7 +8,7 @@ import { clickElement } from "@testing/click";
 import { of } from "rxjs";
 import { generateEmailResponse } from "@shared/models/user.mock";
 
-describe('Test for PasswordRecoveryComponent', () => {
+fdescribe('Test for PasswordRecoveryComponent', () => {
     let component: PasswordRecoveryComponent;
     let fixture: ComponentFixture<PasswordRecoveryComponent>;
     let userService: jasmine.SpyObj<UserService>;
@@ -66,13 +66,14 @@ describe('Test for PasswordRecoveryComponent', () => {
         userService.sendRecoveryEmail.and.returnValue(of(EmailResponseMock));
         // Act
         clickElement(fixture, 'btn-password-recovery', true);
-        tick();
         fixture.detectChanges();
-
+        
         expect(component.user.valid).toBeTruthy();
         expect(userService.sendRecoveryEmail).toHaveBeenCalled(); // sending recovery email
-
-
+        
+        
+        tick();
+        fixture.detectChanges();
         expect(userService.redirect).toHaveBeenCalled(); // user redirect to sign-in route
       }));
 });

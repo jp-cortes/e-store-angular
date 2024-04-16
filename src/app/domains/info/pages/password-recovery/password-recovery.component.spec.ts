@@ -8,7 +8,7 @@ import { clickElement } from "@testing/click";
 import { of } from "rxjs";
 import { generateEmailResponse } from "@shared/models/user.mock";
 
-fdescribe('Test for PasswordRecoveryComponent', () => {
+describe('Test for PasswordRecoveryComponent', () => {
     let component: PasswordRecoveryComponent;
     let fixture: ComponentFixture<PasswordRecoveryComponent>;
     let userService: jasmine.SpyObj<UserService>;

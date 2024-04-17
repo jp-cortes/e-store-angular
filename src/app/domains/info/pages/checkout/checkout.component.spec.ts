@@ -6,9 +6,7 @@ import { OrderService } from "@shared/services/order.service";
 import { AuthTokenService } from "@shared/services/auth-token.service";
 import { CartService } from "@shared/services/cart.service";
 import { generateCartItems } from "@shared/models/cart.mock";
-import { of } from "rxjs";
-import { CartItemType } from "@shared/models/cart.model";
-import { computed } from "@angular/core";
+
 
 describe('Test for CheckoutComponent', () => {
     let component: CheckoutComponent;
@@ -46,11 +44,13 @@ describe('Test for CheckoutComponent', () => {
       const productMock = generateCartItems(3)
 
       component = fixture.componentInstance;
-      component.cart = computed(() => productMock)
+      cartService.items.and.returnValue(productMock);
       fixture.detectChanges();
     });
 
     it('Should create CheckoutComponent', () => {
         expect(component).toBeDefined();
+        expect(authTokenService.getToken).toHaveBeenCalled();
+        expect(cartService.items).toHaveBeenCalled();
     });
 });

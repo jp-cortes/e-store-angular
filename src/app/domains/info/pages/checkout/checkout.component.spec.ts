@@ -6,6 +6,7 @@ import { OrderService } from "@shared/services/order.service";
 import { AuthTokenService } from "@shared/services/auth-token.service";
 import { CartService } from "@shared/services/cart.service";
 import { generateCartItems } from "@shared/models/cart.mock";
+import { queryAllBySelector } from "@testing/finders";
 
 
 describe('Test for CheckoutComponent', () => {
@@ -52,5 +53,22 @@ describe('Test for CheckoutComponent', () => {
         expect(component).toBeDefined();
         expect(authTokenService.getToken).toHaveBeenCalled();
         expect(cartService.items).toHaveBeenCalled();
+        expect(cartService.subtotal).toHaveBeenCalled();
+    });
+
+    describe('Test for UI', () => {
+      it('Testing UI should display the name of the products', () => {
+        const productMock = generateCartItems(3)
+        cartService.items.and.returnValue(productMock);
+        fixture.detectChanges();
+
+        const pDeg = queryAllBySelector(fixture, 'p.mb-2');
+        const product1:HTMLElement = pDeg[0].nativeElement;
+        const productMock1 = productMock[0].name;
+        
+        fixture.detectChanges();
+        expect(pDeg.length).toEqual(productMock.length);
+        expect(product1.textContent).toEqual(productMock1);
+      });
     });
 });

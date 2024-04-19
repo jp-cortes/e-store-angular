@@ -4,7 +4,6 @@ import  ProductDetailsComponent  from './product-details.component';
 import { generateOneProduct } from '@shared/models/product.mock';
 import { ProductService } from '@shared/services/product.service';
 import { of } from 'rxjs';
-import { Product } from '@shared/models/product.model';
 import { queryById } from '@testing/finders';
 
 
@@ -44,15 +43,17 @@ describe('Test for ProductDetailsComponent', () => {
   });
 
   describe('Test for the signal product', () => {
-    let productMock: Product;
-
-    beforeAll(() => {
-      productMock =  generateOneProduct();
-    });
+  
     
     it('Should display the product image', () => {
       // Arrange
-      component.product.set(productMock);
+      const productMock = generateOneProduct();
+      productService.getOne.and.returnValue(of(productMock));
+
+      component.ngOnInit();
+
+      fixture.detectChanges();
+
       const imgDe = queryById(fixture, 'product-img');
       const imgEl: HTMLImageElement = imgDe.nativeElement;
       // Act
@@ -64,7 +65,13 @@ describe('Test for ProductDetailsComponent', () => {
 
     it('Should display the product name', () => {
       // Arrange
-      component.product.set(productMock);
+      const productMock = generateOneProduct();
+      productService.getOne.and.returnValue(of(productMock));
+      
+      component.ngOnInit();
+
+      fixture.detectChanges();
+
       const h1De = queryById(fixture, 'product-name');
       const h1El: HTMLElement = h1De.nativeElement;
       // Act
@@ -76,7 +83,14 @@ describe('Test for ProductDetailsComponent', () => {
 
     it('Should display the product description', () => {
       // Arrange
-      component.product.set(productMock);
+
+      const productMock = generateOneProduct();
+      productService.getOne.and.returnValue(of(productMock));
+      
+      component.ngOnInit();
+
+      fixture.detectChanges();
+
       const pDe = queryById(fixture, 'product-description');
       const pEl: HTMLElement = pDe.nativeElement;
       // Act

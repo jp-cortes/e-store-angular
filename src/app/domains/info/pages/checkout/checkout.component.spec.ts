@@ -7,6 +7,9 @@ import { AuthTokenService } from "@shared/services/auth-token.service";
 import { CartService } from "@shared/services/cart.service";
 import { generateCartItems } from "@shared/models/cart.mock";
 import { queryAllBySelector } from "@testing/finders";
+import { clickElement } from "@testing/click";
+import { generateItemAdded, generateOneOrder } from "@shared/models/order.mock";
+import { of } from "rxjs";
 
 
 describe('Test for CheckoutComponent', () => {
@@ -60,10 +63,12 @@ describe('Test for CheckoutComponent', () => {
 
     describe('Test for UI', () => {
       it('Testing UI should display the name of the products', () => {
+        // Arrange
         const productMock = generateCartItems(2)
         cartService.items.and.returnValue(productMock);
         fixture.detectChanges();
-
+        
+        // Act        
         const pDeg = queryAllBySelector(fixture, 'p.mb-2');
         const product1:HTMLElement = pDeg[0].nativeElement;
         const product2:HTMLElement = pDeg[1].nativeElement;
@@ -71,16 +76,19 @@ describe('Test for CheckoutComponent', () => {
         const productMock2 = productMock[1].name;
         
         fixture.detectChanges();
+        // Assert
         expect(pDeg.length).toEqual(productMock.length);
         expect(product1.textContent).toEqual(productMock1);
         expect(product2.textContent).toEqual(productMock2);
       });
 
       it('Testing UI should display the image of the products', () => {
+        // Arrange
         const productMock = generateCartItems(2)
         cartService.items.and.returnValue(productMock);
         fixture.detectChanges();
-
+        
+        // Act        
         const pDeg = queryAllBySelector(fixture, 'img.w-12');
         const product1:HTMLImageElement = pDeg[0].nativeElement;
         const product2:HTMLImageElement = pDeg[1].nativeElement;
@@ -88,26 +96,47 @@ describe('Test for CheckoutComponent', () => {
         const productMock2 = productMock[1].image;
         
         fixture.detectChanges();
+        // Assert
         expect(pDeg.length).toEqual(productMock.length);
         expect(product1.src).toEqual(productMock1);
         expect(product2.src).toEqual(productMock2);
       });
 
       it('Testing UI should display the quantity of the products', () => {
+        // Arrange
         const productMock = generateCartItems(2)
         cartService.items.and.returnValue(productMock);
         fixture.detectChanges();
-
+        
+        // Act        
         const pDeg = queryAllBySelector(fixture, 'p.font-semibold');
         const product1:HTMLElement = pDeg[0].nativeElement;
         const product2:HTMLElement = pDeg[1].nativeElement;
         const productMock1 = productMock[0].quantity;
         const productMock2 = productMock[1].quantity;
         
-        fixture.detectChanges();
+        // fixture.detectChanges();
+
+        // Assert
         expect(pDeg.length).toEqual(productMock.length);
         expect(product1.textContent).toEqual(`${productMock1}`);
         expect(product2.textContent).toEqual(`${productMock2}`);
+      });
+
+      it('Testing the button Checkout', () => {
+        // Arrange
+        const orderMock = generateOneOrder();
+        const itemAddedMock = generateItemAdded();
+        orderService.createOrder.and.returnValue(of(orderMock));
+        orderService.addProduct.and.returnValue(of(itemAddedMock));
+        
+        // Act
+        clickElement(fixture, 'btn-checkout', true);
+        fixture.detectChanges();
+
+        // Assert        
+        expect(orderService.createOrder).toHaveBeenCalled();
+        expect(orderService.addProduct).toHaveBeenCalled();
       });
     });
 });

@@ -6,9 +6,8 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { of } from "rxjs";
 import { generateUserAccount } from "@shared/models/user.mock";
 import { generateOrders } from "@shared/models/order.mock";
-import { UserAccount } from "@shared/models/user.model";
 import { getText, queryAllBySelector, queryById } from "@testing/finders";
-import { OrderResume } from "@shared/models/order.model";
+import { clickElement } from "@testing/click";
 
 
 
@@ -17,14 +16,16 @@ describe('Test for MyAccountComponent', () => {
   let component: MyAccountComponent;
   let fixture: ComponentFixture<MyAccountComponent>;
   let userService: jasmine.SpyObj<UserService>;
+  let authTokenService: jasmine.SpyObj<AuthTokenService>;
 
   beforeEach(async () => {
     const userServiceSpy = jasmine.createSpyObj('UserService', ['getMyAccount', 'getMyOrders']);
+    const authTokenServiceSpy = jasmine.createSpyObj('AuthTokenService', ['deleteToken']);
 
     await TestBed.configureTestingModule({
       imports: [ MyAccountComponent, RouterTestingModule ],
       providers: [
-        AuthTokenService,
+        { provide: AuthTokenService, useValue: authTokenServiceSpy },
         { provide: UserService, useValue: userServiceSpy },
       ]
     })
@@ -34,6 +35,7 @@ describe('Test for MyAccountComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MyAccountComponent);
     userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+    authTokenService = TestBed.inject(AuthTokenService) as jasmine.SpyObj<AuthTokenService>;
 
     const myAccountMock = generateUserAccount();
     const myOrdersMock = generateOrders(3);
@@ -57,27 +59,30 @@ describe('Test for MyAccountComponent', () => {
   });
 
 
-  describe('Test for user signal', () => {
-    let userMock:UserAccount;
-    beforeAll(() => {
-        userMock = generateUserAccount();
-    });
+  describe('Test for user Account UI', () => {
+
 
     it('Should display user name', () => {
         // arrange
-        component.user.set(userMock);
+        const myAccountMock = generateUserAccount();
+        userService.getMyAccount.and.returnValue(of(myAccountMock));
+
+        component.getProfileInfo();
         fixture.detectChanges();
         // Act
         const h2De = getText(fixture, 'customer-name');
 
         fixture.detectChanges();
         // Assert
-        expect(h2De).toEqual(`Hi, ${userMock.customer.name} `)
+        expect(h2De).toEqual(`Hi, ${myAccountMock.customer.name} `)
     });
 
     it('Should display customer avatar', () => {
         // arrange
-        component.user.set(userMock);
+        const myAccountMock = generateUserAccount();
+        userService.getMyAccount.and.returnValue(of(myAccountMock));
+
+        component.getProfileInfo();
         fixture.detectChanges();
         // Act
         const imgDe = queryById(fixture, 'user-img');
@@ -85,37 +90,46 @@ describe('Test for MyAccountComponent', () => {
 
         fixture.detectChanges();
         //Assert
-        expect(imgEl.src).toEqual(`${userMock.customer.avatar}`)
+        expect(imgEl.src).toEqual(`${myAccountMock.customer.avatar}`)
     });
 
     it('Should display customer user name', () => {
         // arrange
-        component.user.set(userMock);
+        const myAccountMock = generateUserAccount();
+        userService.getMyAccount.and.returnValue(of(myAccountMock));
+
+        component.getProfileInfo();
         fixture.detectChanges();
         // Act 
         const pDe = getText(fixture, 'user-name');
 
         fixture.detectChanges();
         // Assert
-        expect(pDe).toEqual(`Name:  ${userMock.customer.name} `)
+        expect(pDe).toEqual(`Name:  ${myAccountMock.customer.name} `)
     });
 
 
     it('Should display customer user last name', () => {
         // arrange
-        component.user.set(userMock);
+        const myAccountMock = generateUserAccount();
+        userService.getMyAccount.and.returnValue(of(myAccountMock));
+
+        component.getProfileInfo();
         fixture.detectChanges();
         // Act
         const pDe = getText(fixture, 'user-lastname');
 
         fixture.detectChanges();
         // Assert
-        expect(pDe).toEqual(`Lastname:  ${userMock.customer.lastName} `)
+        expect(pDe).toEqual(`Lastname:  ${myAccountMock.customer.lastName} `)
     });
 
     it('Should display customer user phone number', () => {
         // arrange
-        component.user.set(userMock);
+        const myAccountMock = generateUserAccount();
+        userService.getMyAccount.and.returnValue(of(myAccountMock));
+
+        component.getProfileInfo();
         fixture.detectChanges();
         
         // Act
@@ -124,43 +138,57 @@ describe('Test for MyAccountComponent', () => {
         fixture.detectChanges();
         
         //Assert
-        expect(pDe).toEqual(`Phone number:  ${userMock.customer.phone} `)
-    });
+        expect(pDe).toEqual(`Phone number:  ${myAccountMock.customer.phone} `);
 
-    describe('Test for orders signal', () => {
-        let ordersMock: OrderResume[];
+      });
+      
+      it('test sign out button', () => {
 
-        beforeAll(() => {
-            ordersMock = generateOrders();
-        });
+        authTokenService.deleteToken.and.callThrough();
+       
+        clickElement(fixture, 'btn-sign-out', true);
+        fixture.detectChanges();
 
-        it('Should display orders', () => {
-            // Arrange
-            component.orders.set(ordersMock);
-            fixture.detectChanges();
-            // Act
-            const orders = queryAllBySelector(fixture, 'p.test-order');
-
-            fixture.detectChanges();
-
-            expect(orders.length).toEqual(ordersMock.length);
-        });
-
-        it('Should display order status', () => {
-            // Arrange
-            component.orders.set(ordersMock);
-            fixture.detectChanges();
-            // Act
-            const orders = queryAllBySelector(fixture, 'p.test-order-status');
-            const ordersDe = orders[0].nativeElement; 
-
-            fixture.detectChanges();
-
-            expect(ordersDe.textContent).toEqual(` Current status:  ${ordersMock[0].status} `);
-        });
-    });
-
-
+        expect(authTokenService.deleteToken).toHaveBeenCalled();
+      });
   });
+
+  describe('Test for orders UI', () => {
+
+
+    it('Should display orders', () => {
+        // Arrange
+        const myOrdersMock = generateOrders(3);
+        userService.getMyOrders.and.returnValue(of(myOrdersMock));
+        
+        component.getProfileOrders();
+
+        fixture.detectChanges();
+        // Act
+        const orders = queryAllBySelector(fixture, 'p.test-order');
+
+        fixture.detectChanges();
+
+        expect(orders.length).toEqual(myOrdersMock.length);
+    });
+
+    it('Should display order status', () => {
+        // Arrange
+        const myOrdersMock = generateOrders(2);
+        userService.getMyOrders.and.returnValue(of(myOrdersMock));
+
+        component.getProfileOrders();
+
+        fixture.detectChanges();
+        // Act
+        const orders = queryAllBySelector(fixture, 'p.test-order-status');
+        const ordersDe = orders[0].nativeElement; 
+
+        fixture.detectChanges();
+
+        expect(ordersDe.textContent).toEqual(` Current status:  ${myOrdersMock[0].status} `);
+    });
+});
+
 
 });

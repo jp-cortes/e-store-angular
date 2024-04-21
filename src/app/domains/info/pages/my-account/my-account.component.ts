@@ -47,7 +47,7 @@ export default class MyAccountComponent {
 
   signOut() {
     this.authTokenService.deleteToken()
-    location.reload()
+    this.userService.redirect('sign-in');
   }
 
 

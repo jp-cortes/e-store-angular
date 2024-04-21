@@ -6,10 +6,7 @@ import { generateOrderDetail } from "@shared/models/order.mock";
 import { AuthTokenService } from "@shared/services/auth-token.service";
 import { of } from "rxjs";
 import { SimpleChange } from "@angular/core";
-import { OrderDetail } from "@shared/models/order.model";
 import { getText, queryAllBySelector } from "@testing/finders";
-
-
 
 
 
@@ -63,69 +60,71 @@ let component: MyInvoiceComponent;
     expect(userService.getInvoice).toHaveBeenCalled();
   });
 
-describe('Test for invoice signal', () => {
-  let invoiceMock:OrderDetail;
-
-  beforeAll(() => {
-    invoiceMock = generateOrderDetail(); 
-  });
-
+describe('Test for invoice UI', () => {
+  
 it('Should display invoice id', () => {
   // Arrange
-  component.invoice.set(invoiceMock);
+  const orderMock = generateOrderDetail();
+  userService.getInvoice.and.returnValue(of(orderMock));  
+  
+  component.getInvoice();
+  
   fixture.detectChanges();
-
   // Act
   const spanDe = getText(fixture, 'invoice-id');
 
-  fixture.detectChanges();
-
   // Assert
-  expect(spanDe).toEqual(` ${invoiceMock.id} `);
+  expect(spanDe).toEqual(` ${orderMock.id} `);
 });
 
 it('Should display invoice Issue date', () => {
   // Arrange
-  component.invoice.set(invoiceMock);
+  const orderMock = generateOrderDetail();
+  userService.getInvoice.and.returnValue(of(orderMock));  
+  
+  component.getInvoice();
+  
   fixture.detectChanges();
 
   // Act
   const spanDe = getText(fixture, 'invoice-issue-date');
 
-  fixture.detectChanges();
-
-  // Assert
-  expect(spanDe).toEqual(`Issue date: ${invoiceMock.createdAt.slice(0, 10)}`);
+    // Assert
+  expect(spanDe).toEqual(`Issue date: ${orderMock.createdAt.slice(0, 10)}`);
 });
 
 it('Should display invoice status', () => {
   // Arrange
-  component.invoice.set(invoiceMock);
+  const orderMock = generateOrderDetail();
+  userService.getInvoice.and.returnValue(of(orderMock));  
+  
+  component.getInvoice();
+  
   fixture.detectChanges();
-
   // Act
   const divDe = getText(fixture, 'invoice-status');
 
-  fixture.detectChanges();
 
   // Assert
-  expect(divDe).toEqual(` ${invoiceMock.status} `);
+  expect(divDe).toEqual(` ${orderMock.status} `);
 });
 
 it('Should display invoice items', () => {
   // Arrange
-  component.invoice.set(invoiceMock);
+  const orderMock = generateOrderDetail();
+  userService.getInvoice.and.returnValue(of(orderMock));  
+  
+  component.getInvoice();
+  
   fixture.detectChanges();
 
   // Act
   const divDe = queryAllBySelector(fixture, 'td.item-name');
 
 
-  fixture.detectChanges();
-
   // Assert
-  expect(divDe.length).toEqual(invoiceMock.items.length);
-  expect(component.invoice()?.items).toEqual(invoiceMock.items);
+  expect(divDe.length).toEqual(orderMock.items.length);
+  expect(component.invoice()?.items).toEqual(orderMock.items);
 });
 
 });

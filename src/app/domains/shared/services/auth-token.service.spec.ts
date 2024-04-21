@@ -10,8 +10,7 @@ describe('Test for AuthTokenService', () => {
 
     
     beforeEach(() => {
-    // const spy = jasmine.createSpyObj('AuthTokenService', ['saveToken', 'getToken']);
-    const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get', 'set', 'deleteAll', 'delete'])
+    const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get', 'set', 'deleteAll', 'delete']);
     TestBed.configureTestingModule({
         providers: [ 
             AuthTokenService,

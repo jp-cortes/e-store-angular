@@ -1,21 +1,25 @@
 import { TestBed } from "@angular/core/testing";
 import { AuthTokenService } from "./auth-token.service";
+import { faker } from "@faker-js/faker";
+import { CookieService } from "ngx-cookie-service";
 
 
 describe('Test for AuthTokenService', () => {
     let authTokenService: AuthTokenService;
+    let cookieService: jasmine.SpyObj<CookieService>;
 
     
     beforeEach(() => {
-    // const spy = jasmine.createSpyObj('AuthTokenService', ['saveToken'])
-    
+    // const spy = jasmine.createSpyObj('AuthTokenService', ['saveToken', 'getToken']);
+    const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get', 'set', 'deleteAll', 'delete'])
     TestBed.configureTestingModule({
         providers: [ 
-            // { provide: AuthTokenService, useValue: spy } 
-            AuthTokenService
+            AuthTokenService,
+            { provide: CookieService, useValue: cookieServiceSpy },
         ]
     });
-    authTokenService = TestBed.inject(AuthTokenService);
+    authTokenService = TestBed.inject(AuthTokenService); 
+    cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
    })
 
 
@@ -23,22 +27,44 @@ describe('Test for AuthTokenService', () => {
         expect(authTokenService).toBeTruthy();
     });
 
-    // describe('Test for getToken', () => {
-    //     it('should call AuthTokenService getToken', (doneFn) => {
-    //         //Arrange
-    //         // spyOn(authTokenService, 'getToken').and.returnValue('');
-    //         expect(authTokenService.getToken()).toBe('');
-    //         doneFn();
-    //       });
-    // });
+    describe('Test for methods', () => {
+        it('should call getToken method and return a token', (doneFn) => {
+            //Arrange
+            const fakeToken = faker.string.alphanumeric();
+            cookieService.get.and.returnValue(fakeToken);
+            
+            authTokenService.getToken();
 
-    // describe('Test for saveToken', () => {
-    //     it('should call AuthTokenService saveToken', (doneFn) => {
-    //         //Arrange
-    //         spyOn(authTokenService, 'saveToken').and.callThrough();
-    //         // expect(authTokenService.saveToken())
-    //         expect(authTokenService.saveToken).toHaveBeenCalled();
-    //         doneFn();
-    //       });
-    // });
+            expect(cookieService.get).toHaveBeenCalled();
+            
+            expect(authTokenService.getToken()).toEqual(fakeToken);
+            doneFn();
+          });
+
+          it('should spy saveToken method', (doneFn) => {
+            //Arrange
+            cookieService.set.and.callThrough();
+            cookieService.deleteAll.and.callThrough();
+
+            const fakeToken = faker.string.alphanumeric();
+            authTokenService.saveToken(fakeToken);
+
+            expect(cookieService.set).toHaveBeenCalled();
+            expect(cookieService.deleteAll).toHaveBeenCalled();
+            doneFn();
+          });
+
+          it('should spy deleteToken method', (doneFn) => {
+            //Arrange
+            cookieService.delete.and.callThrough();
+
+            const fakeToken = faker.string.alphanumeric();
+            authTokenService.deleteToken();
+
+            expect(cookieService.delete).toHaveBeenCalled();
+            doneFn();
+          });
+    });
+
+    
 })

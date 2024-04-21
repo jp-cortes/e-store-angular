@@ -72,7 +72,6 @@ describe('Test for MyAccountComponent', () => {
         // Act
         const h2De = getText(fixture, 'customer-name');
 
-        fixture.detectChanges();
         // Assert
         expect(h2De).toEqual(`Hi, ${myAccountMock.customer.name} `)
     });
@@ -88,7 +87,6 @@ describe('Test for MyAccountComponent', () => {
         const imgDe = queryById(fixture, 'user-img');
         const imgEl: HTMLImageElement = imgDe.nativeElement;
 
-        fixture.detectChanges();
         //Assert
         expect(imgEl.src).toEqual(`${myAccountMock.customer.avatar}`)
     });
@@ -103,7 +101,6 @@ describe('Test for MyAccountComponent', () => {
         // Act 
         const pDe = getText(fixture, 'user-name');
 
-        fixture.detectChanges();
         // Assert
         expect(pDe).toEqual(`Name:  ${myAccountMock.customer.name} `)
     });
@@ -119,7 +116,6 @@ describe('Test for MyAccountComponent', () => {
         // Act
         const pDe = getText(fixture, 'user-lastname');
 
-        fixture.detectChanges();
         // Assert
         expect(pDe).toEqual(`Lastname:  ${myAccountMock.customer.lastName} `)
     });
@@ -135,7 +131,6 @@ describe('Test for MyAccountComponent', () => {
         // Act
         const pDe = getText(fixture, 'user-phonenumber');
         
-        fixture.detectChanges();
         
         //Assert
         expect(pDe).toEqual(`Phone number:  ${myAccountMock.customer.phone} `);
@@ -167,7 +162,6 @@ describe('Test for MyAccountComponent', () => {
         // Act
         const orders = queryAllBySelector(fixture, 'p.test-order');
 
-        fixture.detectChanges();
 
         expect(orders.length).toEqual(myOrdersMock.length);
     });
@@ -184,7 +178,6 @@ describe('Test for MyAccountComponent', () => {
         const orders = queryAllBySelector(fixture, 'p.test-order-status');
         const ordersDe = orders[0].nativeElement; 
 
-        fixture.detectChanges();
 
         expect(ordersDe.textContent).toEqual(` Current status:  ${myOrdersMock[0].status} `);
     });

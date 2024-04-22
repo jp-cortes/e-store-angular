@@ -3,7 +3,7 @@ import { CartService } from "./cart.service"
 import { TestBed } from "@angular/core/testing";
 import { generateOneProduct } from "@shared/models/product.mock";
 
-fdescribe('Test for  Cartservice', () => {
+describe('Test for  Cartservice', () => {
     let cartService: jasmine.SpyObj<CartService>;
 
     beforeEach(() => {

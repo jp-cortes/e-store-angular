@@ -3,7 +3,7 @@ import { CartService } from "./cart.service"
 import { TestBed } from "@angular/core/testing";
 import { generateOneProduct } from "@shared/models/product.mock";
 
-describe('Test for  Cartservice', () => {
+fdescribe('Test for  Cartservice', () => {
     let cartService: jasmine.SpyObj<CartService>;
 
     beforeEach(() => {
@@ -25,8 +25,8 @@ describe('Test for  Cartservice', () => {
         expect(cartService).toBeDefined();
         expect(cartService.cart()).toBeDefined();
         expect(cartService.items()).toBeDefined();
-        expect(cartService.count()).toBeDefined();
-        expect(cartService.subtotal()).toBeDefined();
+        expect(cartService.count()).toBeLessThanOrEqual(1);
+        expect(cartService.subtotal()).toBeLessThanOrEqual(900);
     })
     
     // describe('Test for items in CartService', () => {

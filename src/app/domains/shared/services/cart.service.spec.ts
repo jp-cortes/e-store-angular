@@ -1,51 +1,56 @@
-import { generateCartItems } from "@shared/models/cart.mock";
 import { CartService } from "./cart.service"
 import { TestBed } from "@angular/core/testing";
 import { generateOneProduct } from "@shared/models/product.mock";
+import { CartItemType } from "@shared/models/cart.model";
 
 describe('Test for  Cartservice', () => {
-    let cartService: jasmine.SpyObj<CartService>;
+    let cartService: CartService;
 
     beforeEach(() => {
-        const cartServiceSpy = jasmine.createSpyObj('CartService', ['addToCart', 'removeFromCart', 'clearCart', 'items', 'subtotal', 'count'])
         TestBed.configureTestingModule({
             providers: [
-                { provide: CartService, useVlue: cartServiceSpy }
+                CartService
             ]
         });
-        cartService =  TestBed.inject(CartService) as jasmine.SpyObj<CartService>;
-
-        const mockCartItemt = generateOneProduct();
-
-        cartService.addToCart(mockCartItemt);
+        cartService =  TestBed.inject(CartService);
     
     });
 
-    it('Should create Cartservice and signals should be defined', () => {
+    it('Should create Cartservice should be defined', () => {
         expect(cartService).toBeDefined();
-        expect(cartService.cart()).toBeDefined();
-        expect(cartService.items()).toBeDefined();
-        expect(cartService.count()).toBeLessThanOrEqual(1);
-        expect(cartService.subtotal()).toBeLessThanOrEqual(900);
-    })
+    });
     
-    // describe('Test for items in CartService', () => {
 
-    // it('Test for items should return an aray of CartItems', () => {
-    //     const mockCartItem = generateOneProduct();
-    //     const mockCartItems = generateCartItems();
-    //     cartService.addToCart(mockCartItem);
+    it('Test for items should return an array of CartItems', () => {
+        const mockProduct = generateOneProduct();
+        const mockCartItem: CartItemType =  { ...mockProduct, quantity: 1, price: mockProduct.price };
+        
+        cartService.addToCart(mockProduct);
 
-    //     cartService.items.and.returnValue(mockCartItems)
+        expect(cartService.items()).toBeDefined();
+        expect(cartService.items()[0]).toEqual(mockCartItem);
+        });
 
-    //     expect(cartService.items).toBeDefined();
-    //     expect(cartService.items).toEqual(mockCartItems)
-    //     // expect(cartService.count).toBeDefined();
-    //     // expect(cartService.subtotal).toBeDefined();
-    //     });
-    // });
+    it('Test for items should count the CartItems', () => {
+            const mockProduct = generateOneProduct();
+            const mockProductQTY = 2;
+            
+            cartService.addToCart(mockProduct, mockProductQTY);
+    
+            expect(cartService.count()).toBeDefined();
+            expect(cartService.count()).toEqual(mockProductQTY);
+        });
 
+    it('Test for items should count the subtotal of the CartItems', () => {
+            const mockProduct = generateOneProduct();
+            const mockProductQTY = 2;
+            const mockSubtotal = mockProduct.price * mockProductQTY;
 
-
+            cartService.addToCart(mockProduct, mockProductQTY);
+    
+            expect(cartService.subtotal()).toBeDefined();
+            expect(cartService.subtotal()).toEqual(mockSubtotal);
+        });
+    
 
 });

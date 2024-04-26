@@ -1,5 +1,4 @@
 import { CartService } from "./cart.service"
-import { TestBed } from "@angular/core/testing";
 import { generateOneProduct } from "@shared/models/product.mock";
 import { CartItemType } from "@shared/models/cart.model";
 
@@ -7,17 +6,12 @@ describe('Test for  Cartservice', () => {
     let cartService: CartService;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                CartService
-            ]
-        });
-        cartService =  TestBed.inject(CartService);
-    
+     cartService = new CartService();
     });
 
     it('Should create Cartservice should be defined', () => {
         expect(cartService).toBeDefined();
+        expect(cartService).toBeInstanceOf(CartService);
     });
     
 

@@ -45,6 +45,37 @@ describe('Test for  Cartservice', () => {
             expect(cartService.subtotal()).toBeDefined();
             expect(cartService.subtotal()).toEqual(mockSubtotal);
         });
+
+    it('Test for removeFromCart method should remove one item from cart', () => {
+            const mockProduct = generateOneProduct();
+            const mockProductQTY = 2;
+            const mockSubtotal = mockProduct.price * mockProductQTY;
+            const SubtotalMinusOne = mockSubtotal - mockProduct.price;
+            const mockCount = 1;
+
+            // Add 2 products
+            cartService.addToCart(mockProduct, mockProductQTY);
+            // remove one
+            cartService.removeFromCart(mockProduct);
+
+            expect(cartService.count()).toEqual(mockCount);
+            expect(cartService.subtotal()).toEqual(SubtotalMinusOne);
+        });
+
+    // it('Test for clearCart method should remove all items from cart', () => {
+    //         const mockProduct = generateOneProduct();
+    //         const mockProductQTY = 2;
+          
+
+    //         // Add 2 products
+    //         cartService.addToCart(mockProduct, mockProductQTY);
+    //         // remove one
+    //         cartService.clearCart();
+
+    //         // expect(cartService.count()).toEqual(0);
+    //         // expect(cartService.subtotal()).toEqual(0);
+    //         expect(cartService.cart()).toEqual({});
+    //     });
     
 
 });

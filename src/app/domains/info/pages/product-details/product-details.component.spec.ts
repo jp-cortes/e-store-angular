@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 
 
 
-fdescribe('Test for ProductDetailsComponent', () => {
+describe('Test for ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
   let route: ActivatedRouteStub;

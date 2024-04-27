@@ -62,20 +62,4 @@ describe('Test for  Cartservice', () => {
             expect(cartService.subtotal()).toEqual(SubtotalMinusOne);
         });
 
-    // it('Test for clearCart method should remove all items from cart', () => {
-    //         const mockProduct = generateOneProduct();
-    //         const mockProductQTY = 2;
-          
-
-    //         // Add 2 products
-    //         cartService.addToCart(mockProduct, mockProductQTY);
-    //         // remove one
-    //         cartService.clearCart();
-
-    //         // expect(cartService.count()).toEqual(0);
-    //         // expect(cartService.subtotal()).toEqual(0);
-    //         expect(cartService.cart()).toEqual({});
-    //     });
-    
-
 });

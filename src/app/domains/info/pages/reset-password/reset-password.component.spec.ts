@@ -2,9 +2,8 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ResetPasswordComponent } from "./reset-password.component";
 import { UserService } from "@shared/services/user.service";
 import { RouterTestingModule } from "@angular/router/testing";
-import { setInputValue } from "@testing/forms";
-import { getText } from "@testing/finders";
-import { clickElement } from "@testing/click";
+import { setInputValue, getText, clickElement } from "@testing/index";
+
 
 
 

@@ -2,9 +2,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testin
 import { PasswordRecoveryComponent } from "./password-recovery.component";
 import { UserService } from "@shared/services/user.service";
 import { RouterTestingModule } from "@angular/router/testing";
-import { setInputValue } from "@testing/forms";
-import { getText } from "@testing/finders";
-import { clickElement } from "@testing/click";
+import { setInputValue, clickElement, getText } from "@testing/index";
 import { of } from "rxjs";
 import { generateEmailResponse } from "@shared/models/user.mock";
 

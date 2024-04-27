@@ -7,7 +7,7 @@ import { of } from "rxjs";
 import { CategoryService } from "@shared/services/category.service";
 import { generateCategories } from "@shared/models/category.mock";
 import  ListComponent  from "./list.component";
-import { queryAllBySelector, queryById } from "@testing/finders";
+import { queryAllBySelector, queryById } from "@testing/index";
 
 
 

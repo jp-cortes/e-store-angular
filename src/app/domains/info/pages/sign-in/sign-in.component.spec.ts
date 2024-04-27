@@ -2,11 +2,10 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { SignInComponent } from "./sign-in.component";
 import { UserService } from "@shared/services/user.service";
 import { RouterTestingModule } from "@angular/router/testing";
-import { setInputValue } from "@testing/forms";
-import { getText } from "@testing/finders";
 import { of } from "rxjs";
 import { generateSignInUser } from "@shared/models/user.mock";
-import { clickElement } from "@testing/click";
+import { setInputValue, getText, clickElement } from "@testing/index";
+
 
 
 

@@ -4,13 +4,15 @@ import  ProductDetailsComponent  from './product-details.component';
 import { generateOneProduct } from '@shared/models/product.mock';
 import { ProductService } from '@shared/services/product.service';
 import { of } from 'rxjs';
-import { queryById } from '@testing/finders';
+import { queryById } from '@testing/index';
+import { ActivatedRoute } from '@angular/router';
 
 
 
 describe('Test for ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
+  let route: ActivatedRoute;
   let productService: jasmine.SpyObj<ProductService>;
 
   beforeEach(async () => {

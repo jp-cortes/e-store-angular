@@ -6,8 +6,7 @@ import { OrderService } from "@shared/services/order.service";
 import { AuthTokenService } from "@shared/services/auth-token.service";
 import { CartService } from "@shared/services/cart.service";
 import { generateCartItems } from "@shared/models/cart.mock";
-import { queryAllBySelector } from "@testing/finders";
-import { clickElement } from "@testing/click";
+import { queryAllBySelector, clickElement } from "@testing/index";
 import { generateItemAdded, generateOneOrder } from "@shared/models/order.mock";
 import { of } from "rxjs";
 

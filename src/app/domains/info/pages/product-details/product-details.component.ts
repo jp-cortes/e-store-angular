@@ -4,6 +4,7 @@ import { Product } from '@shared/models/product.model';
 import { ProductService } from '@shared/services/product.service';
 import { CartService } from '@shared/services/cart.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '@shared/services/user.service';
 
 @Component({
   selector: 'app-product-details',
@@ -20,6 +21,7 @@ export default class ProductDetailsComponent {
   private route = inject(ActivatedRoute);
   private cartService = inject(CartService);
   private productService = inject(ProductService);
+  private userService = inject(UserService);
 
   ngOnInit() {
     this.route.paramMap
@@ -37,6 +39,8 @@ export default class ProductDetailsComponent {
             }
           }
         });
+      } else {
+        this.userService.redirect('/');
       }
     });
   }

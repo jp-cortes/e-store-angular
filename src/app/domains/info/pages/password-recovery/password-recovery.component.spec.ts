@@ -67,9 +67,9 @@ describe('Test for PasswordRecoveryComponent', () => {
         // await for setTimeout
         tick(8000);
         fixture.detectChanges();
-        
+
         expect(component.user.valid).toBeTruthy();
         expect(userService.sendRecoveryEmail).toHaveBeenCalled(); // sending recovery email
-        expect(userService.redirect).toHaveBeenCalled(); // user redirect to sign-in route afetr 8 seconds
+        expect(userService.redirect).toHaveBeenCalled(); // user redirect to sign-in route after 8 seconds
       }));
 });

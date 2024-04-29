@@ -6,6 +6,7 @@ import { ProductService } from '@shared/services/product.service';
 import { of } from 'rxjs';
 import { ActivatedRouteStub, getText, queryById } from '@testing/index';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '@shared/services/user.service';
 
 
 
@@ -14,15 +15,19 @@ describe('Test for ProductDetailsComponent', () => {
   let fixture: ComponentFixture<ProductDetailsComponent>;
   let route: ActivatedRouteStub;
   let productService: jasmine.SpyObj<ProductService>;
+  let userService: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
     const routeStub = new ActivatedRouteStub();
-    const productServiceSpy = jasmine.createSpyObj('ProductService', ['getOne'])
+    const productServiceSpy = jasmine.createSpyObj('ProductService', ['getOne']);
+    const userServiceSpy = jasmine.createSpyObj('UserService', ['redirect']);
+
     await TestBed.configureTestingModule({
       imports: [ ProductDetailsComponent, RouterTestingModule ],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: ProductService, useValue: productServiceSpy }
+        { provide: ProductService, useValue: productServiceSpy },
+        { provide: UserService, useValue: userServiceSpy },
       ]
     })
     .compileComponents();
@@ -33,6 +38,7 @@ describe('Test for ProductDetailsComponent', () => {
     component = fixture.componentInstance;
     route = TestBed.inject(ActivatedRoute) as unknown as jasmine.SpyObj<ActivatedRouteStub>;
     productService = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
+    userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
 
     });
 
@@ -43,14 +49,14 @@ describe('Test for ProductDetailsComponent', () => {
     route.setParamMap({ id: productMockId });
 
     productService.getOne.and.returnValue(of(productMock));
-    
+
     fixture.detectChanges();
-  
+
     expect(component).toBeDefined();
     expect(productService.getOne).toHaveBeenCalledWith(productMockId);
   });
 
-      
+
     it('Should display the product image, name & description', () => {
       // Arrange
       const productMock = generateOneProduct();
@@ -69,13 +75,30 @@ describe('Test for ProductDetailsComponent', () => {
       const imgEl: HTMLImageElement = imgDe.nativeElement;
       const h1ElText = getText(fixture, 'product-name');
       const pElText = getText(fixture, 'product-description');
-      
+
       // Assert
       expect(imgEl.src).toEqual(productMock.image);
       expect(h1ElText).toEqual(` ${productMock.name} `);
       expect(pElText).toEqual(` ${productMock.description} `);
-  
-    });    
+
+    });
+
+
+    it('Should redirect users if the is no params in the URL', () => {
+      // Arrange
+      route.setParamMap({});
+
+
+      userService.redirect.and.callThrough();
+
+      // Act
+      fixture.detectChanges();
+
+
+      // Assert
+     expect(userService.redirect).toHaveBeenCalled();
+
+    });
 
 
     it('Should display the button Add To Cart', () => {
@@ -86,7 +109,7 @@ describe('Test for ProductDetailsComponent', () => {
       fixture.detectChanges();
       // Assert
       expect(buttonEl.textContent).toContain(' Add To Cart ');
-  
+
     });
 
   });

@@ -1,4 +1,4 @@
-<div *ngIf="!product() else elseBlock">Loading...</div> 
+<div *ngIf="!product() else elseBlock" class="mt-10 w-full text-center">Loading...</div> 
 <ng-template #elseBlock>
   <div *ngIf="product()" class="w-3/4 md:w-full lg:w-full md:flex lg:flex space-x-10">
     <div class="md:flex md:flex-col lg:flex lg:flex-col w-1/3">

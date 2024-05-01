@@ -22,11 +22,23 @@
   </div>
 
 
-<div class="grid mx-auto md:grid-cols-2 lg:grid-cols-4 gap-8 ">
+<div *ngIf="products().length !== 0; else productSkeleton" class="grid mx-auto md:grid-cols-2 lg:grid-cols-4 gap-8 ">
   <app-product
   *ngFor="let product of products()"
   [product]="product"
   (addToCart)="addToCart($event)"/>
 </div>
+<ng-template #productSkeleton>
+  <div class="grid mx-auto md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <app-product-skeleton/>
+    <app-product-skeleton/>
+    <app-product-skeleton/>
+    <app-product-skeleton/>
+    <app-product-skeleton/>
+    <app-product-skeleton/>
+    <app-product-skeleton/>
+    <app-product-skeleton/>
+  </div>
+</ng-template>
 
 </div>

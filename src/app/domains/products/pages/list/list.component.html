@@ -4,7 +4,7 @@
       <li>
         <a
         routerLink="/"
-        routerLinkActive="underline"
+        routerLinkActive="underline text-red-500"
         [routerLinkActiveOptions]="{exact: true}"
         >All
         </a>
@@ -14,7 +14,7 @@
           data-testId="product-category-title"
           routerLink="/"
           [queryParams]="{ categoryId: category.id }"
-          routerLinkActive="text-red-500"
+          routerLinkActive="underline text-red-500"
           [routerLinkActiveOptions]="{exact: true}"
           >{{ category.name }}</a>
       </li>

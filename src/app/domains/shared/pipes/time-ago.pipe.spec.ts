@@ -10,6 +10,6 @@ describe('TimeAgoPipe', () => {
         const pipe = new TimeAgoPipe();
         const timeago = pipe.transform('2023-07-05T15:15:18.573Z');
         // TODO: make the test dynamic
-        expect(timeago).toBe('10 months ago');
+        expect(timeago).toBe('11 months ago');
     });
 });

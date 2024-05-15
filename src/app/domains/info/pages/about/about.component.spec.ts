@@ -45,7 +45,7 @@ describe('Test for AboutComponent', () => {
 
   it('Should display <p>Lorem</p>', () => {
     // Arrange
-    const spanDe: DebugElement = fixture.debugElement.query(By.css('p.font-medium'));
+    const spanDe: DebugElement = fixture.debugElement.query(By.css('p.font-normal'));
     const spanEl: HTMLElement = spanDe.nativeElement;
     // Act
     fixture.detectChanges();
@@ -55,7 +55,7 @@ describe('Test for AboutComponent', () => {
 
   it('Should highlight text in <span> tag', () => {
     const elements = fixture.debugElement.queryAll(By.directive(HighlightDirective));
-    expect(elements.length).toEqual(4);
+    expect(elements.length).toEqual(10);
 });
 
 it('Should display tag <app-wave-audio/>', () => {

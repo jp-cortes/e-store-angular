@@ -11,6 +11,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   if(token) {
     return true;
   }
-  userService.redirect('/sign-in')
+  userService.redirect('/sign-in');
   return false;
 };

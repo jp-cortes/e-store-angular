@@ -4,7 +4,7 @@ import { CartService } from '@shared/services/cart.service';
 import { AuthTokenService } from '@shared/services/auth-token.service';
 import { UserService } from '@shared/services/user.service';
 import { OrderService } from '@shared/services/order.service';
-import { Product } from '@shared/models/product.model';
+// import { Product } from '@shared/models/product.model';
 import { CartItemType } from '@shared/models/cart.model';
 import { OrderResume } from '@shared/models/order.model';
 
@@ -14,7 +14,6 @@ import { OrderResume } from '@shared/models/order.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './checkout.component.html',
-  styleUrl: './checkout.component.css'
 })
 export default class CheckoutComponent {
   private cartService = inject(CartService);

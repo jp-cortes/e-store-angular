@@ -9,7 +9,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   standalone: true,
   imports: [CommonModule, RouterLinkWithHref, ReactiveFormsModule],
   templateUrl: './sign-in.component.html',
-  styleUrl: './sign-in.component.css',
 })
 export class SignInComponent {
   userService = inject(UserService);

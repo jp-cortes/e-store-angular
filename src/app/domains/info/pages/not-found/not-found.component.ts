@@ -7,7 +7,6 @@ import { RouterLinkWithHref } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLinkWithHref],
   templateUrl: './not-found.component.html',
-  styleUrl: './not-found.component.css'
 })
 export class NotFoundComponent {
 

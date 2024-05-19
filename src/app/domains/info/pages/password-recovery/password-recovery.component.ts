@@ -9,7 +9,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   standalone: true,
   imports: [CommonModule, RouterLinkWithHref, ReactiveFormsModule],
   templateUrl: './password-recovery.component.html',
-  styleUrl: './password-recovery.component.css'
 })
 export class PasswordRecoveryComponent {
   emailSent = signal(false);

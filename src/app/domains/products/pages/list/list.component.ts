@@ -15,7 +15,6 @@ import { ProductSkeletonComponent } from '../../../../skeletons/product-skeleton
   standalone: true,
   imports: [CommonModule, ProductComponent, RouterLinkWithHref, RouterLinkActive, ProductSkeletonComponent],
   templateUrl: './list.component.html',
-  styleUrl: './list.component.css'
 })
 export default class ListComponent {
   products = signal<Product[]>([]);// initial array of products

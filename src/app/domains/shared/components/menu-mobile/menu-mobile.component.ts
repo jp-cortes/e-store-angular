@@ -9,7 +9,6 @@ import { CategoryService } from '@shared/services/category.service';
   standalone: true,
   imports: [CommonModule, RouterLinkWithHref, RouterLinkActive],
   templateUrl: './menu-mobile.component.html',
-  styleUrl: './menu-mobile.component.css'
 })
 export class MenuMobileComponent {
   showSideMenu = signal(true);

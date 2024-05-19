@@ -8,7 +8,6 @@ import WaveSurfer from 'wavesurfer.js'
   standalone: true,
   imports: [CommonModule],
   templateUrl: './wave-audio.component.html',
-  styleUrl: './wave-audio.component.css'
 })
 export class WaveAudioComponent {
 @Input({required: true}) audioUrl!: string;
@@ -26,6 +25,6 @@ ngAfterViewInit() {
 }
 
 playPause() {
-  this.ws.playPause()
+  this.ws.playPause();
 }
 }

@@ -11,7 +11,6 @@ import { Product } from '@shared/models/product.model';
   standalone: true,
   imports: [CommonModule, RouterLinkWithHref, RouterLinkActive, MenuMobileComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
 })
 
 

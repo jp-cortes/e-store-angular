@@ -11,7 +11,6 @@ import { UserService } from '@shared/services/user.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.css'
 })
 export default class ProductDetailsComponent {
 

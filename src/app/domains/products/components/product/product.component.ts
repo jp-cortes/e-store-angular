@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, ReversePipe, TimeAgoPipe, RouterLink],
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
 })
 export class ProductComponent {
   @Input({ required: true }) product!: Product;

@@ -11,11 +11,10 @@ import { RouterLinkWithHref } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLinkWithHref],
   templateUrl: './my-account.component.html',
-  styleUrl: './my-account.component.css'
 })
 export default class MyAccountComponent {
-  user = signal<UserAccount | null>(null)
-  orders = signal<OrderResume[]>([])
+  user = signal<UserAccount | null>(null);
+  orders = signal<OrderResume[]>([]);
   private userService = inject(UserService);
   private authTokenService = inject(AuthTokenService);
 

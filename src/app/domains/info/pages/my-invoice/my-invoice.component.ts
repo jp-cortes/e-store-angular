@@ -9,7 +9,6 @@ import { AuthTokenService } from '@shared/services/auth-token.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './my-invoice.component.html',
-  styleUrl: './my-invoice.component.css'
 })
 export default class MyInvoiceComponent {
   private authTokenService = inject(AuthTokenService);

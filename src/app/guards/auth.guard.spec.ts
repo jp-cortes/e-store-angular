@@ -4,12 +4,14 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AuthTokenService } from "@shared/services/auth-token.service";
 import { UserService } from "@shared/services/user.service"
 import { authGuard } from "./auth.guard";
+import { faker } from "@faker-js/faker";
 
 describe('Test for authGuard', () => {
     let userService: jasmine.SpyObj<UserService>;
     let authTokenService: jasmine.SpyObj<AuthTokenService>;
     let router: Router;
 
+    // mock authGuard
     const createAuthGuard = () => { 
         return TestBed.runInInjectionContext(() => authGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot));
     }
@@ -33,9 +35,9 @@ describe('Test for authGuard', () => {
 
     });
 
-    it(' Should return true if token exist', () => {
+    it(' Should return true if token exist', (doneFn) => {
 
-        const fakeToken = 'bdhba03mv9v90n'
+        const fakeToken = faker.string.uuid();
 
         authTokenService.getToken.and.returnValue(fakeToken);
         
@@ -43,9 +45,10 @@ describe('Test for authGuard', () => {
 
         expect(authTokenService.getToken).toHaveBeenCalled();
         expect(result).toBeTrue();
+        doneFn();
     });
 
-    it("Should return false and redirect if token doesn't exist", () => {
+    it("Should return false and redirect if token doesn't exist", (doneFn) => {
 
         authTokenService.getToken.and.returnValue('');
         userService.redirect.and.callThrough();
@@ -55,5 +58,6 @@ describe('Test for authGuard', () => {
         expect(result).toBeFalse();
         expect(authTokenService.getToken).toHaveBeenCalled();
         expect(userService.redirect).toHaveBeenCalledWith('/sign-in');
+        doneFn();
     });
 });

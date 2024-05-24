@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 // import { NO_ERRORS_SCHEMA } from "@angular/core";
 
-describe(' Test for AppCOmponent', () => {
+describe(' Test for AppComponent', () => {
     let fixture: ComponentFixture<AppComponent>;
     let component: AppComponent;
 

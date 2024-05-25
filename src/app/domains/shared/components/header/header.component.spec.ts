@@ -8,7 +8,8 @@ import { MenuMobileComponent } from "@shared/components/menu-mobile/menu-mobile.
 import { CategoryService } from "@shared/services/category.service";
 import { generateCategories } from "@shared/models/category.mock";
 import { of } from "rxjs";
-import { getText, queryAll, queryById } from "@testing/finders";
+import { getText, queryAll, queryAllByDirective, queryById } from "@testing/finders";
+import { RouterLinkWithHref } from "@angular/router";
 
 describe('HeaderComponent', () => {
  let component: HeaderComponent;
@@ -66,6 +67,11 @@ describe('HeaderComponent', () => {
     expect(liEl.textContent).toContain('Home');
     expect(liEl.textContent).toContain('About');
     expect(liEl.textContent).toContain('Services');
+  });
+
+  it('should be 9 routerLinks', () => {
+    const links = queryAllByDirective(fixture, RouterLinkWithHref);
+    expect(links.length).toEqual(9);
   });
 
  });

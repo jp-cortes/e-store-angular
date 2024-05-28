@@ -14,7 +14,7 @@ import { UserService } from "@shared/services/user.service";
 
 
 
-fdescribe('Integration test', () => {
+describe('Integration test', () => {
     let fixture: ComponentFixture<AppComponent>;
     let component: AppComponent;
     let router: Router;

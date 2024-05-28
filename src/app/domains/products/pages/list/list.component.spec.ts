@@ -12,7 +12,7 @@ import { queryAllBySelector, queryById } from "@testing/index";
 
 
 
-describe('listComponent',  () => {
+describe('Test for listComponent',  () => {
 let component: ListComponent;
 let fixture: ComponentFixture<ListComponent>;
 let productService: jasmine.SpyObj<ProductService>;
@@ -39,17 +39,16 @@ beforeEach(() => {
   productService = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
   categoryService = TestBed.inject(CategoryService) as jasmine.SpyObj<CategoryService>;
 
-  const productsMock = generateProducts(3);
+
   const categoriesMock = generateCategories(3);
 
-  productService.getProducts.and.returnValue(of(productsMock));
+  
   categoryService.getCategories.and.returnValue(of(categoriesMock));
   fixture.detectChanges(); // OnInit
 });
 
 it('should create ListComponent', () => {
   expect(component).toBeDefined();
-  // expect(productService.getProducts).toHaveBeenCalled();
   expect(categoryService.getCategories).toHaveBeenCalled();
 });
 

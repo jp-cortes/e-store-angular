@@ -1,126 +1,111 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testing";
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
-import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
-import { Router, Routes } from "@angular/router";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { Router, RouterLinkWithHref, Routes } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
+import { routes } from "./app.routes";
+import { CategoryService } from "@shared/services/category.service";
+import { ProductService } from "@shared/services/product.service";
+import { generateCategories } from "@shared/models/category.mock";
+import { of } from "rxjs";
+import { clickElement } from "@testing/click";
+import { query, queryAllByDirective } from "@testing/finders";
+import { UserService } from "@shared/services/user.service";
 
-@Component({
-    selector:'app-layout'
-})
-class LayoutComponent {}
 
-@Component({
-    selector:'app-sign-in'
-})
-class SignInComponent {}
 
-@Component({
-    selector:'app-sign-up'
-})
-class SignUpComponent {}
-
-@Component({
-    selector:'app-password-recovery'
-})
-class PasswordRecoveryComponent {}
-
-@Component({
-    selector:'app-reset-password'
-})
-class ResetPasswordComponent {}
-
-@Component({
-    selector: 'app-not-found'
-})
-class NotFoundComponent {}
-
-const routes: Routes = [
-    {
-      path: '',
-      component: LayoutComponent,
-    //   children: [
-  
-    //     {
-    //       path: '',
-    //       loadComponent: () => import('@products/pages/list/list.component'),
-    //     },
-    //     {
-    //       path: 'about',
-    //       loadComponent: () => import('@info/pages/about/about.component'),
-    //     },
-    //     {
-    //       path: 'product/:id',
-    //       loadComponent: () => import ('@info/pages/product-details/product-details.component'),
-    //     },
-    //     {
-    //       path: 'my-account',
-    //       canActivate: [authGuard],
-    //       loadComponent: () => import('@info/pages/my-account/my-account.component')
-    //     },
-    //     {
-    //       path: 'my-invoice',
-    //       canActivate: [authGuard],
-    //       loadComponent: () => import('@info/pages/my-invoice/my-invoice.component')
-    //     },
-    //     {
-    //       path: 'checkout',
-    //       canActivate: [authGuard],
-    //       canDeactivate: [exitGuard],
-    //       loadComponent: () => import('@info/pages/checkout/checkout.component')
-    //     },
-    //   ]
-    },
-    {
-      path: 'sign-in',
-      component: SignInComponent,
-    },
-    {
-      path: 'sign-up',
-      component: SignUpComponent,
-    },
-    {
-      path: 'password-recovery',
-      component: PasswordRecoveryComponent,
-    },
-    {
-      path: 'reset-password',
-      component: ResetPasswordComponent,
-    },
-    {
-      path: '**',
-      component: NotFoundComponent,
-    },
-  ];
-  
-
-describe('Integration test', () => {
+fdescribe('Integration test', () => {
     let fixture: ComponentFixture<AppComponent>;
     let component: AppComponent;
-    let router: Router
+    let router: Router;
+    let categoryService: jasmine.SpyObj<CategoryService>;
+    let productService: jasmine.SpyObj<ProductService>;
+    let userService: jasmine.SpyObj<UserService>;
 
     beforeEach(async () => {
+      const productServiceSpy = jasmine.createSpyObj('ProductService', ['getProducts']);
+      const categoryServiceSpy = jasmine.createSpyObj('CategoryService', ['getCategories']);
+      const userServiceSpy = jasmine.createSpyObj('UserService', ['signIn','redirect']);
+
         await TestBed.configureTestingModule({
             imports: [ AppComponent, RouterTestingModule.withRoutes(routes) ],
+            providers: [
+              { provide: CategoryService, useValue: categoryServiceSpy },
+              { provide: ProductService, useValue: productServiceSpy },
+              { provide: UserService, useValue: userServiceSpy },
+            ],
             schemas: [NO_ERRORS_SCHEMA]
         })
         .compileComponents();
     });
 
     beforeEach( fakeAsync(() => {
-        fixture = TestBed.createComponent(AppComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      
+      // providers
+      router = TestBed.inject(Router);
+      categoryService = TestBed.inject(CategoryService) as jasmine.SpyObj<CategoryService>;
+      productService = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
+      userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+      
+      const categoriesMock = generateCategories(3);
 
-        // providers
-        router = TestBed.inject(Router);
+      categoryService.getCategories.and.returnValue(of(categoriesMock));
 
-        router.initialNavigation();
+      router.initialNavigation();
+
         tick(); // wait while nav...
         fixture.detectChanges();
     }));
 
     it('Should Create the component', () => {
         expect(component).toBeDefined();
+        expect(categoryService.getCategories).toHaveBeenCalled();
     });
+
+    it('should be 13 routerLinks', () => {
+      const links = queryAllByDirective(fixture, RouterLinkWithHref);
+      expect(links.length).toEqual(13);
+    });
+
+    // it('Should render AboutComponent when is clicked', fakeAsync(() => {
+
+    //   clickElement(fixture, 'about-route', true);
+
+    //   tick(1000); // wait while nav...
+    //   fixture.detectChanges(); // ngOnInit AboutComponent;
+     
+    //   expect(router.url).toEqual('/about');
+    //   const element = query(fixture, 'app-about');
+    //   expect(element).not.toBeNull();
+    //   // flush();
+    // }));
+
+    it('Should render SignInComponent when is clicked', fakeAsync(() => {
+
+      clickElement(fixture, 'sign-in-route', true);
+
+      tick(); // wait while nav...
+      fixture.detectChanges(); // ngOnInit SignInComponent;
+
+      expect(router.url).toEqual('/sign-in');
+      const element = query(fixture, 'app-sign-in');
+      expect(element).not.toBeNull();
+    }));
+
+    it('Should render NotFoundComponent when is clicked', fakeAsync(() => {
+
+      clickElement(fixture, 'services-route', true);
+
+      tick(); // wait while nav...
+      fixture.detectChanges(); // ngOnInit NotFoundComponent;
+
+      expect(router.url).toEqual('/services');
+      const element = query(fixture, 'app-not-found');
+      expect(element).not.toBeNull();
+    }));
+    
     
 });

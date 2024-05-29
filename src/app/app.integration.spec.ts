@@ -11,6 +11,9 @@ import { of } from "rxjs";
 import { clickElement } from "@testing/click";
 import { query, queryAllByDirective } from "@testing/finders";
 import { UserService } from "@shared/services/user.service";
+import { generateUserAccount } from "@shared/models/user.mock";
+import { generateOrders } from "@shared/models/order.mock";
+import { AuthTokenService } from "@shared/services/auth-token.service";
 
 
 
@@ -21,11 +24,13 @@ describe('Integration test', () => {
     let categoryService: jasmine.SpyObj<CategoryService>;
     let productService: jasmine.SpyObj<ProductService>;
     let userService: jasmine.SpyObj<UserService>;
+    let authTokenService: jasmine.SpyObj<AuthTokenService>
 
     beforeEach(async () => {
       const productServiceSpy = jasmine.createSpyObj('ProductService', ['getProducts']);
       const categoryServiceSpy = jasmine.createSpyObj('CategoryService', ['getCategories']);
-      const userServiceSpy = jasmine.createSpyObj('UserService', ['signIn','redirect']);
+      const userServiceSpy = jasmine.createSpyObj('UserService', ['signIn','redirect', 'getMyAccount', 'getMyOrders']);
+      const authTokenServiceSpy = jasmine.createSpyObj('AuthTokenService', ['getToken']);
 
         await TestBed.configureTestingModule({
             imports: [ AppComponent, RouterTestingModule.withRoutes(routes) ],
@@ -33,6 +38,7 @@ describe('Integration test', () => {
               { provide: CategoryService, useValue: categoryServiceSpy },
               { provide: ProductService, useValue: productServiceSpy },
               { provide: UserService, useValue: userServiceSpy },
+              { provide: AuthTokenService, useValue: authTokenServiceSpy },
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })
@@ -49,10 +55,13 @@ describe('Integration test', () => {
       categoryService = TestBed.inject(CategoryService) as jasmine.SpyObj<CategoryService>;
       productService = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
       userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+      authTokenService = TestBed.inject(AuthTokenService) as jasmine.SpyObj<AuthTokenService>;
       
       const categoriesMock = generateCategories(3);
 
       categoryService.getCategories.and.returnValue(of(categoriesMock));
+      
+      authTokenService.getToken.and.returnValue('');
 
       router.initialNavigation();
 
@@ -83,7 +92,31 @@ describe('Integration test', () => {
     //   // flush();
     // }));
 
-    it('Should render SignInComponent when is clicked', fakeAsync(() => {
+    // it('Should navigate to my-account route and render MyAccountComponent when is clicked', fakeAsync(() => {
+    
+
+    //   fixture.detectChanges()
+
+    //   userService.getMyAccount.and.returnValue(of(generateUserAccount()));
+    //   userService.getMyOrders.and.returnValue(of(generateOrders()));
+      
+    //         // no token
+      
+    //         clickElement(fixture, 'my-account-route', true);
+      
+    //         tick(); // wait while nav...
+    //         fixture.detectChanges(); // ngOnInit MyAccountComponent;
+      
+    //         expect(router.url).toEqual('/my-account');
+    //         const element = query(fixture, 'app-my-account');
+    //         expect(element).not.toBeNull();
+    //       }));
+
+    it('Should navigate to sign-in route and render SignInComponent when is clicked', fakeAsync(() => {
+
+      // no token
+      // authTokenService.getToken.and.returnValue('');
+      fixture.detectChanges()
 
       clickElement(fixture, 'sign-in-route', true);
 
@@ -93,6 +126,28 @@ describe('Integration test', () => {
       expect(router.url).toEqual('/sign-in');
       const element = query(fixture, 'app-sign-in');
       expect(element).not.toBeNull();
+    }));
+
+    it('Should navigate to sign-up route and render SignUpComponent when is clicked', fakeAsync(() => {
+
+      authTokenService.getToken.and.returnValue('')
+      clickElement(fixture, 'sign-in-route', true);
+
+      tick(); // wait while nav...
+      fixture.detectChanges(); // ngOnInit SignInComponent;
+
+      // go to sign-in route
+      expect(router.url).toEqual('/sign-in');
+
+      // click to navigate sign-up route
+      clickElement(fixture, 'sign-up-route', true);
+
+      tick(); // wait while nav...
+      fixture.detectChanges(); // ngOnInit SignUpComponent;
+
+      expect(router.url).toEqual('/sign-up');
+      const signUpComponent = query(fixture, 'app-sign-up');
+      expect(signUpComponent).not.toBeNull();
     }));
 
     it('Should render NotFoundComponent when is clicked', fakeAsync(() => {

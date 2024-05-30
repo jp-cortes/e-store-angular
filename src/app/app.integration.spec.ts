@@ -17,7 +17,7 @@ import { AuthTokenService } from "@shared/services/auth-token.service";
 
 
 
-describe('Integration test', () => {
+fdescribe('Integration test', () => {
     let fixture: ComponentFixture<AppComponent>;
     let component: AppComponent;
     let router: Router;
@@ -45,6 +45,7 @@ describe('Integration test', () => {
         .compileComponents();
     });
 
+
     beforeEach( fakeAsync(() => {
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
@@ -69,33 +70,45 @@ describe('Integration test', () => {
         fixture.detectChanges();
     }));
 
+
     it('Should Create the component', () => {
         expect(component).toBeDefined();
         expect(categoryService.getCategories).toHaveBeenCalled();
     });
+
+
+    it('Should render ListComponent at home page', fakeAsync(() => {
+      expect(router.url).toEqual('/');
+      const element = query(fixture, 'app-list');
+      expect(element).not.toBeNull();
+    }));
+
 
     it('should be 13 routerLinks', () => {
       const links = queryAllByDirective(fixture, RouterLinkWithHref);
       expect(links.length).toEqual(13);
     });
 
-    // it('Should render AboutComponent when is clicked', fakeAsync(() => {
 
-    //   clickElement(fixture, 'about-route', true);
+    it('Should render AboutComponent when is clicked', fakeAsync(() => {
 
-    //   tick(1000); // wait while nav...
-    //   fixture.detectChanges(); // ngOnInit AboutComponent;
+      clickElement(fixture, 'about-route', true);
+
+      tick(); // wait while nav...
+      fixture.detectChanges(); // ngOnInit AboutComponent;
      
-    //   expect(router.url).toEqual('/about');
-    //   const element = query(fixture, 'app-about');
-    //   expect(element).not.toBeNull();
-    //   // flush();
-    // }));
+      expect(router.url).toEqual('/about');
+      const element = query(fixture, 'app-about');
+      expect(element).not.toBeNull();
+       
+      // destroy component
+      fixture.destroy();
+    }));
+
 
     // it('Should navigate to my-account route and render MyAccountComponent when is clicked', fakeAsync(() => {
     
-
-    //   fixture.detectChanges()
+    //   authTokenService.getToken.and.returnValue('dfdfdfdfd');
 
     //   userService.getMyAccount.and.returnValue(of(generateUserAccount()));
     //   userService.getMyOrders.and.returnValue(of(generateOrders()));
@@ -112,12 +125,9 @@ describe('Integration test', () => {
     //         expect(element).not.toBeNull();
     //       }));
 
+
     it('Should navigate to sign-in route and render SignInComponent when is clicked', fakeAsync(() => {
-
-      // no token
-      // authTokenService.getToken.and.returnValue('');
-      fixture.detectChanges()
-
+     
       clickElement(fixture, 'sign-in-route', true);
 
       tick(); // wait while nav...
@@ -128,9 +138,9 @@ describe('Integration test', () => {
       expect(element).not.toBeNull();
     }));
 
+
     it('Should navigate to sign-up route and render SignUpComponent when is clicked', fakeAsync(() => {
 
-      authTokenService.getToken.and.returnValue('')
       clickElement(fixture, 'sign-in-route', true);
 
       tick(); // wait while nav...
@@ -149,6 +159,7 @@ describe('Integration test', () => {
       const signUpComponent = query(fixture, 'app-sign-up');
       expect(signUpComponent).not.toBeNull();
     }));
+
 
     it('Should render NotFoundComponent when is clicked', fakeAsync(() => {
 

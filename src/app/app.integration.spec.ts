@@ -17,7 +17,7 @@ import { AuthTokenService } from "@shared/services/auth-token.service";
 
 
 
-fdescribe('Integration test', () => {
+describe('Integration test', () => {
     let fixture: ComponentFixture<AppComponent>;
     let component: AppComponent;
     let router: Router;

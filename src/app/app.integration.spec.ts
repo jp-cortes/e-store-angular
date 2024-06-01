@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from "@angular/core/testing";
+import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { Router, RouterLinkWithHref, Routes } from "@angular/router";
+import { Router, RouterLinkWithHref } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { routes } from "./app.routes";
 import { CategoryService } from "@shared/services/category.service";
@@ -11,8 +11,6 @@ import { of } from "rxjs";
 import { clickElement } from "@testing/click";
 import { query, queryAllByDirective } from "@testing/finders";
 import { UserService } from "@shared/services/user.service";
-import { generateUserAccount } from "@shared/models/user.mock";
-import { generateOrders } from "@shared/models/order.mock";
 import { AuthTokenService } from "@shared/services/auth-token.service";
 
 
@@ -29,7 +27,7 @@ describe('Integration test', () => {
     beforeEach(async () => {
       const productServiceSpy = jasmine.createSpyObj('ProductService', ['getProducts']);
       const categoryServiceSpy = jasmine.createSpyObj('CategoryService', ['getCategories']);
-      const userServiceSpy = jasmine.createSpyObj('UserService', ['signIn','redirect', 'getMyAccount', 'getMyOrders']);
+      const userServiceSpy = jasmine.createSpyObj('UserService', ['signIn','redirect']);
       const authTokenServiceSpy = jasmine.createSpyObj('AuthTokenService', ['getToken']);
 
         await TestBed.configureTestingModule({
@@ -78,9 +76,19 @@ describe('Integration test', () => {
 
 
     it('Should render ListComponent at home page', fakeAsync(() => {
+      
+      clickElement(fixture, 'home-route', true);
+
+      tick(); // wait while nav...
+      fixture.detectChanges(); // ngOnInit ListComponent and  HeaderComponent
+
       expect(router.url).toEqual('/');
-      const element = query(fixture, 'app-list');
-      expect(element).not.toBeNull();
+
+      const elementHeader = query(fixture, 'app-header');
+      const elementList = query(fixture, 'app-list');
+
+      expect(elementHeader).not.toBeNull();
+      expect(elementList).not.toBeNull();
     }));
 
 
@@ -104,26 +112,6 @@ describe('Integration test', () => {
       // destroy component
       fixture.destroy();
     }));
-
-
-    // it('Should navigate to my-account route and render MyAccountComponent when is clicked', fakeAsync(() => {
-    
-    //   authTokenService.getToken.and.returnValue('dfdfdfdfd');
-
-    //   userService.getMyAccount.and.returnValue(of(generateUserAccount()));
-    //   userService.getMyOrders.and.returnValue(of(generateOrders()));
-      
-    //         // no token
-      
-    //         clickElement(fixture, 'my-account-route', true);
-      
-    //         tick(); // wait while nav...
-    //         fixture.detectChanges(); // ngOnInit MyAccountComponent;
-      
-    //         expect(router.url).toEqual('/my-account');
-    //         const element = query(fixture, 'app-my-account');
-    //         expect(element).not.toBeNull();
-    //       }));
 
 
     it('Should navigate to sign-in route and render SignInComponent when is clicked', fakeAsync(() => {

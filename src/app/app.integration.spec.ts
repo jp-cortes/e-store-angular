@@ -149,6 +149,28 @@ describe('Integration test', () => {
     }));
 
 
+    it('Should navigate to sign-up route and render PasswordRecoveryComponent when is clicked', fakeAsync(() => {
+
+      clickElement(fixture, 'sign-in-route', true);
+
+      tick(); // wait while nav...
+      fixture.detectChanges(); // ngOnInit SignInComponent;
+
+      // go to sign-in route
+      expect(router.url).toEqual('/sign-in');
+
+      // click to navigate password-recovery route
+      clickElement(fixture, 'password-recovery-route', true);
+
+      tick(); // wait while nav...
+      fixture.detectChanges(); // ngOnInit PasswordRecoveryComponent;
+
+      expect(router.url).toEqual('/password-recovery');
+      const signUpComponent = query(fixture, 'app-password-recovery');
+      expect(signUpComponent).not.toBeNull();
+    }));
+
+
     it('Should render NotFoundComponent when is clicked', fakeAsync(() => {
 
       clickElement(fixture, 'services-route', true);

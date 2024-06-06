@@ -8,7 +8,7 @@ import { MenuMobileComponent } from "@shared/components/menu-mobile/menu-mobile.
 import { CategoryService } from "@shared/services/category.service";
 import { generateCategories } from "@shared/models/category.mock";
 import { of } from "rxjs";
-import { getText, queryAll, queryAllByDirective, queryById } from "@testing/finders";
+import { getText, query, queryAll, queryAllByDirective, queryById } from "@testing/finders";
 import { RouterLinkWithHref } from "@angular/router";
 
 describe('HeaderComponent', () => {
@@ -67,6 +67,17 @@ describe('HeaderComponent', () => {
     expect(liEl.textContent).toContain('Home');
     expect(liEl.textContent).toContain('About');
     expect(liEl.textContent).toContain('Services');
+  });
+
+  it('Should display tag MenuMobileComponent tag', () => {
+    
+    const elementMenuMobile = query(fixture, 'app-menu-mobile');
+    
+    fixture.detectChanges();
+    
+      expect(elementMenuMobile).not.toBeNull();
+    
+  
   });
 
   it('should be 9 routerLinks', () => {

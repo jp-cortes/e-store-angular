@@ -149,7 +149,7 @@ describe('Integration test', () => {
     }));
 
 
-    it('Should navigate to sign-up route and render PasswordRecoveryComponent when is clicked', fakeAsync(() => {
+    it('Should navigate to sign-in route and render PasswordRecoveryComponent when is clicked', fakeAsync(() => {
 
       clickElement(fixture, 'sign-in-route', true);
 
@@ -171,7 +171,7 @@ describe('Integration test', () => {
     }));
 
 
-    it('Should render NotFoundComponent when is clicked', fakeAsync(() => {
+    it('Should render NotFoundComponent when is clicked or navigates to an unknown route', fakeAsync(() => {
 
       clickElement(fixture, 'services-route', true);
 

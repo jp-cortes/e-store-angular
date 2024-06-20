@@ -1,5 +1,5 @@
-import { Component, Input, SimpleChanges, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, Input, PLATFORM_ID, SimpleChanges, signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-counter',
@@ -13,7 +13,10 @@ export class CounterComponent {
 counter = signal(0);
 counterRef: number | undefined;
 
-constructor() {
+private isBrowser!: boolean;
+
+constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  this.isBrowser = isPlatformBrowser(platformId);
   // NO ASYNC
   // Is called before render
   console.log('constructor');
@@ -46,18 +49,22 @@ ngOnInit() {
 ngAfterViewInit() {
   // after render
   //after render children components
-  console.log('ngAfterViewInit');
-  console.log('-'.repeat(10));
-  this.counterRef = window.setInterval(() => {
-    console.log('run interval');
-    this.counter.update(prevState => prevState + 1)
-  }, 1000);
+  if(this.isBrowser){
+    console.log('ngAfterViewInit');
+    console.log('-'.repeat(10));
+    this.counterRef = window.setInterval(() => {
+      console.log('run interval');
+      this.counter.update(prevState => prevState + 1)
+    }, 1000);
+  }
 }
 
 ngOnDestroy() {
-  console.log('ngOnDestroy');
-  console.log('-'.repeat(10));
-  window.clearInterval(this.counterRef);
+  if(this.isBrowser){
+    console.log('ngOnDestroy');
+    console.log('-'.repeat(10));
+    window.clearInterval(this.counterRef);
+  }
 }
 
 doSomething() {

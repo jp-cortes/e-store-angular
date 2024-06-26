@@ -3,7 +3,6 @@ import { AppComponent } from "./app.component";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { Router, RouterLinkWithHref } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
-import { routes } from "./app.routes";
 import { CategoryService } from "@shared/services/category.service";
 import { ProductService } from "@shared/services/product.service";
 import { generateCategories } from "@shared/models/category.mock";
@@ -31,7 +30,7 @@ describe('Integration test', () => {
       const authTokenServiceSpy = jasmine.createSpyObj('AuthTokenService', ['getToken']);
 
         await TestBed.configureTestingModule({
-            imports: [ AppComponent, RouterTestingModule.withRoutes(routes) ],
+            imports: [ AppComponent, RouterTestingModule ],
             providers: [
               { provide: CategoryService, useValue: categoryServiceSpy },
               { provide: ProductService, useValue: productServiceSpy },

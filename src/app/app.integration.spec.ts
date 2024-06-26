@@ -11,6 +11,7 @@ import { clickElement } from "@testing/click";
 import { query, queryAllByDirective } from "@testing/finders";
 import { UserService } from "@shared/services/user.service";
 import { AuthTokenService } from "@shared/services/auth-token.service";
+import { routes } from "./app.routes";
 
 
 
@@ -30,7 +31,7 @@ describe('Integration test', () => {
       const authTokenServiceSpy = jasmine.createSpyObj('AuthTokenService', ['getToken']);
 
         await TestBed.configureTestingModule({
-            imports: [ AppComponent, RouterTestingModule ],
+            imports: [ AppComponent, RouterTestingModule.withRoutes(routes) ],
             providers: [
               { provide: CategoryService, useValue: categoryServiceSpy },
               { provide: ProductService, useValue: productServiceSpy },
